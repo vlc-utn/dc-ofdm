@@ -3,6 +3,7 @@
 clc; clear; close all;
 
 %% Parameters
+printPDF = true;
 f_sinc = 1;                             % Frequency of the sinc signal
 
 f_phy = 10;                             % Symbol frequency
@@ -13,6 +14,16 @@ L = 4;                                  % Upsampling factor
 f_DAC = f_phy*L;                        % Sampling frequency
 ts = -2:1/f_DAC:2-1/f_DAC;              % Sampling time vector
 
+%% Plot parameters
+fsize = 32;         % FontSize for titles and axes labels
+fsizeLine = 36;     % FontSize for annotations in graph
+
+if(printPDF)
+    window="maximized";
+else
+    window="normal";
+end
+
 %% Signal representation
 % The signal is represented with a certain amount of samples "tSymbol"
 x = sinc(tSymbol*f_sinc);
@@ -20,61 +31,65 @@ x = sinc(tSymbol*f_sinc);
 
 %%%%%%%%%%
 
-figure(WindowState="maximized");
+figure(WindowState=window);
 
 stem(tSymbol, x, LineWidth=2, Marker="o", MarkerFaceColor="auto");
 
-xlabel('Tiempo $[\mu s]$', FontSize=18 ,Interpreter="latex");
-ylabel('$x[n] = \textrm{sinc}(n)$', FontSize=18, Interpreter="latex");
-title("Se\~{n}al de entrada", Interpreter="latex");
+xlabel('Tiempo $[\mu s]$', FontSize=fsize ,Interpreter="latex");
+ylabel('$x[n] = \textrm{sinc}[n]$', FontSize=fsize, Interpreter="latex");
+%title("Se\~{n}al de entrada", Interpreter="latex");
 
-fontsize(gca, 18, "points");
+fontsize(gca, fsize, "points");
 set(gca,'TickLabelInterpreter','latex');
 
 xline(1/f_sinc, LineWidth=2, LineStyle="-.", Label='$\frac{1}{fs}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xline(-1/f_sinc, LineWidth=2, LineStyle="-.", Label='$-\frac{1}{fs}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 grid on;
 
-exportgraphics(gcf, 'upsampler/upsampler_a.pdf', ContentType='vector')
+if (printPDF)
+    exportgraphics(gcf, 'upsampler/upsampler_a.pdf', ContentType='vector')
+end
 
 %%%%%%%%%%%%
-figure(WindowState="maximized");
+figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
 
-xlabel('Frecuencia $[MHz]$', FontSize=18, Interpreter="latex");
-ylabel("PSD\{$x[n]$\} $[\frac{W}{MHz}]$", FontSize=18, Interpreter="latex");
-title("PSD de la se\~{n}al de entrada", Interpreter="latex");
+xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
+ylabel("PSD\{$x[n]$\} $[\frac{W}{MHz}]$", FontSize=fsize, Interpreter="latex");
+%title("PSD de la se\~{n}al de entrada", Interpreter="latex");
 
-fontsize(gca, 18, "points");
+fontsize(gca, fsize, "points");
 set(gca,'TickLabelInterpreter','latex');
 
 xline(f_sinc/2, LineWidth=2, LineStyle="-.", Label='$\frac{f_s}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xline(-f_sinc/2, LineWidth=2, LineStyle="-.", Label='$-\frac{f_s}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 xline(max(f), LineWidth=2, LineStyle="-.", Label='$\frac{f_{PHY}}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 xline(min(f), LineWidth=2, LineStyle="-.", Label='$-\frac{f_{PHY}}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xlim([-max(f), max(f)]);
 grid on;
 
-exportgraphics(gcf, 'upsampler/upsampler_b.pdf', ContentType='vector')
+if(printPDF)
+    exportgraphics(gcf, 'upsampler/upsampler_b.pdf', ContentType='vector')
+end
 
 %% Signal upsampled with zeros
 % The signal is constructed with "L-1" zeros between samples
@@ -86,68 +101,72 @@ xUp = upsample(x, L);
 [psd, f] = pwelch(xUp, rectwin(length(xUp)), [], N, f_DAC, "centered");
 
 %%%%%%%%%%%%%%%%%
-figure(WindowState="maximized");
+figure(WindowState=window);
 
 stem(ts, xUp, LineWidth=2, Marker="o", MarkerFaceColor="auto");
-xlabel("Tiempo $[\mu s]$", FontSize=18, Interpreter="latex");
-ylabel('$x[n/L]$', FontSize=18, Interpreter="latex");
-title('Se\~{n}al sobremuestreada con $L = 4$', Interpreter="latex");
+xlabel("Tiempo $[\mu s]$", FontSize=fsize, Interpreter="latex");
+ylabel('$x[n/L]$', FontSize=fsize, Interpreter="latex");
+%title('Se\~{n}al sobremuestreada con $L = 4$', Interpreter="latex");
 
-fontsize(gca, 18, "points");
+fontsize(gca, fsize, "points");
 set(gca,'TickLabelInterpreter','latex');
 
 xline(1/f_sinc, LineWidth=2, LineStyle="-.", Label='$\frac{1}{f_s}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xline(-1/f_sinc, LineWidth=2, LineStyle="-.", Label='$-\frac{1}{f_s}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 grid on;
 
-exportgraphics(gcf, 'upsampler/upsampler_c.pdf', ContentType='vector');
+if(printPDF)
+    exportgraphics(gcf, 'upsampler/upsampler_c.pdf', ContentType='vector');
+end
 
 %%%%%%%%%%%%%%%
-figure(WindowState="maximized");
+figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
-xlabel('Frecuencia $[MHz]$', FontSize=18, Interpreter="latex");
-ylabel('PSD\{$x[n/L]$\}  $[\frac{W}{MHz}]$', FontSize=18, Interpreter="latex");
-title("PSD de la se\~{n}al sobremuestreada", Interpreter="latex");
+xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
+ylabel('PSD\{$x[n/L]$\}  $[\frac{W}{MHz}]$', FontSize=fsize, Interpreter="latex");
+%title("PSD de la se\~{n}al sobremuestreada", Interpreter="latex");
 
-fontsize(gca, 18, "points");
+fontsize(gca, fsize, "points");
 set(gca,'TickLabelInterpreter','latex');
 
 xline(f_sinc/2, LineWidth=2, LineStyle="-.", Label='$\frac{f_s}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xline(-f_sinc/2, LineWidth=2, LineStyle="-.", Label='$-\frac{f_s}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 
 xline(f_phy/2, LineWidth=2, LineStyle="-.", Label='$\frac{f_{PHY}}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xline(-f_phy/2, LineWidth=2, LineStyle="-.", Label='$-\frac{f_{PHY}}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 xline(max(f), LineWidth=1, LineStyle="-.", Label='$\frac{f_{DAC}}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 xline(min(f), LineWidth=1, LineStyle="-.", Label='$-\frac{f_{DAC}}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xlim([-max(f), max(f)])
 grid on;
 
-exportgraphics(gcf, 'upsampler/upsampler_d.pdf', ContentType='vector')
+if(printPDF)
+    exportgraphics(gcf, 'upsampler/upsampler_d.pdf', ContentType='vector')
+end
 
 %% Signal interpolated
 % When applied a FIR lowpass filter, only the compressed spectrum remains.
@@ -155,66 +174,67 @@ xIn = resample(x, L, 1);
 [psd, f] = pwelch(xIn, rectwin(length(xIn)), [], N, f_DAC, "centered");
 
 %%%%%%%%%%%%%%%%%%%%%%%%
-figure(WindowState="maximized");
+figure(WindowState=window);
 stem(ts, xIn, LineWidth=2, Marker="o", MarkerFaceColor="auto");
-xlabel('Tiempo $[\mu s]$', FontSize=18, Interpreter="latex");
-ylabel("$y[n]$", FontSize=18, Interpreter="latex");
-title("Se\~{n}al interpolada", Interpreter="latex");
+xlabel('Tiempo $[\mu s]$', FontSize=fsize, Interpreter="latex");
+ylabel("$y[n]$", FontSize=fsize, Interpreter="latex");
+%title("Se\~{n}al interpolada", Interpreter="latex");
 
-fontsize(gca, 18, "points");
+fontsize(gca, fsize, "points");
 set(gca,'TickLabelInterpreter','latex');
 
 xline(1/f_sinc, LineWidth=2, LineStyle="-.", Label='$\frac{1}{f_s}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xline(-1/f_sinc, LineWidth=2, LineStyle="-.", Label='$-\frac{1}{f_s}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 grid on;
 
-exportgraphics(gcf, 'upsampler/upsampler_e.pdf', ContentType='vector')
+if(printPDF)
+    exportgraphics(gcf, 'upsampler/upsampler_e.pdf', ContentType='vector')
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%
-figure(WindowState="maximized");
+figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
-xlabel('Frecuencia $[MHz]$', FontSize=18, Interpreter="latex");
-ylabel('PSD\{$y[n]$\}  $[\frac{W}{MHz}]$', FontSize=18, Interpreter="latex");
-title("PSD de la se\~{n}al interpolada", Interpreter="latex");
+xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
+ylabel('PSD\{$y[n]$\}  $[\frac{W}{MHz}]$', FontSize=fsize, Interpreter="latex");
+%title("PSD de la se\~{n}al interpolada", Interpreter="latex");
 
-fontsize(gca, 18, "points");
+fontsize(gca, fsize, "points");
 set(gca,'TickLabelInterpreter','latex');
 
 xline(f_sinc/2, LineWidth=2, LineStyle="-.", Label='$\frac{f_s}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xline(-f_sinc/2, LineWidth=2, LineStyle="-.", Label='$-\frac{f_s}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 xline(f_phy/2, LineWidth=2, LineStyle="-.", Label='$\frac{f_{PHY}}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xline(-f_phy/2, LineWidth=2, LineStyle="-.", Label='$-\frac{f_{PHY}}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 xline(max(f), LineWidth=1, LineStyle="-.", Label='$\frac{f_{DAC}}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='left', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='left', FontSize=fsizeLine, Interpreter='latex');
 
 xline(min(f), LineWidth=1, LineStyle="-.", Label='$-\frac{f_{DAC}}{2}$', ...
     LabelVerticalAlignment='bottom', LabelOrientation='horizontal', ...
-    LabelHorizontalAlignment='right', FontSize=24, Interpreter='latex');
+    LabelHorizontalAlignment='right', FontSize=fsizeLine, Interpreter='latex');
 
 xlim([-max(f), max(f)])
 grid on;
 
-exportgraphics(gcf, 'upsampler/upsampler_f.pdf', ContentType='vector')
-
-close all;
-
+if(printPDF)
+    exportgraphics(gcf, 'upsampler/upsampler_f.pdf', ContentType='vector')
+end
