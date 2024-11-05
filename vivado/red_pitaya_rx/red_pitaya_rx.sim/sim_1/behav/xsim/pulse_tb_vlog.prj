@@ -1,0 +1,11 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../red_pitaya_rx.gen/sources_1/bd/full_rx/ipshared/c2c6" --include "../../../../red_pitaya_rx.gen/sources_1/bd/full_rx/ipshared/434f/hdl" \
+"../../../../red_pitaya_rx.ip_user_files/bd/full_rx/ip/full_rx_clk_wiz_2/full_rx_clk_wiz_2_clk_wiz.v" \
+"../../../../red_pitaya_rx.ip_user_files/bd/full_rx/ip/full_rx_clk_wiz_2/full_rx_clk_wiz_2.v" \
+"../../../../red_pitaya_rx.ip_user_files/bd/full_rx/ip/full_rx_axis_data_fifo_0_0/sim/full_rx_axis_data_fifo_0_0.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

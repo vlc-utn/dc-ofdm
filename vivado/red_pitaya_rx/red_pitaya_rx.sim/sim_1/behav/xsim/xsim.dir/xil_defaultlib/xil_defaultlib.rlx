@@ -2,7 +2,7 @@
 2020.2
 Oct 13 2023
 20:21:30
-/home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.gen/sources_1/bd/full_rx/hdl/full_rx_wrapper.vhd,1730084349,vhdl,/home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.srcs/sim_1/new/full_rx_tb.vhd,,,full_rx_wrapper,,,,,,,,
+/home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.gen/sources_1/bd/full_rx/hdl/full_rx_wrapper.vhd,1730084349,vhdl,/home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.srcs/sim_1/new/pulse_tb.vhd,,,full_rx_wrapper,,,,,,,,
 /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.gen/sources_1/bd/full_rx/ipshared/2530/hdl/IEEE_8021513_RX.vhd,1730083840,vhdl,,,,ieee_8021513_rx,,,,,,,,
 /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.gen/sources_1/bd/full_rx/ipshared/2530/hdl/IEEE_8021513_RX_dut.vhd,1730083840,vhdl,/home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.gen/sources_1/bd/full_rx/ipshared/2530/hdl/IEEE_8021513_RX.vhd,,,ieee_8021513_rx_dut,,,,,,,,
 /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.gen/sources_1/bd/full_rx/ipshared/2530/hdl/IEEE_8021513_RX_reset_sync.vhd,1730083840,vhdl,/home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.gen/sources_1/bd/full_rx/ipshared/2530/hdl/IEEE_8021513_RX.vhd,,,ieee_8021513_rx_reset_sync,,,,,,,,
@@ -242,3 +242,4 @@ Oct 13 2023
 /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.ip_user_files/bd/full_rx/sim/full_rx.vhd,1730084349,vhdl,,,,full_rx,,,,,,,,
 /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.sim/sim_1/behav/xsim/glbl.v,1697210495,verilog,,,,glbl,,,,,,,,
 /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.srcs/sim_1/new/full_rx_tb.vhd,1730086858,vhdl,,,,full_rx_tb,,,,,,,,
+/home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_rx/red_pitaya_rx.srcs/sim_1/new/pulse_tb.vhd,1730504779,vhdl,,,,pulse_tb,,,,,,,,
