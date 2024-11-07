@@ -3,8 +3,8 @@
 clc; clear; close all;
 
 %% Parameters
-exportPDF = false;                     
-fsc = 15e6;                         % Subcarrier frequency
+exportPDF = true;                     
+fsc = 10;                         % Subcarrier frequency
 N = 8;                              % Number of subcarriers
 
 %% Internal configuration
@@ -30,7 +30,7 @@ ofdm = 0;
 legendString = cell(N, 1);
 for i=-N/2:1:N/2-1
     signal = abs(sinc((f-i*fsc)/fsc));
-    plot(f/1e6, signal, LineWidth=2);
+    plot(f, signal, LineWidth=2);
     hold on;
     ofdm = ofdm + signal;
     legendString{i+N/2+1} = sprintf("k=%d,f_k = %d", i, i*fsc);
@@ -49,8 +49,8 @@ ax.GridLineStyle = "--";
 fontsize(gca, fsize, "points");
 set(gca,'TickLabelInterpreter','latex');
 
-xlim([min(f)/1e6, max(f)/1e6]);
-xticks(min(f)/1e6:fsc/1e6:max(f)/1e6);
+xlim([min(f), max(f)]);
+xticks(min(f):fsc:max(f));
 
 %yticks(NaN);
 xticklabels(xLabels);
@@ -63,9 +63,8 @@ end
 %% Plotear señal OFDM en comparación con señal QAM
 % Se quiere ver el rolloff de "fsc" de la SINC
 
-fs = 1000e6;
-fsc = 25e6;
-f = -fs/2:10000:fs/2-1;
+fs = fsc*N*4;
+f = linspace(-fs/2, fs/2, 10000);   % Frequency vector
 figure(WindowState=window);
 
 ofdm = 0;
@@ -74,16 +73,29 @@ for i=-N/2:1:N/2-1
     ofdm = ofdm + signal;
 end
 
-ofdm = abs(ofdm);
-
-plot(f/1e6, (sinc(f/200e6)).^2);
+plot(f, (sinc(f/(fsc*N))).^2, LineWidth=2);
 hold on;
-plot(f/1e6, ofdm)
+plot(f, ofdm, LineWidth=2);
 
-xlabel('Frecuencia $[MHz]$', FontSize=18 ,Interpreter="latex");
-ylabel('PSD', FontSize=18, Interpreter="latex");
-xlim([min(f)/1e6, max(f)/1e6]);
+xlabel('Frecuencia', FontSize=fsize ,Interpreter="latex");
+ylabel('PSD', FontSize=fsize, Interpreter="latex");
+xlim([min(f), max(f)]);
 grid on;
+
+fontsize(gca, fsize, "points");
+set(gca,'TickLabelInterpreter','latex');
+
+xticks([-2*N*fsc, -N*fsc, -5*fsc, -fsc*4, -fsc*3, -fsc*2, -fsc, 0, ...
+    fsc, 2*fsc, 3*fsc, 4*fsc, N*fsc, 2*N*fsc])
+
+xticklabels({"$-2 f_{PHY}$", "$-f_{PHY}$", "$-\frac{N/2+1}{N} f_{PHY}$", ...
+    "", "", "", "", "0", "", "", "", ...
+    "$\frac{1}{2} f_{PHY}$", "$f_{PHY}$", "$2 f_{PHY}$"})
+xtickangle(0)
+
+ax = gca;
+ax.GridLineWidth = 1;
+%ax.GridAlpha = 0.5;
 
 if (exportPDF)
     exportgraphics(gcf, 'ofdm/ofdm_slope.pdf', ContentType='vector')
