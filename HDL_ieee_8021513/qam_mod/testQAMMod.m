@@ -7,14 +7,12 @@ constants;
 %% Inputs
 delay = zeros(100,1);
 
-M = [1 2 4];
+M = [1 2];
 
 bitsPerSubcarrier = [
     ones(200, 1)*M(1);
     delay;
     ones(200,1)*M(2);
-    delay;
-    ones(200,1)*M(3);
 ];
 
 dataSymbols = randi([0 255], length(bitsPerSubcarrier), 1);

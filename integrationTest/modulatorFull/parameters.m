@@ -63,7 +63,7 @@ fecConcatenationFactor = logical([0 0 0]); % TODO
 scramblerInitialization = logical([1 1 1 1]);
 
 % batID determines the amount of bits allocated per subcarrier
-batId = logical([0 0 1 0 0]);
+batId = logical([0 0 0 1 0]);
 
 % Number of samples for the cyclic prefix. Ncp = k* N /32. 3 bits max
 cyclicPrefixId = logical([0 0 1]);

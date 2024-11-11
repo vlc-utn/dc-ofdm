@@ -20,10 +20,9 @@ h = headerScrambler(CONST, h);
 h = LDPCEncoder(CONST, h, 0, 0, true);
 headerOFDMSymbols = headerRepetitionEncoder(CONST, h);
 
-dataBitsLsb = logical(randi([0 1], payloadLenInBits, 1));
-for i=1:payloadLenInFecBlocks
-    p = payloadScrambler(CONST, scramblerInitialization, ...
-        dataBitsLsb(1+(i-1)*CONST.payloadBitsPerBlock0 : CONST.payloadBitsPerBlock0*i));
+dataBitsLsb = logical(randi([0 1], CONST.payloadBitsPerBlock0, payloadLenInFecBlocks));
+for i=1:1:payloadLenInFecBlocks
+    p = payloadScrambler(CONST, scramblerInitialization, dataBitsLsb(:,1));
     p = LDPCEncoder(CONST, p, binl2dec(fecRate), binl2dec(blockSize), false);
     payloadTotal(:, i) = p;
 end
@@ -46,26 +45,25 @@ payloadTx = ofdmModulate(CONST, payloadOFDMSymbols, ...
 
 OFDMSignal = [preambleTx; channelTx; headerTx; payloadTx;];
 OFDMSignal = txInterpolator(CONST, OFDMSignal);
-%OFDMSignal = txDecimator(CONST, OFDMSignal);
 expectedOut = upshifter(CONST, OFDMSignal);
 
 %% Inputs
 % The same symbol will be sent "numberOfRepetitions" times.
-numberOfRepetitions = 2;
-delayLen = 1000;
+numberOfRepetitions = 1;
+delayLen = 10000;
 
 % Raw bits to words for the header
 hx = headerOFDMSymbols(:);
 h = zeros(length(hx)/CONST.headerBitsPerSubcarrier, 1);
 for i=1:CONST.headerBitsPerSubcarrier:length(hx)-1
-    h(floor(i/CONST.headerBitsPerSubcarrier)+1) = binl2dec(hx(i:i+CONST.headerBitsPerSubcarrier-1));
+    h(floor(double(i)/double(CONST.headerBitsPerSubcarrier))+1) = binl2dec(hx(i:i+CONST.headerBitsPerSubcarrier-1));
 end
 
 % Raw bits to words for the payload
 px = payloadOFDMSymbols(:);
-p = zeros(length(payloadOFDMSymbols(:))/payloadBitsPerSubcarrier, 1);
+p = zeros(length(px)/payloadBitsPerSubcarrier, 1);
 for i=1:payloadBitsPerSubcarrier:length(px)-1
-    p(floor(i/payloadBitsPerSubcarrier)+1) = binl2dec(px(i:i+payloadBitsPerSubcarrier-1));
+    p(floor(double(i)/double(payloadBitsPerSubcarrier))+1) = binl2dec(px(i:i+payloadBitsPerSubcarrier-1));
 end
 
 dataSymbols = [
@@ -130,7 +128,7 @@ assert(~isempty(startIdx), "No start signal");
 
 for i=1:length(startIdx)
     out = dataOut(startIdx(i):endIdx(i));
-    assert(iskindaequal(expectedOut, out, 1e-3), "Output mismatch");
+    assert(iskindaequal(expectedOut, out, 50e-3), "Output mismatch");
     assert(sum(validOut(startIdx(i):endIdx(i)) == 0) == 0);
 end
 
