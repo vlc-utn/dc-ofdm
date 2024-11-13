@@ -2,10 +2,10 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-// Date        : Sun Oct  6 16:09:38 2024
+// Date        : Sun Oct  6 16:09:37 2024
 // Host        : cotti-machine running 64-bit Ubuntu 22.04.3 LTS
-// Command     : write_verilog -force -mode funcsim
-//               /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_tx/red_pitaya_tx.gen/sources_1/bd/tx_v10/ip/tx_v10_clk_wiz_0/tx_v10_clk_wiz_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top tx_v10_clk_wiz_0 -prefix
+//               tx_v10_clk_wiz_0_ tx_v10_clk_wiz_0_sim_netlist.v
 // Design      : tx_v10_clk_wiz_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -32,7 +32,7 @@ module tx_v10_clk_wiz_0
   wire locked;
   wire resetn;
 
-  tx_v10_clk_wiz_0_clk_wiz inst
+  tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz inst
        (.clk_fifo_m(clk_fifo_m),
         .clk_in1(clk_in1),
         .clk_tx(clk_tx),
@@ -40,7 +40,7 @@ module tx_v10_clk_wiz_0
         .resetn(resetn));
 endmodule
 
-module tx_v10_clk_wiz_0_clk_wiz
+module tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz
    (clk_tx,
     clk_fifo_m,
     resetn,

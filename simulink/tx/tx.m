@@ -6,7 +6,7 @@ addpath("../../inc");
 constants;
 
 %% Input
-createVivadoFile = false;
+createVivadoFile = true;
 paramFile = "sampleParametersFile";
 msgIn{1} = ['This is an example message used to test the transmitter. ' ...
    'It is made large on purpose to test for a large message being ' ...
@@ -99,7 +99,7 @@ assert(isequal(length(startIdx), length(msgIn)), ...
 for i=1:length(startIdx)
     out = dataOut(startIdx(i):endIdx(i));
     expectedOut{i} = expectedOut{i};
-    assert(iskindaequal(expectedOut{i}, out, 50e-3), "Outputs don't match");
+    assert(iskindaequal(expectedOut{i}, out, 1e-3), "Outputs don't match");
     assert(sum(validOut(startIdx(i):endIdx(i)) == 0) == 0);
 end
 

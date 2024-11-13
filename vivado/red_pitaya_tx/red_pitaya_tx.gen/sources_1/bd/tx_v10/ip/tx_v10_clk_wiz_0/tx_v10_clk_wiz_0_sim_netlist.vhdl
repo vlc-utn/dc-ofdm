@@ -2,10 +2,10 @@
 -- Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
--- Date        : Sun Oct  6 16:09:38 2024
+-- Date        : Sun Oct  6 16:09:37 2024
 -- Host        : cotti-machine running 64-bit Ubuntu 22.04.3 LTS
--- Command     : write_vhdl -force -mode funcsim
---               /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_tx/red_pitaya_tx.gen/sources_1/bd/tx_v10/ip/tx_v10_clk_wiz_0/tx_v10_clk_wiz_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top tx_v10_clk_wiz_0 -prefix
+--               tx_v10_clk_wiz_0_ tx_v10_clk_wiz_0_sim_netlist.vhdl
 -- Design      : tx_v10_clk_wiz_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -15,7 +15,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity tx_v10_clk_wiz_0_clk_wiz is
+entity tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz is
   port (
     clk_tx : out STD_LOGIC;
     clk_fifo_m : out STD_LOGIC;
@@ -23,9 +23,9 @@ entity tx_v10_clk_wiz_0_clk_wiz is
     locked : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
-end tx_v10_clk_wiz_0_clk_wiz;
+end tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz;
 
-architecture STRUCTURE of tx_v10_clk_wiz_0_clk_wiz is
+architecture STRUCTURE of tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz is
   signal clk_fifo_m_tx_v10_clk_wiz_0 : STD_LOGIC;
   signal clk_in1_tx_v10_clk_wiz_0 : STD_LOGIC;
   signal clk_tx_tx_v10_clk_wiz_0 : STD_LOGIC;
@@ -158,7 +158,7 @@ end tx_v10_clk_wiz_0;
 
 architecture STRUCTURE of tx_v10_clk_wiz_0 is
 begin
-inst: entity work.tx_v10_clk_wiz_0_clk_wiz
+inst: entity work.tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz
      port map (
       clk_fifo_m => clk_fifo_m,
       clk_in1 => clk_in1,

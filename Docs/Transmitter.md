@@ -10,7 +10,7 @@ El proyecto ejemplo de Vivado donde se corrió la simulación: [Ejemplo Tx](http
 
 * Máximo tamaño transmisible por trama: 4096 bytes.
 
-* Acepta transmisión de múltiples tramas consecutivas, sin necesidad de reset. La señal de nuevo frame no debe recibirse mientras la señal de "valid" de la salida esté activa.
+* Acepta transmisión de múltiples tramas consecutivas, sin necesidad de reset. La señal de nuevo frame no debe recibirse mientras la señal de "new_msg_ready" esté en "0".
 
 ## Clocks
 
@@ -111,7 +111,7 @@ Al recibir la señal "new_frame_in", se van a leer los registros de 32bits (reg0
 
 8. Se envía a la salida una señal continua de 125MHz lista para conectarse al DAC. Se indica su validez con la señal `valid_out`.
 
-9. No se puede levantar otra señal de `new_frame_in` hasta el falling_edge de la señal `valid_out`.
+9. No se puede levantar otra señal de `new_frame_in` hasta que `new_msg_ready` valga '1'.
 
 ## Block Design
 
@@ -139,6 +139,8 @@ La simulación fue realizada utilizando archivos adjuntos `data_in.mem` y `data_
 
 ![Alt text](images/tx_plot.png)
 
+![Alt text](images/tx_psd.png)
+
 ## Sintesis
 
 Importante: agregar el archivo de constraints al proyecto de Vivado, de nombre`ieee_constraints.xdc`.
@@ -162,6 +164,12 @@ Warnings: 4. Una dice que n se uso el ZYNQ. Y 3 hacen referencia a DSPs inferido
 ![Tx routing](images/tx_route.png)
 
 ## Historial de versiones
+
+### v4.0
+
+* Ahora la simulación RTL y la simulación post implementación coinciden. Se modificó la lógica de bloques con "enable", y se hicieron los subsistemas sincrónicos.
+
+* Se reduce el ancho de banda máximo de la señal y se hace el filtro de interpolación más fino.
 
 ### v3.0
 

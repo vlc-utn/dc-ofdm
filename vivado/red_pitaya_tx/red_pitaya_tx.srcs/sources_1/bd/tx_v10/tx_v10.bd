@@ -11,14 +11,14 @@
       "validated": "true"
     },
     "design_tree": {
-      "IEEE_8021513_TX_0": "",
       "clk_wiz": "",
       "rst_tx": "",
       "axis_data_fifo_0": "",
       "reg0": "",
       "reg1": "",
       "reg2": "",
-      "reg3": ""
+      "reg3": "",
+      "IEEE_8021513_TX_0": ""
     },
     "ports": {
       "clk_dac": {
@@ -120,13 +120,6 @@
       }
     },
     "components": {
-      "IEEE_8021513_TX_0": {
-        "vlnv": "user.org:ip:IEEE_8021513_TX:1.0",
-        "ip_revision": "1000000",
-        "xci_name": "tx_v10_IEEE_8021513_TX_0_0",
-        "xci_path": "ip/tx_v10_IEEE_8021513_TX_0_0/tx_v10_IEEE_8021513_TX_0_0.xci",
-        "inst_hier_path": "IEEE_8021513_TX_0"
-      },
       "clk_wiz": {
         "vlnv": "xilinx.com:ip:clk_wiz:6.0",
         "ip_revision": "13",
@@ -333,6 +326,13 @@
             "value": "32"
           }
         }
+      },
+      "IEEE_8021513_TX_0": {
+        "vlnv": "user.org:ip:IEEE_8021513_TX:4.0",
+        "ip_revision": "1000000",
+        "xci_name": "tx_v10_IEEE_8021513_TX_0_1",
+        "xci_path": "ip/tx_v10_IEEE_8021513_TX_0_1/tx_v10_IEEE_8021513_TX_0_1.xci",
+        "inst_hier_path": "IEEE_8021513_TX_0"
       }
     },
     "nets": {

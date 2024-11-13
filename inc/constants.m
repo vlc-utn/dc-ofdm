@@ -5,7 +5,7 @@ ldpc;
 
 %% General
 CONST.N = 256;                                % Number of subcarriers.
-CONST.Guard = 25;
+CONST.Guard = 40;
 CONST.leftGuard = (1:1+CONST.Guard)';
 CONST.rightGuard = (CONST.N+1-CONST.Guard:CONST.N)';
 CONST.nullIdx = [CONST.leftGuard; CONST.rightGuard];      % Carriers that are unused [1;nfft] == [-nfft/2*fsc; (nfft/2-1)*fsc] 
@@ -85,12 +85,14 @@ CONST.payloadScramblerPoly = [23 5 0];
 CONST.fPHY = 62.5e6;                    % [Hz] Fixed by standard
 CONST.oversamplingFactor = 2;
 CONST.fs = CONST.fPHY*CONST.oversamplingFactor;   % [Hz] Sampling frequency, which will be the input of the DAC and ADC
+CONST.fDAC = 125e6;
+CONST.fADC = CONST.fDAC;
 
 %% Tx Interpolator FIR filter
 CONST.txL = 2;                                  % Upsampling factor for interpolator.
-CONST.txInterpolatorFpass = 25e6;               % Passband frequency [Hz]
-CONST.txInterpolatorFstop = 36e6;               % Stopband frequency [Hz]
-CONST.txInterpolatorPassbandRippleDb = 0.03;    % Passband ripple [dB]
+CONST.txInterpolatorFpass = 21.5e6;               % Passband frequency [Hz]
+CONST.txInterpolatorFstop = 31.25e6;               % Stopband frequency [Hz]
+CONST.txInterpolatorPassbandRippleDb = 0.02;    % Passband ripple [dB]
 CONST.txInterpolatorStopbandAttDb = 80;         % Stopband attenuation [dB]
 
 CONST.txInterpolatorSpec = fdesign.interpolator(CONST.txL, ...
@@ -123,34 +125,6 @@ end
 %CONST.txInterpolatorDelay
 %fvtool(CONST.txInterpolatorFilter,'Fs', CONST.fPHY*CONST.txL);
 
-%% Tx Decimator FIR filter
-CONST.txM = 2;                               % Decimator downsampling factor
-CONST.txDecimatorFpass = 20e6;               % Passband frequency [Hz]
-CONST.txDecimatorFstop = 24.8e6;               % Stopband frequency [Hz]
-CONST.txDecimatorPassbandRippleDb = 0.1;     % Passband ripple [dB]
-CONST.txDecimatorStopbandAttDb = 78;         % Stopband attenuation [dB]
-
-CONST.txDecimatorSpec = fdesign.decimator(CONST.txM, 'lowpass', 'Fp,Fst,Ap,Ast', ...
-    CONST.txDecimatorFpass, ...
-    CONST.txDecimatorFstop, ...
-    CONST.txDecimatorPassbandRippleDb, ...
-    CONST.txDecimatorStopbandAttDb, ...
-    CONST.fPHY*CONST.txL);
-CONST.txDecimatorFilter = design(CONST.txDecimatorSpec, 'equiripple', 'SystemObject',true);
-
-% Group delay of the filter should be even.
-CONST.txDecimatorDelay = mean(grpdelay(CONST.txDecimatorFilter));
-if (CONST.txDecimatorDelay ~= round(CONST.txDecimatorDelay))
-    error("txDecimatorDelay should be an integer!");
-elseif (mod(CONST.txDecimatorDelay, CONST.txM) ~= 0)
-    error("txDecimatorDelay should be a multiple of txM!");
-end
-
-% Uncomment to plot filter response
-%fvtool(CONST.txDecimatorFilter,'Fs', CONST.fPHY*CONST.txL);
-
-CONST.fDAC = 125e6;
-CONST.fADC = CONST.fDAC;
 
 %% Upshifter NCO (Numerical Controlled Oscillator)
 % These equations were taking from the "help" section of the NCO block.
@@ -175,31 +149,6 @@ CONST.ncoWordLength = ceil(log2(CONST.fADC/CONST.ncoFrequencyResolution));
 CONST.ncoQuantization = ceil((CONST.ncoSFDR-12)/6);
 CONST.ncoCarrierPhaseIncrement = ...
     round(CONST.ncoCarrierFrequency/CONST.fADC*2^CONST.ncoWordLength);
-
-%% Rx Interpolator FIR filter
-CONST.rxL = 2;                                  % Upsampling factor for interpolator.
-CONST.rxInterpolatorFpass = 20e6;               % Passband frequency [Hz]
-CONST.rxInterpolatorFstop = 29e6;               % Stopband frequency [Hz]
-CONST.rxInterpolatorPassbandRippleDb = 0.1;     % Passband ripple [dB]
-CONST.rxInterpolatorStopbandAttDb = 80;         % Stopband attenuation [dB]
-
-CONST.rxInterpolatorSpec = fdesign.interpolator(CONST.rxL, ...
-    'lowpass','Fp,Fst,Ap,Ast', ...
-    CONST.rxInterpolatorFpass, ...
-    CONST.rxInterpolatorFstop, ...
-    CONST.rxInterpolatorPassbandRippleDb, ...
-    CONST.rxInterpolatorStopbandAttDb, ...
-    CONST.fADC*CONST.rxL);
-CONST.rxInterpolatorFilter = design(CONST.rxInterpolatorSpec,'SystemObject',true);
-
-CONST.rxInterpolatorDelay = mean(grpdelay(CONST.rxInterpolatorFilter));
-if (CONST.rxInterpolatorDelay ~= round(CONST.rxInterpolatorDelay))
-    CONST.rxInterpolatorDelay
-    error("rxInterpolatorDelay should be an integer!");
-end
-
-% Uncomment to plot filter response
-%fvtool(CONST.rxInterpolatorFilter,'Fs', CONST.fADC*CONST.rxL);
 
 %% Decimator LPF filter
 CONST.rxM = 2;

@@ -3,25 +3,23 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="tx_v10_tb_behav.wdb" id="1">
+      <db_ref path="tx_v10_tb_func_synth.wdb" id="1">
          <top_modules>
-            <top_module name="\$unit_xpm_cdc_sv_220102727 " />
             <top_module name="glbl" />
-            <top_module name="ieee_8021513_tx_src_full_tx_pac" />
             <top_module name="tx_v10_tb" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
-      <ZoomEndTime time="301.000001 us"></ZoomEndTime>
-      <Cursor1Time time="301.000000 us"></Cursor1Time>
+      <ZoomStartTime time="255.857671 us"></ZoomStartTime>
+      <ZoomEndTime time="259.809645 us"></ZoomEndTime>
+      <Cursor1Time time="282.904000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="225"></NameColumnWidth>
-      <ValueColumnWidth column_width="73"></ValueColumnWidth>
+      <NameColumnWidth column_width="224"></NameColumnWidth>
+      <ValueColumnWidth column_width="66"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="12" />
    <wvobject type="array" fp_name="/tx_v10_tb/data_out_0">
       <obj_property name="ElementShortName">data_out_0[15:0]</obj_property>
       <obj_property name="ObjectShortName">data_out_0[15:0]</obj_property>
@@ -53,5 +51,21 @@
    <wvobject type="logic" fp_name="/tx_v10_tb/new_msg_ready_0">
       <obj_property name="ElementShortName">new_msg_ready_0</obj_property>
       <obj_property name="ObjectShortName">new_msg_ready_0</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tx_v10_tb/clk_fifo_m">
+      <obj_property name="ElementShortName">clk_fifo_m</obj_property>
+      <obj_property name="ObjectShortName">clk_fifo_m</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tx_v10_tb/clk_tx">
+      <obj_property name="ElementShortName">clk_tx</obj_property>
+      <obj_property name="ObjectShortName">clk_tx</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tx_v10_tb/s_axis_tdata_0">
+      <obj_property name="ElementShortName">s_axis_tdata_0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tdata_0[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tx_v10_tb/s_axis_tvalid_0">
+      <obj_property name="ElementShortName">s_axis_tvalid_0</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tvalid_0</obj_property>
    </wvobject>
 </wave_config>

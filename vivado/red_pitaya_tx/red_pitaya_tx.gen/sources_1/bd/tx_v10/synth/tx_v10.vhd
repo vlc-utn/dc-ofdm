@@ -2,7 +2,7 @@
 --Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
---Date        : Sun Oct 27 19:47:20 2024
+--Date        : Wed Nov 13 12:13:38 2024
 --Host        : cotti-machine running 64-bit Ubuntu 22.04.3 LTS
 --Command     : generate_target tx_v10.bd
 --Design      : tx_v10
@@ -33,23 +33,6 @@ entity tx_v10 is
 end tx_v10;
 
 architecture STRUCTURE of tx_v10 is
-  component tx_v10_IEEE_8021513_TX_0_0 is
-  port (
-    IPCORE_CLK : in STD_LOGIC;
-    IPCORE_RESETN : in STD_LOGIC;
-    new_frame_in : in STD_LOGIC;
-    reg0 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    reg1 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    reg2 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    reg3 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    data_in : in STD_LOGIC_VECTOR ( 7 downto 0 );
-    valid_in : in STD_LOGIC;
-    data_out : out STD_LOGIC_VECTOR ( 15 downto 0 );
-    valid_out : out STD_LOGIC;
-    new_msg_ready : out STD_LOGIC;
-    ready : out STD_LOGIC
-  );
-  end component tx_v10_IEEE_8021513_TX_0_0;
   component tx_v10_clk_wiz_0 is
   port (
     resetn : in STD_LOGIC;
@@ -108,6 +91,23 @@ architecture STRUCTURE of tx_v10 is
     dout : out STD_LOGIC_VECTOR ( 31 downto 0 )
   );
   end component tx_v10_reg1_1;
+  component tx_v10_IEEE_8021513_TX_0_1 is
+  port (
+    IPCORE_CLK : in STD_LOGIC;
+    IPCORE_RESETN : in STD_LOGIC;
+    new_frame_in : in STD_LOGIC;
+    reg0 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    reg1 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    reg2 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    reg3 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    data_in : in STD_LOGIC_VECTOR ( 7 downto 0 );
+    valid_in : in STD_LOGIC;
+    data_out : out STD_LOGIC_VECTOR ( 15 downto 0 );
+    valid_out : out STD_LOGIC;
+    new_msg_ready : out STD_LOGIC;
+    ready : out STD_LOGIC
+  );
+  end component tx_v10_IEEE_8021513_TX_0_1;
   signal IEEE_8021513_TX_0_data_out : STD_LOGIC_VECTOR ( 15 downto 0 );
   signal IEEE_8021513_TX_0_new_msg_ready : STD_LOGIC;
   signal IEEE_8021513_TX_0_ready : STD_LOGIC;
@@ -151,7 +151,7 @@ begin
   s_axis_tready_0 <= axis_data_fifo_0_s_axis_tready;
   s_axis_tvalid_0_1 <= s_axis_tvalid_0;
   valid_out_0 <= IEEE_8021513_TX_0_valid_out;
-IEEE_8021513_TX_0: component tx_v10_IEEE_8021513_TX_0_0
+IEEE_8021513_TX_0: component tx_v10_IEEE_8021513_TX_0_1
      port map (
       IPCORE_CLK => clk_wiz_clk_out1,
       IPCORE_RESETN => rst_clk_wiz_100M_peripheral_aresetn(0),

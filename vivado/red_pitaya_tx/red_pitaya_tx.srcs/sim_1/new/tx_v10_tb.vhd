@@ -127,8 +127,8 @@ begin
     wait until rising_edge(clk_fifo_m);
     new_frame_in_0 <= '0';
     
-    wait for 100ns;
-    assert(new_msg_ready_0 = '0') report ">>> Msg ready should be 1" severity failure;
+    wait for 1000ns;
+    assert(new_msg_ready_0 = '0') report ">>> Msg ready should be 0" severity failure;
 
     ---------------------------------
     -- Read values from output file

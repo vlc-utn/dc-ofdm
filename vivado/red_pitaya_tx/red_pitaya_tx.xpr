@@ -64,20 +64,20 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="redpitaya"/>
     <Option Name="FeatureSet" Val="FeatureSet_Classic"/>
-    <Option Name="WTXSimLaunchSim" Val="136"/>
+    <Option Name="WTXSimLaunchSim" Val="162"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="40"/>
-    <Option Name="WTModelSimExportSim" Val="40"/>
-    <Option Name="WTQuestaExportSim" Val="40"/>
+    <Option Name="WTXSimExportSim" Val="50"/>
+    <Option Name="WTModelSimExportSim" Val="50"/>
+    <Option Name="WTQuestaExportSim" Val="50"/>
     <Option Name="WTIesExportSim" Val="0"/>
-    <Option Name="WTVcsExportSim" Val="40"/>
-    <Option Name="WTRivieraExportSim" Val="40"/>
-    <Option Name="WTActivehdlExportSim" Val="40"/>
+    <Option Name="WTVcsExportSim" Val="50"/>
+    <Option Name="WTRivieraExportSim" Val="50"/>
+    <Option Name="WTActivehdlExportSim" Val="50"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -101,14 +101,11 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="tx_v10.bd" FileRelPathName="ip/tx_v10_IEEE_8021513_TX_0_0/tx_v10_IEEE_8021513_TX_0_0.xci">
-          <Proxy FileSetName="tx_v10_IEEE_8021513_TX_0_0"/>
+        <CompFileExtendedInfo CompFileName="tx_v10.bd" FileRelPathName="ip/tx_v10_IEEE_8021513_TX_0_1/tx_v10_IEEE_8021513_TX_0_1.xci">
+          <Proxy FileSetName="tx_v10_IEEE_8021513_TX_0_1"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="tx_v10.bd" FileRelPathName="ip/tx_v10_axis_data_fifo_0_0/tx_v10_axis_data_fifo_0_0.xci">
           <Proxy FileSetName="tx_v10_axis_data_fifo_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="tx_v10.bd" FileRelPathName="ip/tx_v10_clk_wiz_0/tx_v10_clk_wiz_0.xci">
-          <Proxy FileSetName="tx_v10_clk_wiz_0"/>
         </CompFileExtendedInfo>
       </File>
       <File Path="$PGENDIR/sources_1/bd/tx_v10/hdl/tx_v10_wrapper.vhd">
@@ -179,12 +176,14 @@
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SelectedSimModel" Val="rtl"/>
+        <Option Name="SimMode" Val="post-implementation"/>
         <Option Name="PamDesignTestbench" Val=""/>
         <Option Name="PamDutBypassFile" Val="xil_dut_bypass"/>
         <Option Name="PamSignalDriverFile" Val="xil_bypass_driver"/>
         <Option Name="PamPseudoTop" Val="pseudo_tb"/>
         <Option Name="SrcSet" Val="sources_1"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/dut_tb_behav.wcfg"/>
+        <Option Name="NLNetlistMode" Val="funcsim"/>
       </Config>
     </FileSet>
     <FileSet Name="utils_1" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
@@ -201,21 +200,15 @@
         <Option Name="TopAutoSet" Val="TRUE"/>
       </Config>
     </FileSet>
-    <FileSet Name="tx_v10_clk_wiz_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/tx_v10_clk_wiz_0" RelGenDir="$PGENDIR/tx_v10_clk_wiz_0">
-      <Config>
-        <Option Name="TopModule" Val="tx_v10_clk_wiz_0"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
     <FileSet Name="tx_v10_axis_data_fifo_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/tx_v10_axis_data_fifo_0_0" RelGenDir="$PGENDIR/tx_v10_axis_data_fifo_0_0">
       <Config>
         <Option Name="TopModule" Val="tx_v10_axis_data_fifo_0_0"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
-    <FileSet Name="tx_v10_IEEE_8021513_TX_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/tx_v10_IEEE_8021513_TX_0_0" RelGenDir="$PGENDIR/tx_v10_IEEE_8021513_TX_0_0">
+    <FileSet Name="tx_v10_IEEE_8021513_TX_0_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/tx_v10_IEEE_8021513_TX_0_1" RelGenDir="$PGENDIR/tx_v10_IEEE_8021513_TX_0_1">
       <Config>
-        <Option Name="TopModule" Val="tx_v10_IEEE_8021513_TX_0_0"/>
+        <Option Name="TopModule" Val="tx_v10_IEEE_8021513_TX_0_1"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
@@ -252,16 +245,6 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="tx_v10_clk_wiz_0_synth_1" Type="Ft3:Synth" SrcSet="tx_v10_clk_wiz_0" Part="xc7z010clg400-1" ConstrsSet="tx_v10_clk_wiz_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/tx_v10_clk_wiz_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/tx_v10_clk_wiz_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/tx_v10_clk_wiz_0_synth_1">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2023"/>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2023"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
     <Run Id="tx_v10_axis_data_fifo_0_0_synth_1" Type="Ft3:Synth" SrcSet="tx_v10_axis_data_fifo_0_0" Part="xc7z010clg400-1" ConstrsSet="tx_v10_axis_data_fifo_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/tx_v10_axis_data_fifo_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/tx_v10_axis_data_fifo_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/tx_v10_axis_data_fifo_0_0_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2023"/>
@@ -272,7 +255,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="tx_v10_IEEE_8021513_TX_0_0_synth_1" Type="Ft3:Synth" SrcSet="tx_v10_IEEE_8021513_TX_0_0" Part="xc7z010clg400-1" ConstrsSet="tx_v10_IEEE_8021513_TX_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/tx_v10_IEEE_8021513_TX_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/tx_v10_IEEE_8021513_TX_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/tx_v10_IEEE_8021513_TX_0_0_synth_1">
+    <Run Id="tx_v10_IEEE_8021513_TX_0_1_synth_1" Type="Ft3:Synth" SrcSet="tx_v10_IEEE_8021513_TX_0_1" Part="xc7z010clg400-1" ConstrsSet="tx_v10_IEEE_8021513_TX_0_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/tx_v10_IEEE_8021513_TX_0_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/tx_v10_IEEE_8021513_TX_0_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/tx_v10_IEEE_8021513_TX_0_1_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2023"/>
         <Step Id="synth_design"/>
@@ -282,7 +265,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/impl_1" LaunchOptions="-jobs 4 " AutoRQSDir="$PSRCDIR/utils_1/imports/impl_1">
+    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/impl_1" LaunchOptions="-jobs 4 " AutoRQSDir="$PSRCDIR/utils_1/imports/impl_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2023"/>
         <Step Id="init_design"/>
@@ -295,23 +278,7 @@
         <Step Id="post_route_phys_opt_design"/>
         <Step Id="write_bitstream"/>
       </Strategy>
-      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2023"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="tx_v10_clk_wiz_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="tx_v10_clk_wiz_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="tx_v10_clk_wiz_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/tx_v10_clk_wiz_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/tx_v10_clk_wiz_0_impl_1">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2023"/>
-        <Step Id="init_design"/>
-        <Step Id="opt_design"/>
-        <Step Id="power_opt_design"/>
-        <Step Id="place_design"/>
-        <Step Id="post_place_power_opt_design"/>
-        <Step Id="phys_opt_design"/>
-        <Step Id="route_design"/>
-        <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
-      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2023"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
@@ -333,7 +300,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="tx_v10_IEEE_8021513_TX_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="tx_v10_IEEE_8021513_TX_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="tx_v10_IEEE_8021513_TX_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/tx_v10_IEEE_8021513_TX_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/tx_v10_IEEE_8021513_TX_0_0_impl_1">
+    <Run Id="tx_v10_IEEE_8021513_TX_0_1_impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="tx_v10_IEEE_8021513_TX_0_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="tx_v10_IEEE_8021513_TX_0_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/tx_v10_IEEE_8021513_TX_0_1_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/tx_v10_IEEE_8021513_TX_0_1_impl_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2023"/>
         <Step Id="init_design"/>

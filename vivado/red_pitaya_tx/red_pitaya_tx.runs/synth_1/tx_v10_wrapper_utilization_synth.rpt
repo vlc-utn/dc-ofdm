@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-| Date         : Sun Oct 27 19:56:21 2024
+| Date         : Wed Nov 13 12:14:28 2024
 | Host         : cotti-machine running 64-bit Ubuntu 22.04.3 LTS
 | Command      : report_utilization -file tx_v10_wrapper_utilization_synth.rpt -pb tx_v10_wrapper_utilization_synth.pb
 | Design       : tx_v10_wrapper
@@ -162,7 +162,7 @@ Warning! LUT value is adjusted to account for LUT combining.
 | tx_v10_rst_clk_wiz_100M_0  |    1 |
 | tx_v10_clk_wiz_0           |    1 |
 | tx_v10_axis_data_fifo_0_0  |    1 |
-| tx_v10_IEEE_8021513_TX_0_0 |    1 |
+| tx_v10_IEEE_8021513_TX_0_1 |    1 |
 +----------------------------+------+
 
 

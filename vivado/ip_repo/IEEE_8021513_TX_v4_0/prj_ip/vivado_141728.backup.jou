@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Tue Nov 12 22:05:15 2024
+# Process ID: 141728
+# Current directory: /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/simulink/tx/hdl_prj/ipcore/IEEE_8021513_TX_v4_0/prj_ip
+# Command line: vivado -mode batch -notrace -source vivado_ip_package.tcl
+# Log file: /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/simulink/tx/hdl_prj/ipcore/IEEE_8021513_TX_v4_0/prj_ip/vivado.log
+# Journal file: /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/simulink/tx/hdl_prj/ipcore/IEEE_8021513_TX_v4_0/prj_ip/vivado.jou
+# Running On: cotti-machine, OS: Linux, CPU Frequency: 3099.910 MHz, CPU Physical cores: 2, Host memory: 12314 MB
+#-----------------------------------------------------------
+source vivado_ip_package.tcl -notrace
