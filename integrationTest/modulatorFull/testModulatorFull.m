@@ -49,8 +49,7 @@ expectedOut = upshifter(CONST, OFDMSignal);
 
 %% Inputs
 % The same symbol will be sent "numberOfRepetitions" times.
-numberOfRepetitions = 1;
-delayLen = 10000;
+numberOfRepetitions = 2; % Don't modify
 
 % Raw bits to words for the header
 hx = headerOFDMSymbols(:);
@@ -78,7 +77,6 @@ bitsPerSubcarrier = [
     repmat(CONST.channelBitsPerSubcarrier, length(CONST.channelOFDMSymbols(:)), 1);
     repmat(CONST.headerBitsPerSubcarrier, length(headerOFDMSymbols(:))/CONST.headerBitsPerSubcarrier, 1);
     repmat(payloadBitsPerSubcarrier, length(payloadOFDMSymbols(:))/payloadBitsPerSubcarrier, 1);
-    zeros(delayLen, 1);
 ];
 
 init = [
@@ -86,7 +84,6 @@ init = [
     repmat(CONST.channelScramblerInit, length(CONST.channelOFDMSymbols(:)), 1);
     repmat(CONST.headerScramblerInit, length(headerOFDMSymbols(:))/CONST.headerBitsPerSubcarrier, 1);
     repmat(CONST.payloadScramblerInit, length(payloadOFDMSymbols(:))/payloadBitsPerSubcarrier, 1);
-    zeros(delayLen, 13);
 ];
 
 cpLen = [
@@ -94,13 +91,13 @@ cpLen = [
     repmat(CONST.channelCyclicPrefixLen, length(CONST.channelOFDMSymbols(:)), 1);
     repmat(CONST.headerCyclicPrefixLen, length(headerOFDMSymbols(:))/CONST.headerBitsPerSubcarrier, 1);
     repmat(payloadCyclicPrefixLen, length(payloadOFDMSymbols(:))/payloadBitsPerSubcarrier, 1);
-    zeros(delayLen, 1);
 ];
 
 validIn = [
     true(length(dataSymbols), 1);
-    false(delayLen, 1);
 ];
+
+newPsdu = true;
 
 %% Simulation Time
 latency = 1000000/CONST.fs;         % Algorithm latency. Delay between input and output

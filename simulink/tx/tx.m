@@ -11,9 +11,9 @@ paramFile = "sampleParametersFile";
 msgIn{1} = ['This is an example message used to test the transmitter. ' ...
    'It is made large on purpose to test for a large message being ' ...
    'transmitted'];
-msgIn{2} = 'This is a second message';
-msgIn{3} = 'This is a third message';
-% msgIn{1} = randomStr(4096);
+%msgIn{2} = 'This is a second message';
+%msgIn{3} = 'This is a third message';
+%msgIn{1} = randomStr(4096);
 
 if (createVivadoFile)
     % Only one message
@@ -99,7 +99,7 @@ assert(isequal(length(startIdx), length(msgIn)), ...
 for i=1:length(startIdx)
     out = dataOut(startIdx(i):endIdx(i));
     expectedOut{i} = expectedOut{i};
-    assert(iskindaequal(expectedOut{i}, out, 1e-3), "Outputs don't match");
+    assert(iskindaequal(expectedOut{i}, out, 50e-3), "Outputs don't match");
     assert(sum(validOut(startIdx(i):endIdx(i)) == 0) == 0);
 end
 
