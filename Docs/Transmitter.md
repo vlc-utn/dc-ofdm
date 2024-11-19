@@ -165,6 +165,12 @@ Warnings: 4. Una dice que n se uso el ZYNQ. Y 3 hacen referencia a DSPs inferido
 
 ## Historial de versiones
 
+### v5.0
+
+* Se divide a la mitad el valor de salida (anteriormente, había un logical shift izquierdo, que ahora se eliminó para evitar que el ringing de salida sature el DAC).
+
+* Se agrega una FIFO a la entrada del payload, para evitar problemas de sincronización.
+
 ### v4.0
 
 * Ahora la simulación RTL y la simulación post implementación coinciden. Se modificó la lógica de bloques con "enable", y se hicieron los subsistemas sincrónicos.

@@ -11,8 +11,8 @@ paramFile = "sampleParametersFile";
 msgIn{1} = ['This is an example message used to test the transmitter. ' ...
    'It is made large on purpose to test for a large message being ' ...
    'transmitted'];
-%msgIn{2} = 'This is a second message';
-%msgIn{3} = 'This is a third message';
+msgIn{2} = 'This is a second message';
+msgIn{3} = 'This is a third message';
 %msgIn{1} = randomStr(4096);
 
 if (createVivadoFile)
@@ -141,10 +141,8 @@ if (createVivadoFile)
     
     % Generate output file
     fileName = "data_out.mem";
-    % Si bien el tipo de dato es fixdt(1,14,13), el valor real para el DAC 
-    % esta multiplicado por 2, por eso la salida se multiplica por 2^14, en
-    % vez de 2^14.
-    fileOut = out*2^14;
+    % El tipo de dato es fixdt(1,14,13).
+    fileOut = out*2^13;
     input = {fileOut;};
     bitLen = 16;
     header = "dataOut";
