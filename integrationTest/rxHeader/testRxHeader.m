@@ -6,8 +6,12 @@ addpath("../../inc");
 constants;
 
 %% Inputs
+createVivadoFile = true;
 paramFile{1} = "param.m";
-paramFile{2} = "param2.m";
+
+if (createVivadoFile == false)
+    paramFile{2} = "param2.m";
+end
 
 startIn = [];
 dataLLR = [];
@@ -65,6 +69,17 @@ for i=1:1:length(headerEndOutIdx)
     assert(isequal(reg1Out(headerEndOutIdx(i)), reg1(i,1)));
     assert(isequal(reg2Out(headerEndOutIdx(i)), reg2(i,1)));
     assert(isequal(reg3Out(headerEndOutIdx(i)), reg3(i,1)));
+end
+
+if (createVivadoFile)
+    % Generate input file
+    fileName = "data_in.mem";
+    input = {(dataLLR');};
+    input = {round(input{1}*2)/2};
+    bitLen = 4;
+    header = "dataIn";
+    createVivadoDataFile(fileName, input, bitLen, header, ",");
+    
 end
 
 disp("Test successfull!");
