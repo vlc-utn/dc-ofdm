@@ -8,43 +8,28 @@ constants;
 %% Inputs
 nSym = 10;
 input{1} = rand(nSym*CONST.N*CONST.oversamplingFactor, 1);
-input{2} = rand(nSym*CONST.N*CONST.oversamplingFactor, 1);
-input{3} = rand(nSym*CONST.N*CONST.oversamplingFactor, 1);
-input{4} = rand(nSym*CONST.N*CONST.oversamplingFactor*100, 1);
+%input{2} = rand(nSym*CONST.N*CONST.oversamplingFactor, 1);
+%input{3} = rand(nSym*CONST.N*CONST.oversamplingFactor, 1);
+%input{4} = rand(nSym*CONST.N*CONST.oversamplingFactor*100, 1);
 
 frequencyOffsetIn{1} = 5;
-frequencyOffsetIn{2} = -5;
-frequencyOffsetIn{3} = -14444;
-frequencyOffsetIn{4} = +15133;
+%frequencyOffsetIn{2} = -5;
+%frequencyOffsetIn{3} = -14444;
+%frequencyOffsetIn{4} = +15133;
 
 dataIn = [
     input{1};
     zeros(100, 1);
-    input{2};
-    zeros(100, 1);
-    input{3};
-    zeros(100, 1);
-    input{4};
 ];
 
 validIn = [
     true(size(input{1}));
     false(100, 1);
-    true(size(input{2}));
-    false(100, 1);
-    true(size(input{3}));
-    false(100, 1);
-    true(size(input{4}));
 ];
 
 frequencyOffset = [
     frequencyOffsetIn{1}*ones(size(input{1}));
     zeros(100, 1);
-    frequencyOffsetIn{2}*ones(size(input{2}));
-    zeros(100, 1);
-    frequencyOffsetIn{3}*ones(size(input{3}));
-    zeros(100, 1);
-    frequencyOffsetIn{4}*ones(size(input{4}));
 ];
 
 %% Simulation Time

@@ -6,7 +6,7 @@ addpath("../../inc");
 constants;
 
 %% Inputs
-createVivadoFile = true;
+createVivadoFile = false;
 paramFile{1} = "param.m";
 
 if (createVivadoFile == false)

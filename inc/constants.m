@@ -152,10 +152,10 @@ CONST.ncoCarrierPhaseIncrement = ...
 
 %% Decimator LPF filter
 CONST.rxM = 2;
-CONST.rxDecimatorFpass = 25e6;              % Passband frequency [Hz]
-CONST.rxDecimatorFstop = 33.5e6;            % Stopband frequency [Hz]
-CONST.rxDecimatorPassbandRippleDb = 0.29;   % Passband ripple [dB]
-CONST.rxDecimatorStopbandAttDb = 60;        % Stopband attenuation [dB]
+CONST.rxDecimatorFpass = 21.5e6;              % Passband frequency [Hz]
+CONST.rxDecimatorFstop = 31.25e6;            % Stopband frequency [Hz]
+CONST.rxDecimatorPassbandRippleDb = 0.21;   % Passband ripple [dB]
+CONST.rxDecimatorStopbandAttDb = 68;        % Stopband attenuation [dB]
 
 CONST.rxDecimatorSpec = fdesign.decimator(CONST.rxM, 'lowpass', 'Fp,Fst,Ap,Ast', ...
     CONST.rxDecimatorFpass, ...
@@ -173,6 +173,7 @@ if (mod(CONST.rxDecimatorDelay, 2) ~= 0)
 end
 
 % Uncomment to plot filter response
+%disp(CONST.rxDecimatorDelay);
 %fvtool(CONST.rxDecimatorFilter,'Fs', CONST.fADC);
 
 %% QAM constellations

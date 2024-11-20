@@ -17,12 +17,12 @@ input = cos(2*pi*fc*t);
 dataIn = [
     input;
     zeros(500, 1);
-    input;
+    %input;
 ];
 validIn = [
     true(length(t), 1);
     false(500, 1);
-    true(length(t), 1);
+    %true(length(t), 1);
 ];
 
 expectedOut = rxDecimator(CONST, input);

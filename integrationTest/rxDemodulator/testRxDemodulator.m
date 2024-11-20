@@ -22,7 +22,7 @@ SNR = 60;
 
 pBitsIn{1} = logical(randi([0,1], 5000, 1));
 pBitsIn{2} = logical(randi([0,1], 80, 1));
-%pBitsIn{3} = logical(randi([0,1], 5000, 1));
+pBitsIn{3} = logical(randi([0,1], 5000, 1));
 %pBitsIn{4} = logical(randi([0,1], 80, 1));
 %pBitsIn{5} = logical(randi([0,1], 80, 1));
 %pBitsIn{6} = logical(randi([0,1], 5000, 1));

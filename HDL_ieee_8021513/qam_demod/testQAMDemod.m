@@ -12,11 +12,7 @@ dataSize = 1000;
 
 M = 2;
 
-bitsPerSubcarrier = [
-    ones(dataSize, 1)*M(1);
-];
-
-validIn = logical(bitsPerSubcarrier);
+validIn = true(dataSize, 1);
 
 input = zeros(dataSize, length(M));
 dataSymbols = zeros(size(input));

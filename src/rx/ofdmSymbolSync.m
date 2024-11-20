@@ -49,6 +49,7 @@ end
     peaks = rawPeakDetection(M, CONST.peakDetectorWindow, CONST.peakDetectorThreshold);
     if (~isempty(peaks))
         delay = peaks(1);
+        peaks = peaks(1);
     else
         delay = 1;
     end

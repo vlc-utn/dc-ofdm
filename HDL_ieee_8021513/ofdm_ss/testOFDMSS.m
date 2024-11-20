@@ -7,7 +7,7 @@ constants;
 
 %% Inputs
 delayIn = 100; % Number of samples that the preamble is delayed
-SNR = 60;
+SNR = 40;
 frequencyOffsetIn = 5e3;
 
 % Generate OFDM signal with time delay and frequency offset
