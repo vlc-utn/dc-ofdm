@@ -15,9 +15,8 @@ newFrame = logical([ ...
     false(500, 1)]);
 
 %% Simulation Time
-fs = 1;                 % Output sample frequency
-latency = 300;         % Algorithm latency. Delay between input and output
-stopTime = (length(newFrame)-1)/fs + latency;
+latency = 300/CONST.fs;         % Algorithm latency. Delay between input and output
+stopTime = (length(newFrame)-1)/CONST.fs + latency;
 
 %% Run the simulation
 model_name = "HDLHeaderGen";

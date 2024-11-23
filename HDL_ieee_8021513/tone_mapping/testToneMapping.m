@@ -25,7 +25,7 @@ bitsPerSubcarrierX{3} = 1;
 input{3} = logical(randi([0 1], CONST.numDataCarriers*ofdmSymbols{3} - 25, 1));
 expectedOut{3} = [input{3}; false(25, 1)];
 
-ofdmSymbols{4} = 4;
+ofdmSymbols{4} = 188;
 bitsPerSubcarrierX{4} = 2;
 input{4} = logical(randi([0 1], CONST.numDataCarriers*ofdmSymbols{4}*bitsPerSubcarrierX{4} - 72, 1));
 expectedOut{4} = [input{4}; false(72, 1);]; 

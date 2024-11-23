@@ -13,11 +13,12 @@ constants;
 
 %% Input
 paramFile = "sampleParametersFile";
-msgIn{1} = ['This is an example message used to test the transmitter. ' ...
-    'It is made large on purpose to test for a large message being ' ...
-    'transmitted'];
-msgIn{2} = 'This is a second message';
-msgIn{3} = 'This is a third message';
+%msgIn{1} = ['This is an example message used to test the transmitter. ' ...
+%    'It is made large on purpose to test for a large message being ' ...
+%    'transmitted'];
+%msgIn{2} = 'This is a second message';
+%msgIn{3} = 'This is a third message';
+msgIn{1} = randomStr(4096);
 
 pWords = [];
 validIn = [];
@@ -64,7 +65,7 @@ end
 
 
 %% Simulation Time
-latency = 100000/CONST.fs;             % Algorithm latency. Delay between input and output
+latency = 1000000/CONST.fs;             % Algorithm latency. Delay between input and output
 stopTime = (length(pWords)-1)/CONST.fs + latency;
 
 %% Run the simulation

@@ -16,9 +16,7 @@ El proyecto ejemplo de Vivado donde se corrió la simulación: [Ejemplo Tx](http
 
 * **clk_dac**: [125 MHz]. Clock físico del DAC, conectado a la entrada del clocking wizard.
 
-* **clk_tx**: [125 MHz]. Clock del transmisor, salida del clocking wizard. Sincrónico con la salida del transmisor.
-
-* **clk_fifo_m**: [15.625 MHz]. Clock para sacar datos de la FIFO, salida del clocking wizard. Sincrónico con la entrada del transmisor.
+* **clk_tx**: [125 MHz]. Clock del transmisor, salida del clocking wizard.
 
 ## Entradas
 
@@ -101,7 +99,7 @@ Al recibir la señal "new_frame_in", se van a leer los registros de 32bits (reg0
 
 3. Leer la señal `new_msg_ready`, y esperar hasta que esté en "1".
 
-4. Levantar la señal `new_frame_in` durante un ciclo de clock de "clk_fifo_s". A partir de este punto, los registros pueden ser modificados sin problemas.
+4. Levantar la señal `new_frame_in`. A partir de este punto, los registros pueden ser modificados sin problemas.
 
 5. Esperar mientras se procesan el preámbulo y encabezado.
 
@@ -117,11 +115,7 @@ Al recibir la señal "new_frame_in", se van a leer los registros de 32bits (reg0
 
 ![Alt text](images/tx_block_design.png)
 
-![Alt text](images/tx_clk_wiz_1.png)
-
-![Alt text](images/tx_clk_wiz_2.png)
-
-Resets separados para la FIFO y para el IP-Core.
+Entrada y salida del clocking wizard de 125 MHz. Todas las señales del diagrama trabajan con un clock de 125MHz.
 
 ## Simulación
 
@@ -129,11 +123,15 @@ Critical warnings: 0.
 
 La simulación fue realizada utilizando archivos adjuntos `data_in.mem` y `data_out.mem`, y con los siguientes valores de registros:
 
+(Nota: el mensaje termina con caracteres de valor "0", no con espacios).
+
 * msg = "This is an example message used to test the transmitter. It is made large on purpose to test for a large message being transmitted                 "
 * reg0 = 147
 * reg1 = 17
 * reg2 = 65792
 * reg3 = 66063
+
+Esta simulación es el resultado de post-implementación
 
 ![Alt text](images/tx_sim.png)
 
@@ -164,6 +162,11 @@ Warnings: 4. Una dice que n se uso el ZYNQ. Y 3 hacen referencia a DSPs inferido
 ![Tx routing](images/tx_route.png)
 
 ## Historial de versiones
+
+### v6.0
+
+* Ahora todas las entradas y salidas del bloque transmisor son de 125MHz. Se elimina la necesidad de usar un clock externo de 15.625MHz.
+* Se modifica el archivo de constraints para agregar a Multy Cycle Path constraints la FIFO de entrada del payload.
 
 ### v5.0
 
