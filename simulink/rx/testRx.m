@@ -6,7 +6,7 @@ addpath("../../src/rx");
 constants;
 
 %% Inputs
-createVivadoFile = false;
+createVivadoFile = true;
 parametersFile = "sampleParametersFile";
 %delayIn = 100000; % Delay for 4096 input
 delayIn = 10000;

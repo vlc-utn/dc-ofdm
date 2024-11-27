@@ -15,18 +15,24 @@ addpath("../../inc");
 addpath("../../src/rx");
 constants;
 
-%% Inputs
+%% Inputsdata_in_demod_tb
+createVivadoFile = true;
 parametersFile = "sampleParametersFile";
-delayIn = 5000;
+delayIn = 100;
 SNR = 60;
 
-pBitsIn{1} = logical(randi([0,1], 5000, 1));
-pBitsIn{2} = logical(randi([0,1], 80, 1));
-pBitsIn{3} = logical(randi([0,1], 5000, 1));
-%pBitsIn{4} = logical(randi([0,1], 80, 1));
-%pBitsIn{5} = logical(randi([0,1], 80, 1));
+pBitsIn{1} = logical(randi([0,1], 800, 1));
+%pBitsIn{2} = logical(randi([0,1], 800, 1));
+%pBitsIn{3} = logical(randi([0,1], 5000, 1));
+%pBitsIn{4} = logical(randi([0,1], 800, 1));
+%pBitsIn{5} = logical(randi([0,1], 800, 1));
 %pBitsIn{6} = logical(randi([0,1], 5000, 1));
 msgQtty = length(pBitsIn);
+
+if (createVivadoFile)
+    % Only one message
+    a = pBitsIn{1}; pBitsIn = cell(1,1); pBitsIn{1} = a;
+end
 
 psduSizeLSB = zeros(24, 1, msgQtty+1);
 payloadBitsPerSubcarrierIn = zeros(msgQtty, 1);
@@ -165,6 +171,20 @@ xlabel("n [samples]");
 title("|out - expectedOut|");
 xlim([t(1), t(end)]);
 grid on;
+
+
+%% Create Vivado data file for VHDL testbench
+if (createVivadoFile)
+    % Generate input file
+    fileName = "data_in_demod_tb.mem";
+    % The signal already has a "*2" in it, so multiply by 2^13, because the
+    % input should be a fixdt(1, 14, 13)
+    input = dataIn*2^13;
+    input = {input;};
+    bitLen = 14;
+    header = "dataIn";
+    createVivadoDataFile(fileName, input, bitLen, header, ",");
+end
 
 disp("Test successfull!");
 

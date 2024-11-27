@@ -194,7 +194,7 @@ CONST.ipCoreDataType = fixdt(1, 14, 13);
 CONST.txRAMAddressBitWidth = 16;
 
 % Values for up to 4096 of payload message
-CONST.FIFOOFDMSize = 1200;   % Maximum value = 1091
+CONST.FIFOOFDMSize = 2048;   % Maximum value = 1091
 CONST.FIFORxPayloadSize = 32768;
 
 % Amount of cycles to wait before starting to read the FIFO (this is made

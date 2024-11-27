@@ -6,22 +6,23 @@ addpath("../../inc");
 constants;
 
 %% Inputs
+createVivadoFile = true;
 fIn = CONST.fADC;
 fOut = fIn/CONST.rxM;
 t = (0:1/fIn:(CONST.N+CONST.headerCyclicPrefixLen)/fOut-1/fIn)';            % Time vector is equal to "N" ofdm samples
 t_down = (0:1/fOut:(CONST.N+CONST.headerCyclicPrefixLen)/fOut-1/fOut)';     % Time vector for downsampled signal
 
 % OFDM output is a senoidal function
-fc = 25e6;                           % Carrier frequency for sinusoidal function
+fc = 20e6;                           % Carrier frequency for sinusoidal function
 input = cos(2*pi*fc*t);
 dataIn = [
     input;
-    zeros(500, 1);
+    %zeros(500, 1);
     %input;
 ];
 validIn = [
     true(length(t), 1);
-    false(500, 1);
+    %false(500, 1);
     %true(length(t), 1);
 ];
 
@@ -89,5 +90,20 @@ xlim([min(t_down), max(t_down)]*1e6);
 grid on;
 
 assert(iskindaequal(expectedOut, resampledOut, 0.4), "resample function and interpolation should be similar");
+
+%% Create Vivado data file for VHDL testbench
+if (createVivadoFile)
+    % Generate input file
+    fileName = "data_in_decimator.mem";
+    % The signal already has a "*2" in it, so multiply by 2^13, because the
+    % input should be a fixdt(1, 16, 14)
+    input = dataIn*2^14;
+    input = {input;};
+    bitLen = 16;
+    header = "dataIn";
+    createVivadoDataFile(fileName, input, bitLen, header, ",");
+end
+
+
 
 disp("Test successfull!");

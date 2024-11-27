@@ -6,6 +6,7 @@ addpath("../../inc");
 constants;
 
 %% Inputs
+createVivadoFile = true;
 nSym = 10;
 input{1} = rand(nSym*CONST.N*CONST.oversamplingFactor, 1);
 %input{2} = rand(nSym*CONST.N*CONST.oversamplingFactor, 1);
@@ -80,5 +81,18 @@ ylabel("Error");
 title("|out - expectedOut|");
 xlim([min(n), max(n)]);
 grid on;
+
+%% Create Vivado data file for VHDL testbench
+if (createVivadoFile)
+    % Generate input file
+    fileName = "data_in_downshifter.mem";
+    % The signal already has a "*2" in it, so multiply by 2^13, because the
+    % input should be a fixdt(1, 14, 13)
+    input = dataIn*2^13;
+    input = {input;};
+    bitLen = 14;
+    header = "dataIn";
+    createVivadoDataFile(fileName, input, bitLen, header, ",");
+end
 
 disp("Test successfull!");

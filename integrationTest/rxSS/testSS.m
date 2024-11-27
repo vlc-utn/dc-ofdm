@@ -1,4 +1,4 @@
-%% Test OFDM Symbol Sync
+%% Test SS
 clc; clear; close all;
 addpath("../../src");
 addpath("../../src/rx")
@@ -6,7 +6,6 @@ addpath("../../inc");
 constants;
 
 %% Inputs
-createVivadoFile = true;
 delayIn = 100; % Number of samples that the preamble is delayed
 SNR = 40;
 frequencyOffsetIn = 5e3;
@@ -101,16 +100,5 @@ ylabel("Error");
 title("|out - expectedOut|");
 xlim([min(n), max(n)]);
 grid on;
-
-%% Create Vivado data file for VHDL testbench
-if (createVivadoFile)
-    % Generate input file
-    fileName = "data_in_ss_tb.mem";
-    % input should be a fixdt(1, 16, 14)
-    input = {real(dataIn)*2^14; imag(dataIn)*2^14;};
-    bitLen = [16, 16];
-    header = "dataInR,dataInI";
-    createVivadoDataFile(fileName, input, bitLen, header, ",");
-end
 
 disp("Test successfull!");
