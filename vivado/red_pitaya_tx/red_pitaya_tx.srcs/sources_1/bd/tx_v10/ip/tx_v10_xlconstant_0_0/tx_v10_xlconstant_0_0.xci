@@ -4,7 +4,7 @@
     "xci_name": "tx_v10_xlconstant_0_0",
     "cell_name": "reg0",
     "component_reference": "xilinx.com:ip:xlconstant:1.1",
-    "ip_revision": "8",
+    "ip_revision": "9",
     "gen_directory": "../../../../../../red_pitaya_tx.gen/sources_1/bd/tx_v10/ip/tx_v10_xlconstant_0_0",
     "parameters": {
       "component_parameters": {
@@ -18,9 +18,10 @@
       },
       "project_parameters": {
         "ARCHITECTURE": [ { "value": "zynq" } ],
-        "BASE_BOARD_PART": [ { "value": "redpitaya.com:redpitaya:part0:1.1" } ],
+        "BASE_BOARD_PART": [ { "value": "" } ],
         "BOARD_CONNECTIONS": [ { "value": "" } ],
         "DEVICE": [ { "value": "xc7z010" } ],
+        "NEXTGEN_VERSAL": [ { "value": "0" } ],
         "PACKAGE": [ { "value": "clg400" } ],
         "PREFHDL": [ { "value": "VHDL" } ],
         "SILICON_REVISION": [ { "value": "" } ],
@@ -31,12 +32,12 @@
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
-        "IPREVISION": [ { "value": "8" } ],
+        "IPREVISION": [ { "value": "9" } ],
         "MANAGED": [ { "value": "TRUE" } ],
         "OUTPUTDIR": [ { "value": "../../../../../../red_pitaya_tx.gen/sources_1/bd/tx_v10/ip/tx_v10_xlconstant_0_0" } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
-        "SWVERSION": [ { "value": "2023.2" } ],
+        "SWVERSION": [ { "value": "2024.1" } ],
         "SYNTHESISFLOW": [ { "value": "GLOBAL" } ]
       }
     },

@@ -1,8 +1,8 @@
 # compile verilog/system verilog design source files
-verilog xil_defaultlib  --include "../../../../red_pitaya_tx.gen/sources_1/bd/tx_v10/ipshared/c2c6" --include "../../../../red_pitaya_tx.gen/sources_1/bd/tx_v10/ipshared/434f/hdl" \
-"../../../../red_pitaya_tx.ip_user_files/bd/tx_v10/ip/tx_v10_axis_data_fifo_0_0/sim/tx_v10_axis_data_fifo_0_0.v" \
+verilog xil_defaultlib  --include "../../../../red_pitaya_tx.gen/sources_1/bd/tx_v10/ipshared/3242" --include "../../../../red_pitaya_tx.gen/sources_1/bd/tx_v10/ipshared/434f/hdl" \
 "../../../../red_pitaya_tx.ip_user_files/bd/tx_v10/ip/tx_v10_clk_wiz_0/tx_v10_clk_wiz_0_clk_wiz.v" \
 "../../../../red_pitaya_tx.ip_user_files/bd/tx_v10/ip/tx_v10_clk_wiz_0/tx_v10_clk_wiz_0.v" \
+"../../../../red_pitaya_tx.ip_user_files/bd/tx_v10/ip/tx_v10_axis_data_fifo_0_0/sim/tx_v10_axis_data_fifo_0_0.v" \
 "../../../../red_pitaya_tx.ip_user_files/bd/tx_v10/ip/tx_v10_xlconstant_0_0/sim/tx_v10_xlconstant_0_0.v" \
 "../../../../red_pitaya_tx.ip_user_files/bd/tx_v10/ip/tx_v10_reg0_0/sim/tx_v10_reg0_0.v" \
 "../../../../red_pitaya_tx.ip_user_files/bd/tx_v10/ip/tx_v10_reg1_0/sim/tx_v10_reg1_0.v" \

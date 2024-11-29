@@ -1,0 +1,9 @@
+{
+	"version": "1.0",
+	"modules": {
+		"full_rx": {
+			"proto_instances": {
+			}
+		}
+	}
+}

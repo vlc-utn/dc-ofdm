@@ -1,13 +1,13 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x5E6234E607480333",
+      "boundary_crc": "0x57A33329E4490AC4",
       "device": "xc7z010clg400-1",
       "gen_directory": "../../../../red_pitaya_tx.gen/sources_1/bd/tx_v10",
       "name": "tx_v10",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2023.2",
+      "tool_version": "2024.1",
       "validated": "true"
     },
     "design_tree": {
@@ -98,23 +98,6 @@
         "left": "7",
         "right": "0"
       },
-      "clk_fifo_m": {
-        "direction": "O",
-        "parameters": {
-          "CLK_DOMAIN": {
-            "value": "/clk_wiz_clk_out1",
-            "value_src": "ip_prop"
-          },
-          "FREQ_HZ": {
-            "value": "15625000",
-            "value_src": "ip_prop"
-          },
-          "PHASE": {
-            "value": "0.0",
-            "value_src": "ip_prop"
-          }
-        }
-      },
       "new_msg_ready_0": {
         "direction": "O"
       }
@@ -122,7 +105,7 @@
     "components": {
       "clk_wiz": {
         "vlnv": "xilinx.com:ip:clk_wiz:6.0",
-        "ip_revision": "13",
+        "ip_revision": "14",
         "xci_name": "tx_v10_clk_wiz_0",
         "xci_path": "ip/tx_v10_clk_wiz_0/tx_v10_clk_wiz_0.xci",
         "inst_hier_path": "clk_wiz",
@@ -158,7 +141,7 @@
             "value": "0.000"
           },
           "CLKOUT2_USED": {
-            "value": "true"
+            "value": "false"
           },
           "CLKOUT3_DRIVES": {
             "value": "BUFG"
@@ -194,7 +177,7 @@
             "value": "clk_fifo_m"
           },
           "CLK_OUT3_PORT": {
-            "value": "clk_fifo_s"
+            "value": "clk_out3"
           },
           "MMCM_BANDWIDTH": {
             "value": "OPTIMIZED"
@@ -212,7 +195,7 @@
             "value": "7"
           },
           "MMCM_CLKOUT1_DIVIDE": {
-            "value": "56"
+            "value": "1"
           },
           "MMCM_CLKOUT1_PHASE": {
             "value": "0.000"
@@ -224,7 +207,10 @@
             "value": "ZHOLD"
           },
           "NUM_OUT_CLKS": {
-            "value": "2"
+            "value": "1"
+          },
+          "PLL_CLKIN_PERIOD": {
+            "value": "8.000"
           },
           "PRIMITIVE": {
             "value": "PLL"
@@ -237,12 +223,15 @@
           },
           "RESET_TYPE": {
             "value": "ACTIVE_LOW"
+          },
+          "USE_RESET": {
+            "value": "false"
           }
         }
       },
       "rst_tx": {
         "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
-        "ip_revision": "14",
+        "ip_revision": "15",
         "xci_name": "tx_v10_rst_clk_wiz_100M_0",
         "xci_path": "ip/tx_v10_rst_clk_wiz_100M_0/tx_v10_rst_clk_wiz_100M_0.xci",
         "inst_hier_path": "rst_tx",
@@ -254,7 +243,7 @@
       },
       "axis_data_fifo_0": {
         "vlnv": "xilinx.com:ip:axis_data_fifo:2.0",
-        "ip_revision": "11",
+        "ip_revision": "13",
         "xci_name": "tx_v10_axis_data_fifo_0_0",
         "xci_path": "ip/tx_v10_axis_data_fifo_0_0/tx_v10_axis_data_fifo_0_0.xci",
         "inst_hier_path": "axis_data_fifo_0",
@@ -263,13 +252,22 @@
             "value": "1024"
           },
           "IS_ACLK_ASYNC": {
-            "value": "1"
+            "value": "0"
+          }
+        },
+        "interface_ports": {
+          "S_AXIS": {
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0",
+            "mode": "Slave",
+            "bridges": [
+              "M_AXIS"
+            ]
           }
         }
       },
       "reg0": {
         "vlnv": "xilinx.com:ip:xlconstant:1.1",
-        "ip_revision": "8",
+        "ip_revision": "9",
         "xci_name": "tx_v10_xlconstant_0_0",
         "xci_path": "ip/tx_v10_xlconstant_0_0/tx_v10_xlconstant_0_0.xci",
         "inst_hier_path": "reg0",
@@ -284,7 +282,7 @@
       },
       "reg1": {
         "vlnv": "xilinx.com:ip:xlconstant:1.1",
-        "ip_revision": "8",
+        "ip_revision": "9",
         "xci_name": "tx_v10_reg0_0",
         "xci_path": "ip/tx_v10_reg0_0/tx_v10_reg0_0.xci",
         "inst_hier_path": "reg1",
@@ -299,7 +297,7 @@
       },
       "reg2": {
         "vlnv": "xilinx.com:ip:xlconstant:1.1",
-        "ip_revision": "8",
+        "ip_revision": "9",
         "xci_name": "tx_v10_reg1_0",
         "xci_path": "ip/tx_v10_reg1_0/tx_v10_reg1_0.xci",
         "inst_hier_path": "reg2",
@@ -314,7 +312,7 @@
       },
       "reg3": {
         "vlnv": "xilinx.com:ip:xlconstant:1.1",
-        "ip_revision": "8",
+        "ip_revision": "9",
         "xci_name": "tx_v10_reg1_1",
         "xci_path": "ip/tx_v10_reg1_1/tx_v10_reg1_1.xci",
         "inst_hier_path": "reg3",
@@ -328,7 +326,7 @@
         }
       },
       "IEEE_8021513_TX_0": {
-        "vlnv": "user.org:ip:IEEE_8021513_TX:4.0",
+        "vlnv": "user.org:ip:IEEE_8021513_TX:6.0",
         "ip_revision": "1000000",
         "xci_name": "tx_v10_IEEE_8021513_TX_0_1",
         "xci_path": "ip/tx_v10_IEEE_8021513_TX_0_1/tx_v10_IEEE_8021513_TX_0_1.xci",
@@ -384,19 +382,12 @@
           "clk_wiz/clk_in1"
         ]
       },
-      "clk_wiz_clk_fifo_m": {
-        "ports": [
-          "clk_wiz/clk_fifo_m",
-          "axis_data_fifo_0/m_axis_aclk",
-          "clk_fifo_m",
-          "rst_tx/slowest_sync_clk"
-        ]
-      },
       "clk_wiz_clk_out1": {
         "ports": [
           "clk_wiz/clk_tx",
           "clk_tx",
           "axis_data_fifo_0/s_axis_aclk",
+          "rst_tx/slowest_sync_clk",
           "IEEE_8021513_TX_0/IPCORE_CLK"
         ]
       },
@@ -439,7 +430,6 @@
       "reset_rtl_1": {
         "ports": [
           "rst",
-          "clk_wiz/resetn",
           "rst_tx/ext_reset_in"
         ]
       },

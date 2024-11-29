@@ -1,8 +1,8 @@
 --Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
---Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+--Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
---Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
---Date        : Wed Nov 13 12:13:38 2024
+--Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
+--Date        : Thu Nov 21 10:17:56 2024
 --Host        : cotti-machine running 64-bit Ubuntu 22.04.3 LTS
 --Command     : generate_target tx_v10.bd
 --Design      : tx_v10
@@ -15,7 +15,6 @@ use UNISIM.VCOMPONENTS.ALL;
 entity tx_v10 is
   port (
     clk_dac : in STD_LOGIC;
-    clk_fifo_m : out STD_LOGIC;
     clk_tx : out STD_LOGIC;
     data_out_0 : out STD_LOGIC_VECTOR ( 15 downto 0 );
     new_frame_in_0 : in STD_LOGIC;
@@ -35,10 +34,8 @@ end tx_v10;
 architecture STRUCTURE of tx_v10 is
   component tx_v10_clk_wiz_0 is
   port (
-    resetn : in STD_LOGIC;
     clk_in1 : in STD_LOGIC;
     clk_tx : out STD_LOGIC;
-    clk_fifo_m : out STD_LOGIC;
     locked : out STD_LOGIC
   );
   end component tx_v10_clk_wiz_0;
@@ -64,7 +61,6 @@ architecture STRUCTURE of tx_v10 is
     s_axis_tready : out STD_LOGIC;
     s_axis_tdata : in STD_LOGIC_VECTOR ( 7 downto 0 );
     s_axis_tlast : in STD_LOGIC;
-    m_axis_aclk : in STD_LOGIC;
     m_axis_tvalid : out STD_LOGIC;
     m_axis_tready : in STD_LOGIC;
     m_axis_tdata : out STD_LOGIC_VECTOR ( 7 downto 0 );
@@ -116,7 +112,6 @@ architecture STRUCTURE of tx_v10 is
   signal axis_data_fifo_0_m_axis_tvalid : STD_LOGIC;
   signal axis_data_fifo_0_s_axis_tready : STD_LOGIC;
   signal clk_100MHz_1 : STD_LOGIC;
-  signal clk_wiz_clk_fifo_m : STD_LOGIC;
   signal clk_wiz_clk_out1 : STD_LOGIC;
   signal clk_wiz_locked : STD_LOGIC;
   signal new_frame_in_0_1 : STD_LOGIC;
@@ -141,7 +136,6 @@ architecture STRUCTURE of tx_v10 is
   attribute X_INTERFACE_PARAMETER of rst : signal is "XIL_INTERFACENAME RST.RST, INSERT_VIP 0, POLARITY ACTIVE_LOW";
 begin
   clk_100MHz_1 <= clk_dac;
-  clk_fifo_m <= clk_wiz_clk_fifo_m;
   clk_tx <= clk_wiz_clk_out1;
   data_out_0(15 downto 0) <= IEEE_8021513_TX_0_data_out(15 downto 0);
   new_frame_in_0_1 <= new_frame_in_0;
@@ -169,7 +163,6 @@ IEEE_8021513_TX_0: component tx_v10_IEEE_8021513_TX_0_1
     );
 axis_data_fifo_0: component tx_v10_axis_data_fifo_0_0
      port map (
-      m_axis_aclk => clk_wiz_clk_fifo_m,
       m_axis_tdata(7 downto 0) => axis_data_fifo_0_m_axis_tdata(7 downto 0),
       m_axis_tlast => NLW_axis_data_fifo_0_m_axis_tlast_UNCONNECTED,
       m_axis_tready => IEEE_8021513_TX_0_ready,
@@ -183,11 +176,9 @@ axis_data_fifo_0: component tx_v10_axis_data_fifo_0_0
     );
 clk_wiz: component tx_v10_clk_wiz_0
      port map (
-      clk_fifo_m => clk_wiz_clk_fifo_m,
       clk_in1 => clk_100MHz_1,
       clk_tx => clk_wiz_clk_out1,
-      locked => clk_wiz_locked,
-      resetn => reset_rtl_1
+      locked => clk_wiz_locked
     );
 reg0: component tx_v10_xlconstant_0_0
      port map (
@@ -216,6 +207,6 @@ rst_tx: component tx_v10_rst_clk_wiz_100M_0
       mb_reset => NLW_rst_tx_mb_reset_UNCONNECTED,
       peripheral_aresetn(0) => rst_clk_wiz_100M_peripheral_aresetn(0),
       peripheral_reset(0) => NLW_rst_tx_peripheral_reset_UNCONNECTED(0),
-      slowest_sync_clk => clk_wiz_clk_fifo_m
+      slowest_sync_clk => clk_wiz_clk_out1
     );
 end STRUCTURE;

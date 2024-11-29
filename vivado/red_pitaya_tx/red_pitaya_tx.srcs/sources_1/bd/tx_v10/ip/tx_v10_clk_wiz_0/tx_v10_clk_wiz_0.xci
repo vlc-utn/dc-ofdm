@@ -4,7 +4,7 @@
     "xci_name": "tx_v10_clk_wiz_0",
     "cell_name": "clk_wiz",
     "component_reference": "xilinx.com:ip:clk_wiz:6.0",
-    "ip_revision": "13",
+    "ip_revision": "14",
     "gen_directory": "../../../../../../red_pitaya_tx.gen/sources_1/bd/tx_v10/ip/tx_v10_clk_wiz_0",
     "parameters": {
       "component_parameters": {
@@ -52,13 +52,13 @@
         "CLKIN1_JITTER_PS": [ { "value": "80.0", "value_src": "user", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "CLKIN2_JITTER_PS": [ { "value": "100.0", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "CLKOUT1_USED": [ { "value": "true", "resolve_type": "user", "format": "bool", "usage": "all" } ],
-        "CLKOUT2_USED": [ { "value": "true", "value_src": "user", "resolve_type": "user", "format": "bool", "usage": "all" } ],
+        "CLKOUT2_USED": [ { "value": "false", "value_src": "user", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "CLKOUT3_USED": [ { "value": "false", "value_src": "user", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "CLKOUT4_USED": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "CLKOUT5_USED": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "CLKOUT6_USED": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "CLKOUT7_USED": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
-        "NUM_OUT_CLKS": [ { "value": "2", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "NUM_OUT_CLKS": [ { "value": "1", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "CLK_OUT1_USE_FINE_PS_GUI": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "CLK_OUT2_USE_FINE_PS_GUI": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "CLK_OUT3_USE_FINE_PS_GUI": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
@@ -69,7 +69,7 @@
         "PRIMARY_PORT": [ { "value": "clk_in1", "resolve_type": "user", "usage": "all" } ],
         "CLK_OUT1_PORT": [ { "value": "clk_tx", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
         "CLK_OUT2_PORT": [ { "value": "clk_fifo_m", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
-        "CLK_OUT3_PORT": [ { "value": "clk_fifo_s", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
+        "CLK_OUT3_PORT": [ { "value": "clk_out3", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
         "CLK_OUT4_PORT": [ { "value": "clk_out4", "resolve_type": "user", "usage": "all" } ],
         "CLK_OUT5_PORT": [ { "value": "clk_out5", "resolve_type": "user", "usage": "all" } ],
         "CLK_OUT6_PORT": [ { "value": "clk_out6", "resolve_type": "user", "usage": "all" } ],
@@ -135,7 +135,7 @@
         "SUMMARY_STRINGS": [ { "value": "empty", "resolve_type": "user", "usage": "all" } ],
         "USE_LOCKED": [ { "value": "true", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "CALC_DONE": [ { "value": "empty", "resolve_type": "user", "usage": "all" } ],
-        "USE_RESET": [ { "value": "true", "resolve_type": "user", "format": "bool", "usage": "all" } ],
+        "USE_RESET": [ { "value": "false", "value_src": "user", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "USE_POWER_DOWN": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "USE_STATUS": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
         "USE_FREEZE": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
@@ -172,7 +172,7 @@
         "MMCM_CLKOUT0_DUTY_CYCLE": [ { "value": "0.500", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "MMCM_CLKOUT0_PHASE": [ { "value": "0.000", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "MMCM_CLKOUT0_USE_FINE_PS": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
-        "MMCM_CLKOUT1_DIVIDE": [ { "value": "56", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "MMCM_CLKOUT1_DIVIDE": [ { "value": "1", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "MMCM_CLKOUT1_DUTY_CYCLE": [ { "value": "0.500", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "MMCM_CLKOUT1_PHASE": [ { "value": "0.000", "value_src": "user", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "MMCM_CLKOUT1_USE_FINE_PS": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
@@ -203,7 +203,7 @@
         "PLL_CLKFBOUT_PHASE": [ { "value": "0.000", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "PLL_CLK_FEEDBACK": [ { "value": "CLKFBOUT", "resolve_type": "user", "usage": "all" } ],
         "PLL_DIVCLK_DIVIDE": [ { "value": "1", "resolve_type": "user", "format": "long", "usage": "all" } ],
-        "PLL_CLKIN_PERIOD": [ { "value": "8.000", "resolve_type": "user", "format": "float", "usage": "all" } ],
+        "PLL_CLKIN_PERIOD": [ { "value": "8.000", "value_src": "user", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "PLL_COMPENSATION": [ { "value": "SYSTEM_SYNCHRONOUS", "resolve_type": "user", "usage": "all" } ],
         "PLL_REF_JITTER": [ { "value": "0.010", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "PLL_CLKOUT0_DIVIDE": [ { "value": "1", "resolve_type": "user", "format": "long", "usage": "all" } ],
@@ -266,7 +266,7 @@
         "PHASE_DUTY_CONFIG": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ]
       },
       "model_parameters": {
-        "C_CLKOUT2_USED": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_CLKOUT2_USED": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_USER_CLK_FREQ0": [ { "value": "100.0", "resolve_type": "generated", "format": "float", "usage": "all" } ],
         "C_AUTO_PRIMITIVE": [ { "value": "MMCM", "resolve_type": "generated", "usage": "all" } ],
         "C_USER_CLK_FREQ1": [ { "value": "100.0", "resolve_type": "generated", "format": "float", "usage": "all" } ],
@@ -318,7 +318,7 @@
         "C_PHASESHIFT_MODE": [ { "value": "WAVEFORM", "resolve_type": "generated", "usage": "all" } ],
         "C_SECONDARY_SOURCE": [ { "value": "Single_ended_clock_capable_pin", "resolve_type": "generated", "usage": "all" } ],
         "C_CLKFB_IN_SIGNALING": [ { "value": "SINGLE", "resolve_type": "generated", "usage": "all" } ],
-        "C_USE_RESET": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_USE_RESET": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_RESET_LOW": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_USE_LOCKED": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_USE_INCLK_STOPPED": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
@@ -326,7 +326,7 @@
         "C_USE_POWER_DOWN": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_USE_STATUS": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_USE_FREEZE": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
-        "C_NUM_OUT_CLKS": [ { "value": "2", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_NUM_OUT_CLKS": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_CLKOUT1_DRIVES": [ { "value": "BUFG", "resolve_type": "generated", "usage": "all" } ],
         "C_CLKOUT2_DRIVES": [ { "value": "BUFG", "resolve_type": "generated", "usage": "all" } ],
         "C_CLKOUT3_DRIVES": [ { "value": "BUFG", "resolve_type": "generated", "usage": "all" } ],
@@ -340,7 +340,7 @@
         "C_OUTCLK_SUM_ROW0A": [ { "value": " Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase", "resolve_type": "generated", "usage": "all" } ],
         "C_OUTCLK_SUM_ROW0B": [ { "value": "  Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)", "resolve_type": "generated", "usage": "all" } ],
         "C_OUTCLK_SUM_ROW1": [ { "value": "__clk_tx__125.00000______0.000______50.0______125.031____104.065", "resolve_type": "generated", "usage": "all" } ],
-        "C_OUTCLK_SUM_ROW2": [ { "value": "clk_fifo_m__15.62500______0.000______50.0______189.933____104.065", "resolve_type": "generated", "usage": "all" } ],
+        "C_OUTCLK_SUM_ROW2": [ { "value": "no_CLK_OUT2_output", "resolve_type": "generated", "usage": "all" } ],
         "C_OUTCLK_SUM_ROW3": [ { "value": "no_CLK_OUT3_output", "resolve_type": "generated", "usage": "all" } ],
         "C_OUTCLK_SUM_ROW4": [ { "value": "no_CLK_OUT4_output", "resolve_type": "generated", "usage": "all" } ],
         "C_OUTCLK_SUM_ROW5": [ { "value": "no_CLK_OUT5_output", "resolve_type": "generated", "usage": "all" } ],
@@ -410,7 +410,7 @@
         "C_MMCM_REF_JITTER2": [ { "value": "0.010", "resolve_type": "generated", "format": "float", "usage": "all" } ],
         "C_MMCM_STARTUP_WAIT": [ { "value": "FALSE", "resolve_type": "generated", "usage": "all" } ],
         "C_MMCM_CLKOUT0_DIVIDE_F": [ { "value": "7.000", "resolve_type": "generated", "format": "float", "usage": "all" } ],
-        "C_MMCM_CLKOUT1_DIVIDE": [ { "value": "56", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_MMCM_CLKOUT1_DIVIDE": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_MMCM_CLKOUT2_DIVIDE": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_MMCM_CLKOUT3_DIVIDE": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_MMCM_CLKOUT4_DIVIDE": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
@@ -473,7 +473,7 @@
         "C_SECONDARY_PORT": [ { "value": "clk_in2", "resolve_type": "generated", "usage": "all" } ],
         "C_CLK_OUT1_PORT": [ { "value": "clk_tx", "resolve_type": "generated", "usage": "all" } ],
         "C_CLK_OUT2_PORT": [ { "value": "clk_fifo_m", "resolve_type": "generated", "usage": "all" } ],
-        "C_CLK_OUT3_PORT": [ { "value": "clk_fifo_s", "resolve_type": "generated", "usage": "all" } ],
+        "C_CLK_OUT3_PORT": [ { "value": "clk_out3", "resolve_type": "generated", "usage": "all" } ],
         "C_CLK_OUT4_PORT": [ { "value": "clk_out4", "resolve_type": "generated", "usage": "all" } ],
         "C_CLK_OUT5_PORT": [ { "value": "clk_out5", "resolve_type": "generated", "usage": "all" } ],
         "C_CLK_OUT6_PORT": [ { "value": "clk_out6", "resolve_type": "generated", "usage": "all" } ],
@@ -541,7 +541,7 @@
         "C_FILTER_1": [ { "value": "0000", "resolve_type": "generated", "usage": "all" } ],
         "C_FILTER_2": [ { "value": "0000", "resolve_type": "generated", "usage": "all" } ],
         "C_DIVIDE1_AUTO": [ { "value": "1", "resolve_type": "generated", "usage": "all" } ],
-        "C_DIVIDE2_AUTO": [ { "value": "8.0", "resolve_type": "generated", "usage": "all" } ],
+        "C_DIVIDE2_AUTO": [ { "value": "0.14285714285714285", "resolve_type": "generated", "usage": "all" } ],
         "C_DIVIDE3_AUTO": [ { "value": "0.14285714285714285", "resolve_type": "generated", "usage": "all" } ],
         "C_DIVIDE4_AUTO": [ { "value": "0.14285714285714285", "resolve_type": "generated", "usage": "all" } ],
         "C_DIVIDE5_AUTO": [ { "value": "0.14285714285714285", "resolve_type": "generated", "usage": "all" } ],
@@ -585,9 +585,10 @@
       },
       "project_parameters": {
         "ARCHITECTURE": [ { "value": "zynq" } ],
-        "BASE_BOARD_PART": [ { "value": "redpitaya.com:redpitaya:part0:1.1" } ],
+        "BASE_BOARD_PART": [ { "value": "" } ],
         "BOARD_CONNECTIONS": [ { "value": "" } ],
         "DEVICE": [ { "value": "xc7z010" } ],
+        "NEXTGEN_VERSAL": [ { "value": "0" } ],
         "PACKAGE": [ { "value": "clg400" } ],
         "PREFHDL": [ { "value": "VHDL" } ],
         "SILICON_REVISION": [ { "value": "" } ],
@@ -598,37 +599,22 @@
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
-        "IPREVISION": [ { "value": "13" } ],
+        "IPREVISION": [ { "value": "14" } ],
         "MANAGED": [ { "value": "TRUE" } ],
         "OUTPUTDIR": [ { "value": "../../../../../../red_pitaya_tx.gen/sources_1/bd/tx_v10/ip/tx_v10_clk_wiz_0" } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
-        "SWVERSION": [ { "value": "2023.2" } ],
+        "SWVERSION": [ { "value": "2024.1" } ],
         "SYNTHESISFLOW": [ { "value": "OUT_OF_CONTEXT" } ]
       }
     },
     "boundary": {
       "ports": {
-        "resetn": [ { "direction": "in", "driver_value": "0" } ],
         "clk_in1": [ { "direction": "in" } ],
         "clk_tx": [ { "direction": "out" } ],
-        "clk_fifo_m": [ { "direction": "out" } ],
         "locked": [ { "direction": "out" } ]
       },
       "interfaces": {
-        "resetn": {
-          "vlnv": "xilinx.com:signal:reset:1.0",
-          "abstraction_type": "xilinx.com:signal:reset_rtl:1.0",
-          "mode": "slave",
-          "parameters": {
-            "POLARITY": [ { "value": "ACTIVE_LOW", "value_src": "constant", "value_permission": "bd", "usage": "all" } ],
-            "BOARD.ASSOCIATED_PARAM": [ { "value": "RESET_BOARD_INTERFACE", "value_src": "constant", "value_permission": "bd", "usage": "all" } ],
-            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
-          },
-          "port_maps": {
-            "RST": [ { "physical_name": "resetn" } ]
-          }
-        },
         "clock_CLK_IN1": {
           "vlnv": "xilinx.com:signal:clock:1.0",
           "abstraction_type": "xilinx.com:signal:clock_rtl:1.0",
@@ -664,24 +650,6 @@
           },
           "port_maps": {
             "CLK_OUT1": [ { "physical_name": "clk_tx" } ]
-          }
-        },
-        "clock_CLK_OUT2": {
-          "vlnv": "xilinx.com:signal:clock:1.0",
-          "abstraction_type": "xilinx.com:signal:clock_rtl:1.0",
-          "mode": "master",
-          "parameters": {
-            "FREQ_HZ": [ { "value": "15625000", "value_src": "propagated", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
-            "FREQ_TOLERANCE_HZ": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
-            "PHASE": [ { "value": "0.0", "value_src": "propagated", "value_permission": "bd", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
-            "CLK_DOMAIN": [ { "value": "/clk_wiz_clk_out1", "value_src": "propagated", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
-            "ASSOCIATED_BUSIF": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
-            "ASSOCIATED_PORT": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
-            "ASSOCIATED_RESET": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
-            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
-          },
-          "port_maps": {
-            "CLK_OUT2": [ { "physical_name": "clk_fifo_m" } ]
           }
         }
       }

@@ -1,11 +1,11 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
--- Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-- Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
--- Date        : Sun Oct  6 16:09:37 2024
+-- Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
+-- Date        : Thu Nov 21 10:23:19 2024
 -- Host        : cotti-machine running 64-bit Ubuntu 22.04.3 LTS
--- Command     : write_vhdl -force -mode funcsim -rename_top tx_v10_clk_wiz_0 -prefix
---               tx_v10_clk_wiz_0_ tx_v10_clk_wiz_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim
+--               /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_tx/red_pitaya_tx.gen/sources_1/bd/tx_v10/ip/tx_v10_clk_wiz_0/tx_v10_clk_wiz_0_sim_netlist.vhdl
 -- Design      : tx_v10_clk_wiz_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -15,23 +15,20 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz is
+entity tx_v10_clk_wiz_0_clk_wiz is
   port (
     clk_tx : out STD_LOGIC;
-    clk_fifo_m : out STD_LOGIC;
-    resetn : in STD_LOGIC;
     locked : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
-end tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz;
+end tx_v10_clk_wiz_0_clk_wiz;
 
-architecture STRUCTURE of tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz is
-  signal clk_fifo_m_tx_v10_clk_wiz_0 : STD_LOGIC;
+architecture STRUCTURE of tx_v10_clk_wiz_0_clk_wiz is
   signal clk_in1_tx_v10_clk_wiz_0 : STD_LOGIC;
   signal clk_tx_tx_v10_clk_wiz_0 : STD_LOGIC;
   signal clkfbout_buf_tx_v10_clk_wiz_0 : STD_LOGIC;
   signal clkfbout_tx_v10_clk_wiz_0 : STD_LOGIC;
-  signal reset_high : STD_LOGIC;
+  signal NLW_plle2_adv_inst_CLKOUT1_UNCONNECTED : STD_LOGIC;
   signal NLW_plle2_adv_inst_CLKOUT2_UNCONNECTED : STD_LOGIC;
   signal NLW_plle2_adv_inst_CLKOUT3_UNCONNECTED : STD_LOGIC;
   signal NLW_plle2_adv_inst_CLKOUT4_UNCONNECTED : STD_LOGIC;
@@ -48,7 +45,6 @@ architecture STRUCTURE of tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz is
   attribute IFD_DELAY_VALUE : string;
   attribute IFD_DELAY_VALUE of clkin1_ibufg : label is "AUTO";
   attribute BOX_TYPE of clkout1_buf : label is "PRIMITIVE";
-  attribute BOX_TYPE of clkout2_buf : label is "PRIMITIVE";
   attribute BOX_TYPE of plle2_adv_inst : label is "PRIMITIVE";
 begin
 clkf_buf: unisim.vcomponents.BUFG
@@ -69,11 +65,6 @@ clkout1_buf: unisim.vcomponents.BUFG
       I => clk_tx_tx_v10_clk_wiz_0,
       O => clk_tx
     );
-clkout2_buf: unisim.vcomponents.BUFG
-     port map (
-      I => clk_fifo_m_tx_v10_clk_wiz_0,
-      O => clk_fifo_m
-    );
 plle2_adv_inst: unisim.vcomponents.PLLE2_ADV
     generic map(
       BANDWIDTH => "OPTIMIZED",
@@ -84,7 +75,7 @@ plle2_adv_inst: unisim.vcomponents.PLLE2_ADV
       CLKOUT0_DIVIDE => 7,
       CLKOUT0_DUTY_CYCLE => 0.500000,
       CLKOUT0_PHASE => 0.000000,
-      CLKOUT1_DIVIDE => 56,
+      CLKOUT1_DIVIDE => 1,
       CLKOUT1_DUTY_CYCLE => 0.500000,
       CLKOUT1_PHASE => 0.000000,
       CLKOUT2_DIVIDE => 1,
@@ -115,7 +106,7 @@ plle2_adv_inst: unisim.vcomponents.PLLE2_ADV
       CLKIN2 => '0',
       CLKINSEL => '1',
       CLKOUT0 => clk_tx_tx_v10_clk_wiz_0,
-      CLKOUT1 => clk_fifo_m_tx_v10_clk_wiz_0,
+      CLKOUT1 => NLW_plle2_adv_inst_CLKOUT1_UNCONNECTED,
       CLKOUT2 => NLW_plle2_adv_inst_CLKOUT2_UNCONNECTED,
       CLKOUT3 => NLW_plle2_adv_inst_CLKOUT3_UNCONNECTED,
       CLKOUT4 => NLW_plle2_adv_inst_CLKOUT4_UNCONNECTED,
@@ -129,15 +120,7 @@ plle2_adv_inst: unisim.vcomponents.PLLE2_ADV
       DWE => '0',
       LOCKED => locked,
       PWRDWN => '0',
-      RST => reset_high
-    );
-plle2_adv_inst_i_1: unisim.vcomponents.LUT1
-    generic map(
-      INIT => X"1"
-    )
-        port map (
-      I0 => resetn,
-      O => reset_high
+      RST => '0'
     );
 end STRUCTURE;
 library IEEE;
@@ -147,8 +130,6 @@ use UNISIM.VCOMPONENTS.ALL;
 entity tx_v10_clk_wiz_0 is
   port (
     clk_tx : out STD_LOGIC;
-    clk_fifo_m : out STD_LOGIC;
-    resetn : in STD_LOGIC;
     locked : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
@@ -158,12 +139,10 @@ end tx_v10_clk_wiz_0;
 
 architecture STRUCTURE of tx_v10_clk_wiz_0 is
 begin
-inst: entity work.tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz
+inst: entity work.tx_v10_clk_wiz_0_clk_wiz
      port map (
-      clk_fifo_m => clk_fifo_m,
       clk_in1 => clk_in1,
       clk_tx => clk_tx,
-      locked => locked,
-      resetn => resetn
+      locked => locked
     );
 end STRUCTURE;

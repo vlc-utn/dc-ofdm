@@ -1,13 +1,13 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xA92EF5B6FFE0EA2C",
+      "boundary_crc": "0xA1685F5B85DE6421",
       "device": "xc7z010clg400-1",
       "gen_directory": "../../../../red_pitaya_rx.gen/sources_1/bd/full_rx",
       "name": "full_rx",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2023.2",
+      "tool_version": "2024.1",
       "validated": "true"
     },
     "design_tree": {
@@ -113,11 +113,19 @@
       },
       "header_ready_0": {
         "direction": "O"
+      },
+      "reg0_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "header_error_0": {
+        "direction": "O"
       }
     },
     "components": {
       "IEEE_8021513_RX_0": {
-        "vlnv": "user.org:ip:IEEE_8021513_RX:1.0",
+        "vlnv": "user.org:ip:IEEE_8021513_RX:2.0",
         "ip_revision": "1000000",
         "xci_name": "full_rx_IEEE_8021513_RX_0_0",
         "xci_path": "ip/full_rx_IEEE_8021513_RX_0_0/full_rx_IEEE_8021513_RX_0_0.xci",
@@ -125,7 +133,7 @@
       },
       "clk_wiz": {
         "vlnv": "xilinx.com:ip:clk_wiz:6.0",
-        "ip_revision": "13",
+        "ip_revision": "14",
         "xci_name": "full_rx_clk_wiz_2",
         "xci_path": "ip/full_rx_clk_wiz_2/full_rx_clk_wiz_2.xci",
         "inst_hier_path": "clk_wiz",
@@ -227,14 +235,14 @@
       },
       "rst_clk_wiz_100M": {
         "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
-        "ip_revision": "14",
+        "ip_revision": "15",
         "xci_name": "full_rx_rst_clk_wiz_100M_2",
         "xci_path": "ip/full_rx_rst_clk_wiz_100M_2/full_rx_rst_clk_wiz_100M_2.xci",
         "inst_hier_path": "rst_clk_wiz_100M"
       },
       "axis_data_fifo_0": {
         "vlnv": "xilinx.com:ip:axis_data_fifo:2.0",
-        "ip_revision": "11",
+        "ip_revision": "13",
         "xci_name": "full_rx_axis_data_fifo_0_0",
         "xci_path": "ip/full_rx_axis_data_fifo_0_0/full_rx_axis_data_fifo_0_0.xci",
         "inst_hier_path": "axis_data_fifo_0",
@@ -244,6 +252,15 @@
           },
           "IS_ACLK_ASYNC": {
             "value": "1"
+          }
+        },
+        "interface_ports": {
+          "S_AXIS": {
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0",
+            "mode": "Slave",
+            "bridges": [
+              "M_AXIS"
+            ]
           }
         }
       }
@@ -261,10 +278,22 @@
           "end_out_0"
         ]
       },
+      "IEEE_8021513_RX_0_header_error": {
+        "ports": [
+          "IEEE_8021513_RX_0/header_error",
+          "header_error_0"
+        ]
+      },
       "IEEE_8021513_RX_0_header_ready": {
         "ports": [
           "IEEE_8021513_RX_0/header_ready",
           "header_ready_0"
+        ]
+      },
+      "IEEE_8021513_RX_0_reg0": {
+        "ports": [
+          "IEEE_8021513_RX_0/reg0",
+          "reg0_0"
         ]
       },
       "IEEE_8021513_RX_0_valid_out": {
@@ -294,16 +323,16 @@
       "clk_wiz_clk_fifo_s": {
         "ports": [
           "clk_wiz/clk_fifo_s",
-          "rst_clk_wiz_100M/slowest_sync_clk",
+          "clk_fifo_s",
           "axis_data_fifo_0/s_axis_aclk",
-          "clk_fifo_s"
+          "rst_clk_wiz_100M/slowest_sync_clk"
         ]
       },
       "clk_wiz_clk_rx": {
         "ports": [
           "clk_wiz/clk_rx",
-          "axis_data_fifo_0/m_axis_aclk",
           "clk_rx",
+          "axis_data_fifo_0/m_axis_aclk",
           "IEEE_8021513_RX_0/IPCORE_CLK"
         ]
       },
@@ -334,8 +363,8 @@
       "reset_rtl_1": {
         "ports": [
           "reset_rtl",
-          "rst_clk_wiz_100M/ext_reset_in",
-          "clk_wiz/resetn"
+          "clk_wiz/resetn",
+          "rst_clk_wiz_100M/ext_reset_in"
         ]
       },
       "rst_clk_wiz_100M_peripheral_aresetn": {

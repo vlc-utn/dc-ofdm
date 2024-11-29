@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Sat Nov 23 11:23:54 2024
+# Process ID: 25235
+# Current directory: /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/simulink/rx/hdl_prj/ipcore/IEEE_8021513_RX_v2_0/prj_ip
+# Command line: vivado -mode batch -notrace -source vivado_ip_package.tcl
+# Log file: /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/simulink/rx/hdl_prj/ipcore/IEEE_8021513_RX_v2_0/prj_ip/vivado.log
+# Journal file: /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/simulink/rx/hdl_prj/ipcore/IEEE_8021513_RX_v2_0/prj_ip/vivado.jou
+# Running On        :cotti-machine
+# Platform          :Ubuntu
+# Operating System  :Ubuntu 22.04.3 LTS
+# Processor Detail  :Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
+# CPU Frequency     :3099.987 MHz
+# CPU Physical cores:2
+# CPU Logical cores :4
+# Host memory       :12314 MB
+# Swap memory       :25769 MB
+# Total Virtual     :38084 MB
+# Available Virtual :23619 MB
+#-----------------------------------------------------------
+source vivado_ip_package.tcl -notrace

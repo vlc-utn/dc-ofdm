@@ -36,7 +36,6 @@ architecture Behavioral of tx_v10_tb is
     -- Clocks
     signal clk_dac : STD_LOGIC := '0';  -- 125 MHz
     signal clk_tx : STD_LOGIC;          -- 125 MHz
-    signal clk_fifo_m : STD_LOGIC;      -- 15.625 MHz
     
     -- Reset signal (ACTIVE LOW)
     signal rst : STD_LOGIC := '1'; 
@@ -46,7 +45,6 @@ dut_instance: entity work.tx_v10_wrapper
 PORT MAP (
       data_out_0(15 downto 0) => data_out_0(15 downto 0),
       clk_dac => clk_dac,
-      clk_fifo_m => clk_fifo_m,
       clk_tx => clk_tx,
       new_frame_in_0 => new_frame_in_0,
       new_msg_ready_0 => new_msg_ready_0,
@@ -118,15 +116,13 @@ begin
     ---------------------------------
     -- Setting initialization values
     ---------------------------------
-    wait until rising_edge(clk_fifo_m);
+    wait until rising_edge(clk_tx);
     
     assert(new_msg_ready_0 = '1') report ">>> Msg ready should be 1" severity failure;
     
     new_frame_in_0 <= '1';
-    
-    wait until rising_edge(clk_fifo_m);
+    wait for 1000ns;
     new_frame_in_0 <= '0';
-    
     wait for 1000ns;
     assert(new_msg_ready_0 = '0') report ">>> Msg ready should be 0" severity failure;
 

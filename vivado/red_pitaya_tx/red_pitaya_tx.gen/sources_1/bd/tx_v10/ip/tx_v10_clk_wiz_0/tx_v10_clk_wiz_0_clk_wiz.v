@@ -54,7 +54,6 @@
 //   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
 //----------------------------------------------------------------------------
 // __clk_tx__125.00000______0.000______50.0______125.031____104.065
-// clk_fifo_m__15.62500______0.000______50.0______189.933____104.065
 //
 //----------------------------------------------------------------------------
 // Input Clock   Freq (MHz)    Input Jitter (UI)
@@ -68,9 +67,7 @@ module tx_v10_clk_wiz_0_clk_wiz
  (// Clock in ports
   // Clock out ports
   output        clk_tx,
-  output        clk_fifo_m,
   // Status and control signals
-  input         resetn,
   output        locked,
   input         clk_in1
  );
@@ -94,7 +91,7 @@ wire clk_in2_tx_v10_clk_wiz_0;
 
   wire        clk_tx_tx_v10_clk_wiz_0;
   wire        clk_fifo_m_tx_v10_clk_wiz_0;
-  wire        clk_fifo_s_tx_v10_clk_wiz_0;
+  wire        clk_out3_tx_v10_clk_wiz_0;
   wire        clk_out4_tx_v10_clk_wiz_0;
   wire        clk_out5_tx_v10_clk_wiz_0;
   wire        clk_out6_tx_v10_clk_wiz_0;
@@ -107,6 +104,7 @@ wire clk_in2_tx_v10_clk_wiz_0;
   wire        clkfbout_tx_v10_clk_wiz_0;
   wire        clkfbout_buf_tx_v10_clk_wiz_0;
   wire        clkfboutb_unused;
+   wire clkout1_unused;
    wire clkout2_unused;
    wire clkout3_unused;
    wire clkout4_unused;
@@ -114,7 +112,6 @@ wire clk_in2_tx_v10_clk_wiz_0;
   wire        clkout6_unused;
   wire        clkfbstopped_unused;
   wire        clkinstopped_unused;
-  wire        reset_high;
 
   PLLE2_ADV
   #(.BANDWIDTH            ("OPTIMIZED"),
@@ -126,16 +123,13 @@ wire clk_in2_tx_v10_clk_wiz_0;
     .CLKOUT0_DIVIDE       (7),
     .CLKOUT0_PHASE        (0.000),
     .CLKOUT0_DUTY_CYCLE   (0.500),
-    .CLKOUT1_DIVIDE       (56),
-    .CLKOUT1_PHASE        (0.000),
-    .CLKOUT1_DUTY_CYCLE   (0.500),
     .CLKIN1_PERIOD        (8.000))
   plle2_adv_inst
     // Output clocks
    (
     .CLKFBOUT            (clkfbout_tx_v10_clk_wiz_0),
     .CLKOUT0             (clk_tx_tx_v10_clk_wiz_0),
-    .CLKOUT1             (clk_fifo_m_tx_v10_clk_wiz_0),
+    .CLKOUT1             (clkout1_unused),
     .CLKOUT2             (clkout2_unused),
     .CLKOUT3             (clkout3_unused),
     .CLKOUT4             (clkout4_unused),
@@ -157,8 +151,7 @@ wire clk_in2_tx_v10_clk_wiz_0;
     // Other control and status signals
     .LOCKED              (locked_int),
     .PWRDWN              (1'b0),
-    .RST                 (reset_high));
-  assign reset_high = ~resetn; 
+    .RST                 (1'b0));
 
   assign locked = locked_int;
 // Clock Monitor clock assigning
@@ -179,10 +172,6 @@ wire clk_in2_tx_v10_clk_wiz_0;
    (.O   (clk_tx),
     .I   (clk_tx_tx_v10_clk_wiz_0));
 
-
-  BUFG clkout2_buf
-   (.O   (clk_fifo_m),
-    .I   (clk_fifo_m_tx_v10_clk_wiz_0));
 
 
 

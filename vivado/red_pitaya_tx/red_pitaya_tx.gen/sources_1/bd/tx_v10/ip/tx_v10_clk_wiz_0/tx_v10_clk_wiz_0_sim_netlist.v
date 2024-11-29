@@ -1,11 +1,11 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
-// Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-// Date        : Sun Oct  6 16:09:37 2024
+// Tool Version: Vivado v.2024.1 (lin64) Build 5076996 Wed May 22 18:36:09 MDT 2024
+// Date        : Thu Nov 21 10:23:19 2024
 // Host        : cotti-machine running 64-bit Ubuntu 22.04.3 LTS
-// Command     : write_verilog -force -mode funcsim -rename_top tx_v10_clk_wiz_0 -prefix
-//               tx_v10_clk_wiz_0_ tx_v10_clk_wiz_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim
+//               /home/cotti/Desktop/Proyecto_final/vlc_utn/dc-ofdm/vivado/red_pitaya_tx/red_pitaya_tx.gen/sources_1/bd/tx_v10/ip/tx_v10_clk_wiz_0/tx_v10_clk_wiz_0_sim_netlist.v
 // Design      : tx_v10_clk_wiz_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -16,44 +16,30 @@
 (* NotValidForBitStream *)
 module tx_v10_clk_wiz_0
    (clk_tx,
-    clk_fifo_m,
-    resetn,
     locked,
     clk_in1);
   output clk_tx;
-  output clk_fifo_m;
-  input resetn;
   output locked;
   input clk_in1;
 
-  wire clk_fifo_m;
   (* IBUF_LOW_PWR *) wire clk_in1;
   wire clk_tx;
   wire locked;
-  wire resetn;
 
-  tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz inst
-       (.clk_fifo_m(clk_fifo_m),
-        .clk_in1(clk_in1),
+  tx_v10_clk_wiz_0_clk_wiz inst
+       (.clk_in1(clk_in1),
         .clk_tx(clk_tx),
-        .locked(locked),
-        .resetn(resetn));
+        .locked(locked));
 endmodule
 
-module tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz
+module tx_v10_clk_wiz_0_clk_wiz
    (clk_tx,
-    clk_fifo_m,
-    resetn,
     locked,
     clk_in1);
   output clk_tx;
-  output clk_fifo_m;
-  input resetn;
   output locked;
   input clk_in1;
 
-  wire clk_fifo_m;
-  wire clk_fifo_m_tx_v10_clk_wiz_0;
   wire clk_in1;
   wire clk_in1_tx_v10_clk_wiz_0;
   wire clk_tx;
@@ -61,8 +47,7 @@ module tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz
   wire clkfbout_buf_tx_v10_clk_wiz_0;
   wire clkfbout_tx_v10_clk_wiz_0;
   wire locked;
-  wire reset_high;
-  wire resetn;
+  wire NLW_plle2_adv_inst_CLKOUT1_UNCONNECTED;
   wire NLW_plle2_adv_inst_CLKOUT2_UNCONNECTED;
   wire NLW_plle2_adv_inst_CLKOUT3_UNCONNECTED;
   wire NLW_plle2_adv_inst_CLKOUT4_UNCONNECTED;
@@ -88,10 +73,6 @@ module tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz
        (.I(clk_tx_tx_v10_clk_wiz_0),
         .O(clk_tx));
   (* BOX_TYPE = "PRIMITIVE" *) 
-  BUFG clkout2_buf
-       (.I(clk_fifo_m_tx_v10_clk_wiz_0),
-        .O(clk_fifo_m));
-  (* BOX_TYPE = "PRIMITIVE" *) 
   PLLE2_ADV #(
     .BANDWIDTH("OPTIMIZED"),
     .CLKFBOUT_MULT(7),
@@ -101,7 +82,7 @@ module tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz
     .CLKOUT0_DIVIDE(7),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
-    .CLKOUT1_DIVIDE(56),
+    .CLKOUT1_DIVIDE(1),
     .CLKOUT1_DUTY_CYCLE(0.500000),
     .CLKOUT1_PHASE(0.000000),
     .CLKOUT2_DIVIDE(1),
@@ -131,7 +112,7 @@ module tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz
         .CLKIN2(1'b0),
         .CLKINSEL(1'b1),
         .CLKOUT0(clk_tx_tx_v10_clk_wiz_0),
-        .CLKOUT1(clk_fifo_m_tx_v10_clk_wiz_0),
+        .CLKOUT1(NLW_plle2_adv_inst_CLKOUT1_UNCONNECTED),
         .CLKOUT2(NLW_plle2_adv_inst_CLKOUT2_UNCONNECTED),
         .CLKOUT3(NLW_plle2_adv_inst_CLKOUT3_UNCONNECTED),
         .CLKOUT4(NLW_plle2_adv_inst_CLKOUT4_UNCONNECTED),
@@ -145,12 +126,7 @@ module tx_v10_clk_wiz_0_tx_v10_clk_wiz_0_clk_wiz
         .DWE(1'b0),
         .LOCKED(locked),
         .PWRDWN(1'b0),
-        .RST(reset_high));
-  LUT1 #(
-    .INIT(2'h1)) 
-    plle2_adv_inst_i_1
-       (.I0(resetn),
-        .O(reset_high));
+        .RST(1'b0));
 endmodule
 `ifndef GLBL
 `define GLBL
