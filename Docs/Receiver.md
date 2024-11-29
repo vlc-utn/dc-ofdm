@@ -1,14 +1,20 @@
 # Receiver
 
-Documento que indica todo lo necesario para usar el receptor **IEEE_8021513_RX**.
+Documento que indica todo lo necesario para usar el receptor, compuesto de tres Ip Cores distintos:
 
-El IP Core se encuentra en esta carpeta: [IP Core Rx](https://github.com/vlc-utn/dc-ofdm/tree/main/Docs/ip_cores).
+* **rx_rf_ip (v2.1)**: Encargado de comunicarse con el ADC y decimar las muestras.
+* **rx_demod_ip (v1.2)**: Encargado de realizar la demodulación OFDM y QAM.
+* **rx_decoder (v1.0)**: Encargado de realizar la decodificación LDPC y lógicas digitales.
+
+Los IP Cores se encuentran en esta carpeta: [IP Core Rx](https://github.com/vlc-utn/dc-ofdm/tree/main/Docs/ip_cores).
 
 El proyecto ejemplo de Vivado donde se corrió la simulación: [Ejemplo Rx](https://github.com/vlc-utn/dc-ofdm/tree/main/vivado/red_pitaya_rx).
 
 ## Funcionalidades probadas
 
 * Máximo tamaño de trama recibida: 4096 bytes.
+
+* Mínimo tamaño de trama recibida: 64 bytes.
 
 * Acepta la recepción de múltiples tramas consecutivas, sin necesidad de reset.
 
@@ -22,9 +28,9 @@ El proyecto ejemplo de Vivado donde se corrió la simulación: [Ejemplo Rx](http
 
 * **clk_adc**: [125 MHz]. Clock físico del ADC, conectado a la entrada del clocking wizard.
 
-* **clk_rx**: [125 MHz]. Clock del receptor, salida del clocking wizard. Sincrónico con la entrada del receptor.
+* **clk_125**: [125 MHz]. Clock usado para alimentar `rx_rf_ip` y `rx_decoder`.
 
-* **clk_fifo_s**: [15.625 MHz]. Clock para sacar datos de la FIFO, salida del clocking wizard. Sincrónico con la salida del receptor.
+* **clk_625**: [62.5 MHz]. Clock usado para alimentar `rx_demod_ip`.
 
 ## Inputs
 
@@ -35,6 +41,8 @@ El proyecto ejemplo de Vivado donde se corrió la simulación: [Ejemplo Rx](http
 * **data_in**: [int16]. Datos de entrada del ADC. Los dos bits MSB son descartados, por lo que acepta valores entre [-8192; 8191].
 
 * **header_ack**: [bool]. Pone el valor de la salida `header_ready` en "0".
+
+* **valid_in**: [bool]. Cuando vale "0", la salida de la etapa de RF es "0".
 
 ## Outputs
 
@@ -54,14 +62,14 @@ El proyecto ejemplo de Vivado donde se corrió la simulación: [Ejemplo Rx](http
 
 ## Modo de funcionamiento
 
-1. Se reciben continuamente datos del DAC.
+1. Se reciben continuamente datos del DAC. Solamente se detectará un símbolo OFDM mientras la señal `valid_in` de la etapa de RF esté en "1".
 
-2. Luego de que se haya detectado el preámbulo OFDM de un mensaje, el receptor seguirá trabajando para demodular el encabezado. Una vez que el encabezado haya sido leído, se pondrá en "" la señal `header_ready`, y se actualizarán los valores de los cuatro registros. En caso de que haya habido un error en la decodificación, se levantará la señal `header_error`:
+2. Luego de que se haya detectado el preámbulo OFDM de un mensaje, el receptor seguirá trabajando para demodular el encabezado. Una vez que el encabezado haya sido leído, se pondrá en "1" la señal `header_ready`, y se actualizarán los valores de los cuatro registros. En caso de que haya habido un error en la decodificación, se levantará la señal `header_error`:
 
     * En caso de que la señal header_error se haya levantado, reiniciar todo el IP Core, e ignorar el símbolo OFDM actual.
     * Poner en "1" la señal de entrada `header_ack` una vez leídos los registros, para poner la señal `header_ready` en "0".
 
-3. Pasado un tiempo, se levantará la señal `start_out`, indicando que están llegando las primeros bytes del payload a la FIFO. Consecuentemente, se irán escribiendo de manera intermitente las palabras del payload, levantado la señal de `valid_out` cuando haya palabras válidas.
+3. Pasado un tiempo, se levantará la señal `start_out`, indicando que están llegando las primeros bytes del payload a la FIFO, junto con la señal `valid_out`. Los datos del payload se escriben de manera continua.
 
 4. Una vez que se termina de recibir el payload, se levanta la señal `end_out` durante la última palabra. Esta señal es equivalente a un TLAST de AXI4-Stream, si se desea usar.
 
@@ -69,29 +77,22 @@ El proyecto ejemplo de Vivado donde se corrió la simulación: [Ejemplo Rx](http
 
 ![Alt text](images/rx_block_design.png)
 
-![Alt text](images/rx_clock_wizard_1.png)
-
-![Alt text](images/rx_clock_wizard_2.png)
-
 ## Simulation
 
 Critical warnings: 0.
 
 Valores de registros usados:
 
-* Mensaje recibido = "This is a test of the RX for the UTN VLC Project!"
-* reg0 = 63
-* reg1 = 14
+* Mensaje recibido = 'This is a test of the RX for the UTN VLC Project! Some extra text need to be added for it to work well'
+* reg0 = 105
+* reg1 = 3
 * reg2 = 65792
 * reg3 = 66063
-
 ![Resultado simulación receptor](images/rx_simulation.png)
 
 ![Alt text](images/rx_plot.png)
 
 ## Sintesis
-
-Nota: recordar incluir el archivo de constraints `ieee_constraints_rx.xdc`..
 
 Critical warnings: 0.
 
@@ -101,7 +102,6 @@ Critical warnings: 0.
 
 ## Implementation
 
-
 ![Alt text](images/rx_implementation_utilization.png)
 
 ![Alt text](images/rx_implementation_timing.png)
@@ -109,6 +109,11 @@ Critical warnings: 0.
 ![Alt text](images/rx_route.png)
 
 ## Versionado
+
+### v3.0
+
+* Se separa el receptor en tres IP Cores distintos.
+* Se elimina el archivo de constraints.
 
 ### v2.0
 

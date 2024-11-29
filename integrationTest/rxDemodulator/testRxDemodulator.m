@@ -17,8 +17,9 @@ constants;
 
 %% Inputsdata_in_demod_tb
 createVivadoFile = true;
+simulinkModel = "HDLDemodSep";
 parametersFile = "sampleParametersFile";
-delayIn = 100;
+delayIn = 2000;
 SNR = 60;
 
 pBitsIn{1} = logical(randi([0,1], 800, 1));
@@ -55,6 +56,7 @@ for i=1:1:msgQtty
     dataIn = [dataIn; OFDMRx{i};];
 end
 
+validIn = true(size(dataIn));
 % Used for simulation
 totalOFDMSymbols = sum(simPayloadNumOFDMSymbols);
 
@@ -91,10 +93,8 @@ latency = 500000/CONST.fs;         % Algorithm latency. Delay between input and 
 stopTime = (length(dataIn)-1)/CONST.fs + latency;
 
 %% Run the simulation
-model_name = "HDLRxDemodulator";
-
-load_system(model_name);
-simOut = sim(model_name);
+load_system(simulinkModel);
+simOut = sim(simulinkModel);
 
 dataOut = get(simOut, "dataOut");
 
@@ -179,7 +179,7 @@ if (createVivadoFile)
     fileName = "data_in_demod_tb.mem";
     % The signal already has a "*2" in it, so multiply by 2^13, because the
     % input should be a fixdt(1, 14, 13)
-    input = dataIn*2^13;
+    input = floor(dataIn*2^13);
     input = {input;};
     bitLen = 14;
     header = "dataIn";

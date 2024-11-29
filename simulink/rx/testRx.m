@@ -7,14 +7,15 @@ constants;
 
 %% Inputs
 createVivadoFile = true;
+simulinkFile = "HDLRxSeparated";
 parametersFile = "sampleParametersFile";
 %delayIn = 100000; % Delay for 4096 input
 delayIn = 10000;
 SNR = 60;
 %msgIn{1} = randomStr(4096);
-msgIn{1} = 'This is a test of the RX for the UTN VLC Project!';
-msgIn{2} = 'Second message';
-msgIn{3} = 'Third message';
+msgIn{1} = 'This is a test of the RX for the UTN VLC Project! Some extra text need to be added for it to work well';
+msgIn{2} = 'Second message. Remember that messages should be large enough, or the block will break.';
+msgIn{3} = 'Third message. Remeber to brush your teeth and be nice! By the way, is that the red mist????';
 
 if (createVivadoFile)
     % Only one message
@@ -43,15 +44,15 @@ for i=1:1:msgQtty
     [reg0(i, 1), reg1(i, 1), reg2(i, 1), reg3(i, 1)] = param2regs(CONST, parametersFile, pBits);
 end
 
+validIn = true(size(dataIn));
+
 %% Simulation Time
 latency = 500000/CONST.fs;         % Algorithm latency. Delay between input and output
 stopTime = (length(dataIn)-1)/CONST.fs + latency;
 
 %% Run the simulation
-model_name = "HDLRx";
-
-load_system(model_name);
-simOut = sim(model_name);
+load_system(simulinkFile);
+simOut = sim(simulinkFile);
 
 dataOut = get(simOut, "dataOut");
 startOut = get(simOut, "startOut");

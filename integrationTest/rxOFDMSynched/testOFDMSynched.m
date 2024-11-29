@@ -58,14 +58,14 @@ dataInR = real(dataIn);
 dataInI = imag(dataIn);
 
 
-% The peak is detected in the first sample of the channel estimation
-peakIn = [
-    false(delayLen, 1);
-    false(CONST.preambleOFDMSamples, 1); true;
-    false(length(channelTx)-1, 1);
-    false(length(headerTx), 1);
-    false(length(payloadTx), 1);
-];
+% % The peak is detected in the first sample of the channel estimation
+% peakIn = [
+%     false(delayLen, 1);
+%     false(CONST.preambleOFDMSamples, 1); true;
+%     false(length(channelTx)-1, 1);
+%     false(length(headerTx), 1);
+%     false(length(payloadTx), 1);
+% ];
 
 totalOFDMSymbols = payloadNumOFDMSymbols;
 
@@ -91,7 +91,7 @@ counterExpectedOut = j;
 
 %% Simulation Time
 latency = 10000/CONST.fPHY;         % Algorithm latency. Delay between input and output
-stopTime = (length(peakIn)-1)/CONST.fPHY + latency;
+stopTime = (length(dataIn)-1)/CONST.fPHY + latency;
 
 %% Run the simulation
 model_name = "HDLOFDMSynched";
@@ -179,7 +179,7 @@ if (createVivadoFile)
     % Generate input file
     fileName = "data_in_ofdm_synched_tb.mem";
     % input should be a fixdt(1, 16, 14)
-    input = {dataInR*2^14; dataInI*2^14; peakIn};
+    input = {dataInR*2^14; dataInI*2^14};
     bitLen = [16, 16, 1];
     header = "dataInR,dataInI,peakIn";
     createVivadoDataFile(fileName, input, bitLen, header, ",");
