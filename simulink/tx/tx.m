@@ -6,6 +6,7 @@ addpath("../../inc");
 constants;
 
 %% Input
+simulinkFile = "HDLTxSeparated";
 createVivadoFile = true;
 paramFile = "sampleParametersFile";
 msgIn{1} = ['This is an example message used to test the transmitter. ' ...
@@ -52,10 +53,8 @@ latency = 1000000/CONST.fDAC;             % Algorithm latency. Delay between inp
 stopTime = (length(validIn)-1)/CONST.fDAC + latency;
 
 %% Run the simulation
-model_name = "HDLTx";
-
-load_system(model_name);
-simOut = sim(model_name);
+load_system(simulinkFile);
+simOut = sim(simulinkFile);
 
 dataOut = get(simOut, "dataOut");
 startOut = get(simOut, "startOut");

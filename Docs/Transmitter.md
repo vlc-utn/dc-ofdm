@@ -1,6 +1,10 @@
 # Transmisor
 
-Documento que indica todo lo necesario para usar el transmisor **IEEE_8021513_TX**.
+Documento que indica todo lo necesario para usar el transmisor, compuesto por tres Ip Cores distintos:
+
+* **tx_decoder_ip**:
+* **tx_demod**:
+* **tx_rf**:
 
 El IP Core se encuentra en esta carpeta: [IP Core Tx](https://github.com/vlc-utn/dc-ofdm/tree/main/Docs/ip_cores).
 
@@ -10,13 +14,17 @@ El proyecto ejemplo de Vivado donde se corrió la simulación: [Ejemplo Tx](http
 
 * Máximo tamaño transmisible por trama: 4096 bytes.
 
+* Mínimo tamaño transmisible por trama: 64 bytes.
+
 * Acepta transmisión de múltiples tramas consecutivas, sin necesidad de reset. La señal de nuevo frame no debe recibirse mientras la señal de "new_msg_ready" esté en "0".
 
 ## Clocks
 
 * **clk_dac**: [125 MHz]. Clock físico del DAC, conectado a la entrada del clocking wizard.
 
-* **clk_tx**: [125 MHz]. Clock del transmisor, salida del clocking wizard.
+* **clk_125**: [125 MHz]. Clock del codificador y la etapa de RF.
+
+* **clk_625**: [62.5 MHz]. Clock del modulador.
 
 ## Entradas
 
@@ -115,7 +123,7 @@ Al recibir la señal "new_frame_in", se van a leer los registros de 32bits (reg0
 
 ![Alt text](images/tx_block_design.png)
 
-Entrada y salida del clocking wizard de 125 MHz. Todas las señales del diagrama trabajan con un clock de 125MHz.
+Todas las entradas y salidas externas a los bloques son de 125MHz. Las conexiones internas pueden usar el clock de 62.5MHz.
 
 ## Simulación
 
@@ -162,6 +170,10 @@ Warnings: 4. Una dice que n se uso el ZYNQ. Y 3 hacen referencia a DSPs inferido
 ![Tx routing](images/tx_route.png)
 
 ## Historial de versiones
+
+### v7.0
+
+* Recompilar el transmisor en tres bloques separados.
 
 ### v6.0
 
