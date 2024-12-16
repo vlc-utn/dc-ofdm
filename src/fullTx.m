@@ -27,7 +27,7 @@ end
     pBits = reshape(pBits, CONST.payloadBitsPerBlock0, payloadLenInFecBlocks);
     pLDPC = false(CONST.payloadBitsPerFec, payloadLenInFecBlocks);
     for i=1:1:payloadLenInFecBlocks
-        pScrambled = payloadScrambler(CONST, scramblerInitialization, pBits(:,i));
+        pScrambled = payloadScrambler(CONST, flip(scramblerInitialization), pBits(:,i));
         pLDPC(:,i) = LDPCEncoder(CONST, pScrambled, binl2dec(fecRate), binl2dec(blockSize), false);
     end
     pLDPC = pLDPC(:);

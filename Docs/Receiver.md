@@ -2,9 +2,9 @@
 
 Documento que indica todo lo necesario para usar el receptor, compuesto de tres Ip Cores distintos:
 
-* **rx_rf_ip (v2.1)**: Encargado de comunicarse con el ADC y decimar las muestras.
-* **rx_demod_ip (v1.2)**: Encargado de realizar la demodulación OFDM y QAM.
-* **rx_decoder (v1.0)**: Encargado de realizar la decodificación LDPC y lógicas digitales.
+* **rx_rf_ip (v3.0)**: Encargado de comunicarse con el ADC y decimar las muestras.
+* **rx_demod_ip (v3.0)**: Encargado de realizar la demodulación OFDM y QAM.
+* **rx_decoder (v3.0)**: Encargado de realizar la decodificación LDPC y lógicas digitales.
 
 Los IP Cores se encuentran en esta carpeta: [IP Core Rx](https://github.com/vlc-utn/dc-ofdm/tree/main/Docs/ip_cores).
 
@@ -40,8 +40,6 @@ El proyecto ejemplo de Vivado donde se corrió la simulación: [Ejemplo Rx](http
 
 * **data_in**: [int16]. Datos de entrada del ADC. Los dos bits MSB son descartados, por lo que acepta valores entre [-8192; 8191].
 
-* **header_ack**: [bool]. Pone el valor de la salida `header_ready` en "0".
-
 * **valid_in**: [bool]. Cuando vale "0", la salida de la etapa de RF es "0".
 
 ## Outputs
@@ -56,9 +54,9 @@ El proyecto ejemplo de Vivado donde se corrió la simulación: [Ejemplo Rx](http
 
 * **[reg0, reg1, reg2, reg3]**: [uint32_t]. Registros leídos del encabezado. Su valor es válido luego de haber recibido la señal de `header_ready`.
 
-* **header_ready**: [bool]. Vale "1" una vez que fueron leídos los registros del encabezado, indicando que se detectó una nueva transmisión. Este valor permanece en "1" hasta que se recibe una señal en la entrada de `header_ack`.
+* **header_ready_fifo**: [bool]. Pulso que vale "1" una vez que fueron leídos los registros del encabezado, indicando que se detectó una nueva transmisión.
 
-* **header_error**: [bool]. Si pone en "1" durante el mismo ciclo de clock que `header_ready` y se queda levantado. Indica que falló el CRC del encabezado, por lo que los datos leídos del payload deben ser ignorados.
+* **header_error**: [bool]. Se pone en "1"  y queda levantado. Indica que falló el CRC del encabezado. Se mantiene prendido hasta que se resetee el Ip Core. No se envía header_ready ni se envian datos de payload si se levantó este flag.
 
 ## Modo de funcionamiento
 
@@ -109,6 +107,11 @@ Critical warnings: 0.
 ![Alt text](images/rx_route.png)
 
 ## Versionado
+
+### v3.1
+
+* LDPC decoder con 8 iteraciones.
+* Se cambia la lógica de header ready y header error. En caso de error, header ready no se levanta. Ahora, header ready es un pulso, se espera que se almacenen los registros en una fifo usando este pulso como valid, asi se puede almacenar muchos frames a la vez, sin necesidad de leerlos todos juntos.
 
 ### v3.0
 

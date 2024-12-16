@@ -4,3 +4,4 @@ slprj
 *.slxc
 wireless_hdl_examples
 WHDL*
+*.mem
