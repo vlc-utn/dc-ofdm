@@ -12,6 +12,6 @@ arguments(Output)
     signalOut (:, 1) double
 end
     signalOut = [zeros(delay, 1); signalIn];
-    signalOut = awgn(signalOut, SNR);
+    signalOut = awgn(signalOut, SNR, 'measured');
 end
 

@@ -16,10 +16,10 @@ else
 end
 
 fs = fsc*N*1.5;                     % Edge frequency of the graph  
-fsize = 20;
+fsize = 32;
 f = linspace(-fs/2, fs/2, 10000);   % Frequency vector
 xLabels = {"$-6 f_{sc}$", "$-5 f_{sc}$", "$-4 f_{sc}$", "$-3 f_{sc}$", "$-2 f_{sc}$", ...
-    "$-1 f_{sc}$", "0", "$1 f_{sc}$", "$-2 f_{sc}$", ...
+    "$-1 f_{sc}$", "0", "$1 f_{sc}$", "$2 f_{sc}$", ...
     "$3 f_{sc}$", "$4 f_{sc}$", "$5 f_{sc}$", "$6 f_{sc}$"};
 
 %% Plot all subcarriers separated
@@ -36,8 +36,8 @@ for i=-N/2:1:N/2-1
     legendString{i+N/2+1} = sprintf("k=%d,f_k = %d", i, i*fsc);
 end
 
-xlabel('Frecuencia', FontSize=fsize ,Interpreter="latex");
-ylabel('Subportadoras', FontSize=fsize, Interpreter="latex");
+xlabel('Frecuencia [Hz]', FontSize=fsize ,Interpreter="latex");
+ylabel('Subportadoras [.]', FontSize=fsize, Interpreter="latex");
 %title("Se\~{n}al OFDM, con coeficientes -N/2", Interpreter="latex");
 grid on;
 ax = gca;
@@ -57,6 +57,7 @@ xticklabels(xLabels);
 %legend(legendString);
 
 if (exportPDF)
+    pause(1)
     exportgraphics(gcf, 'ofdm/ofdm_subcarriers.pdf', ContentType='vector')
 end
 
@@ -73,14 +74,16 @@ for i=-N/2:1:N/2-1
     ofdm = ofdm + signal;
 end
 
-plot(f, (sinc(f/(fsc*N))).^2, LineWidth=2);
+plot(f, 10*log((sinc(f/(fsc*N))).^2), LineWidth=2);
 hold on;
-plot(f, ofdm, LineWidth=2);
+plot(f, 10*log(ofdm), LineWidth=2);
 
-xlabel('Frecuencia', FontSize=fsize ,Interpreter="latex");
-ylabel('PSD', FontSize=fsize, Interpreter="latex");
+xlabel('Frecuencia [Hz]', FontSize=fsize ,Interpreter="latex");
+ylabel('PSD $[\frac{dB}{Hz}]$', FontSize=fsize, Interpreter="latex");
 xlim([min(f), max(f)]);
 grid on;
+ylim([-60, 0]);
+legend("QAM", "OFDM")
 
 fontsize(gca, fsize, "points");
 set(gca,'TickLabelInterpreter','latex');
@@ -88,7 +91,7 @@ set(gca,'TickLabelInterpreter','latex');
 xticks([-2*N*fsc, -N*fsc, -5*fsc, -fsc*4, -fsc*3, -fsc*2, -fsc, 0, ...
     fsc, 2*fsc, 3*fsc, 4*fsc, N*fsc, 2*N*fsc])
 
-xticklabels({"$-2 f_{PHY}$", "$-f_{PHY}$", "$-\frac{N/2+1}{N} f_{PHY}$", ...
+xticklabels({"$-2 f_{PHY}$", "", "$-\frac{N/2+1}{N} f_{PHY}$", ...
     "", "", "", "", "0", "", "", "", ...
     "$\frac{1}{2} f_{PHY}$", "$f_{PHY}$", "$2 f_{PHY}$"})
 xtickangle(0)

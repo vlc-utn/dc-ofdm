@@ -3,7 +3,7 @@
 clc; clear; close all;
 
 %% Parameters
-printPDF = false;
+printPDF = true;
 fs = 100;           % Frecuencia de muestreo
 fc1 = 1;            % Frecuencia de la primera subportadora
 fc2 = 2;            % Frecuencia de la segunda subportadora
@@ -29,8 +29,8 @@ else
     window="normal";
 end
 
-fsize = 20;
-arrowY = 2.8;
+fsize = 42;
+arrowY = 2.7;
 
 %% First and second OFDM symbols, perfectly aligned
 
@@ -45,32 +45,34 @@ f22 = -sin(2*pi*fc1*tSecondSymbol) - 1.5;
 
 figure(WindowState=window);
 ax = axes();
-h1=plot(tDelayFinal, f10, Color="black", LineWidth=2); hold on;
-h2=plot(tFirstSymbol, f11, Color="blue", LineWidth=2, DisplayName="OFDM 1"); hold on;
-h3=plot(tSecondSymbol, f12, Color="red", LineWidth=2, DisplayName="OFDM 2"); hold on;
-h4=plot(tDelayFinal, f20, Color="black", LineWidth=2); hold on;
-h5=plot(tFirstSymbol, f21, Color="blue", LineWidth=2); hold on;
-h6=plot(tSecondSymbol, f22, Color="red", LineWidth=2); hold on;
-legend([h2, h3], AutoUpdate="off", FontSize=fsize)
+h1=plot(tDelayFinal, f10, Color="black", LineWidth=4); hold on;
+h2=plot(tFirstSymbol, f11, Color="blue", LineWidth=4, DisplayName="1^{er} OFDM"); hold on;
+h3=plot(tSecondSymbol, f12, Color="red", LineWidth=4, DisplayName="2^{do} OFDM"); hold on;
+h4=plot(tDelayFinal, f20, Color="black", LineWidth=4); hold on;
+h5=plot(tFirstSymbol, f21, Color="blue", LineWidth=4); hold on;
+h6=plot(tSecondSymbol, f22, Color="red", LineWidth=4); hold on;
+lgd = legend([h2, h3], AutoUpdate="off", FontSize=fsize);
+lgd.Location = "southwest";
 
 xlim([min(t), max(t)])
-ylim([-3, 3.8]);
+ylim([-3, 3.4]);
 xticks(NaN);
 yticks(NaN);
 
-xline(0, LineWidth=2, LineStyle="-.", DisplayName="");
-xline(tOFDM, LineWidth=2, LineStyle="-.");
-xline(2*tOFDM, LineWidth=2, LineStyle="-.");
+xline(0, LineWidth=4, LineStyle="-.", DisplayName="");
+xline(tOFDM, LineWidth=4, LineStyle="-.");
+xline(2*tOFDM, LineWidth=4, LineStyle="-.");
 
 plotArrow(ax, [0, tOFDM], [arrowY, arrowY]);
 plotArrow(ax, [tOFDM, 2*tOFDM], [arrowY, arrowY]);
 
-text(tOFDM/2, arrowY, "Ventana DFT", FontSize=fsize, ...
+text(tOFDM/2, arrowY, "N/f_{sc}", FontSize=fsize, ...
     HorizontalAlignment="center", VerticalAlignment="bottom")
-text(tOFDM*3/2, arrowY, "Ventana DFT", FontSize=fsize, ...
+text(tOFDM*3/2, arrowY, "N/f_{sc}", FontSize=fsize, ...
     HorizontalAlignment="center", VerticalAlignment="bottom")
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'cp/cp_normal.pdf', ContentType='vector')
 end
 
@@ -82,27 +84,34 @@ f11 = sin(2*pi*fc2*tFirstSymbolDelayed) + 1.5;
 f12 = -sin(2*pi*fc2*tSecondSymbolDelayed) + 1.5;
 
 h1 = plot(tDelayInitial, f10, Color="black", LineWidth=2); hold on;
-h2 = plot(tFirstSymbolDelayed, f11, Color="blue", LineWidth=2, DisplayName="OFDM 1"); hold on;
-h3 = plot(tSecondSymbolDelayed, f12, Color="red", LineWidth=2, DisplayName="OFDM 2"); hold on;
-h4 = plot(tDelayFinal, f20, Color="black", LineWidth=2); hold on;
-h5 = plot(tFirstSymbol, f21, Color="blue", LineWidth=2); hold on;
-h6 = plot(tSecondSymbol, f22, Color="red", LineWidth=2); hold on;
-legend([h2, h3], AutoUpdate="off")
+h2 = plot(tFirstSymbolDelayed, f11, Color="blue", LineWidth=4, DisplayName="1^{er} OFDM"); hold on;
+h3 = plot(tSecondSymbolDelayed, f12, Color="red", LineWidth=4, DisplayName="2^{do} OFDM"); hold on;
+h4 = plot(tDelayFinal, f20, Color="black", LineWidth=4); hold on;
+h5 = plot(tFirstSymbol, f21, Color="blue", LineWidth=4); hold on;
+h6 = plot(tSecondSymbol, f22, Color="red", LineWidth=4); hold on;
+lgd = legend([h2, h3], AutoUpdate="off", FontSize=fsize);
+lgd.Location = "southwest";
 
 xlim([min(t), max(t)])
-ylim([-3, 4]);
+ylim([-3, 3.4]);
 xticks(NaN);
 yticks(NaN);
 
-xline(0, LineWidth=2, LineStyle="-.", DisplayName="");
-xline(tOFDM, LineWidth=2, LineStyle="-.");
-xline(2*tOFDM, LineWidth=2, LineStyle="-.");
+xline(0, LineWidth=4, LineStyle="-.", DisplayName="");
+xline(tOFDM, LineWidth=4, LineStyle="-.");
+xline(2*tOFDM, LineWidth=4, LineStyle="-.");
 
 plotArrow(ax, [0, tOFDM], [arrowY, arrowY]);
 plotArrow(ax, [tOFDM, 2*tOFDM], [arrowY, arrowY]);
-text(tOFDM/2, arrowY, "Ventana DFT", FontSize=fsize, ...
+
+text(tOFDM/2, arrowY, "N/f_{sc}", FontSize=fsize, ...
     HorizontalAlignment="center", VerticalAlignment="bottom")
-text(tOFDM*3/2, arrowY, "Ventana DFT", FontSize=fsize, ...
+text(tOFDM*3/2, arrowY, "N/f_{sc}", FontSize=fsize, ...
+    HorizontalAlignment="center", VerticalAlignment="bottom")
+
+plotArrow(ax, [tOFDM, tOFDM+ td], [1.5, 1.5]);
+
+text(tOFDM + 3*td/4, 1.5, "t_D", FontSize=fsize, ...
     HorizontalAlignment="center", VerticalAlignment="bottom")
 
 if(printPDF)

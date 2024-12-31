@@ -6,16 +6,17 @@ addpath("../../src/rx");
 constants;
 
 %% Inputs
-createVivadoFile = true;
+createVivadoFile = false;
 simulinkFile = "HDLRxSeparated";
 parametersFile = "sampleParametersFile";
 %delayIn = 100000; % Delay for 4096 input
-delayIn = 10000;
+delayIn = 100;
 SNR = 60;
 %msgIn{1} = randomStr(4096);
 msgIn{1} = 'This is a test of the RX for the UTN VLC Project! Some extra text need to be added for it to work well';
-msgIn{2} = 'Second message. Remember that messages should be large enough, or the block will break.';
-msgIn{3} = 'Third message. Remeber to brush your teeth and be nice! By the way, is that the red mist????';
+%msgIn{2} = 'Second message. Remember that messages should be large enough, or the block will break.';
+%msgIn{3} = 'Third message. Remeber to brush your teeth and be nice! By the way, is that the red mist????';
+%msgIn{1} = randomStr(4000);
 
 if (createVivadoFile)
     % Only one message
@@ -37,9 +38,8 @@ for i=1:1:msgQtty
     pBits = str2binl(msgIn{i});
     pBits = binl2tx(pBits);    % Input to the Rx should be LSB first.
     [OFDMSignal, payloadExtraWords(i, 1)] = fullTx(CONST, parametersFile, pBits);
-    OFDMRx = 2*channelSimulation(OFDMSignal, delayIn, SNR); % Multiply by two, to mimic the DAC
+    OFDMRx = channelSimulation(OFDMSignal, delayIn, SNR); % Multiply by two, to mimic the DAC
     dataIn = [dataIn; OFDMRx;];
-
     % Get registers for output
     [reg0(i, 1), reg1(i, 1), reg2(i, 1), reg3(i, 1)] = param2regs(CONST, parametersFile, pBits);
 end
@@ -47,7 +47,7 @@ end
 validIn = true(size(dataIn));
 
 %% Simulation Time
-latency = 500000/CONST.fs;         % Algorithm latency. Delay between input and output
+latency = 5000000/CONST.fs;         % Algorithm latency. Delay between input and output
 stopTime = (length(dataIn)-1)/CONST.fs + latency;
 
 %% Run the simulation
