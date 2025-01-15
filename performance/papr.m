@@ -9,11 +9,11 @@ constants;
 
 %% TEST
 M = 16;
-N = 128;
+N = 256;
 printPDF = true;
 
 %dataIn = matlab_ipsum('Paragraphs', 1000);
-dataIn = randomStr(1000000, true, 45, true);
+dataIn = randomStr(1000000, true, 90, true);
 dataIn = str2binl(dataIn);
 dataIn = dataIn(1:1:end - mod(length(dataIn), N*log2(M)));
 
@@ -59,7 +59,7 @@ figure(WindowState="maximized");
 semilogy(db_points, CCDF_scrambled, LineWidth=2, Marker="square"); hold on;
 semilogy(db_points, CCDF_notScrambled, LineWidth=2, Marker="o");
 legend("Codificada", "Sin codificar")
-ylabel("Probabilidad", FontSize=fsize, Interpreter="latex")
+ylabel("Probabilidad$\{PAPR > PAPR_0 \}$", FontSize=fsize, Interpreter="latex")
 xlabel("PAPR [dB]", FontSize=fsize, Interpreter="latex")
 grid on;
 fontsize(gca, fsize, "points");

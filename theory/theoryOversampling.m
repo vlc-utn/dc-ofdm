@@ -62,7 +62,7 @@ figure(WindowState=window);
 plot(f, 10*log10(psd), LineWidth=2);
 
 xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
-ylabel("PSD\{$x[n]$\} $[\frac{dB}{MHz}]$", FontSize=fsize, Interpreter="latex");
+ylabel("PSD\{$x[n]$\} $[\frac{dB}{Hz}]$", FontSize=fsize, Interpreter="latex");
 %title("PSD de la se\~{n}al de entrada", Interpreter="latex");
 
 fontsize(gca, fsize, "points");
@@ -130,7 +130,7 @@ figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
 xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
-ylabel('PSD\{$x[n/L_{up}]$\}  $[\frac{dB}{MHz}]$', FontSize=fsize, Interpreter="latex");
+ylabel('PSD\{$x[n/L_{up}]$\}  $[\frac{dB}{Hz}]$', FontSize=fsize, Interpreter="latex");
 %title("PSD de la se\~{n}al sobremuestreada", Interpreter="latex");
 
 fontsize(gca, fsize, "points");
@@ -202,7 +202,7 @@ figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
 xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
-ylabel('PSD\{$y[n]$\}  $[\frac{dB}{MHz}]$', FontSize=fsize, Interpreter="latex");
+ylabel('PSD\{$y[n]$\}  $[\frac{dB}{Hz}]$', FontSize=fsize, Interpreter="latex");
 %title("PSD de la se\~{n}al interpolada", Interpreter="latex");
 
 fontsize(gca, fsize, "points");

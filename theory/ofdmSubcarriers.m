@@ -29,7 +29,7 @@ figure(WindowState=window);
 ofdm = 0;
 legendString = cell(N, 1);
 for i=-N/2:1:N/2-1
-    signal = abs(sinc((f-i*fsc)/fsc));
+    signal = abs(sinc((f-i*fsc)/fsc)).^2;
     plot(f, signal, LineWidth=2);
     hold on;
     ofdm = ofdm + signal;
@@ -37,7 +37,7 @@ for i=-N/2:1:N/2-1
 end
 
 xlabel('Frecuencia [Hz]', FontSize=fsize ,Interpreter="latex");
-ylabel('Subportadoras [.]', FontSize=fsize, Interpreter="latex");
+ylabel('PSD $[\frac{1}{Hz}]$', FontSize=fsize, Interpreter="latex");
 %title("Se\~{n}al OFDM, con coeficientes -N/2", Interpreter="latex");
 grid on;
 ax = gca;

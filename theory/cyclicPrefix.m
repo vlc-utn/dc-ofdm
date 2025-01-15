@@ -30,7 +30,7 @@ else
 end
 
 fsize = 42;
-arrowY = 2.7;
+arrowY = 2.65;
 
 %% First and second OFDM symbols, perfectly aligned
 
@@ -46,12 +46,12 @@ f22 = -sin(2*pi*fc1*tSecondSymbol) - 1.5;
 figure(WindowState=window);
 ax = axes();
 h1=plot(tDelayFinal, f10, Color="black", LineWidth=4); hold on;
-h2=plot(tFirstSymbol, f11, Color="blue", LineWidth=4, DisplayName="1^{er} OFDM"); hold on;
-h3=plot(tSecondSymbol, f12, Color="red", LineWidth=4, DisplayName="2^{do} OFDM"); hold on;
+h2=plot(tFirstSymbol, f11, Color="blue", LineWidth=4, DisplayName="$1^{er} OFDM$"); hold on;
+h3=plot(tSecondSymbol, f12, Color="red", LineWidth=4, DisplayName="$2^{do} OFDM$"); hold on;
 h4=plot(tDelayFinal, f20, Color="black", LineWidth=4); hold on;
 h5=plot(tFirstSymbol, f21, Color="blue", LineWidth=4); hold on;
 h6=plot(tSecondSymbol, f22, Color="red", LineWidth=4); hold on;
-lgd = legend([h2, h3], AutoUpdate="off", FontSize=fsize);
+lgd = legend([h2, h3], AutoUpdate="off", FontSize=fsize, Interpreter='latex');
 lgd.Location = "southwest";
 
 xlim([min(t), max(t)])
@@ -66,10 +66,10 @@ xline(2*tOFDM, LineWidth=4, LineStyle="-.");
 plotArrow(ax, [0, tOFDM], [arrowY, arrowY]);
 plotArrow(ax, [tOFDM, 2*tOFDM], [arrowY, arrowY]);
 
-text(tOFDM/2, arrowY, "N/f_{sc}", FontSize=fsize, ...
-    HorizontalAlignment="center", VerticalAlignment="bottom")
-text(tOFDM*3/2, arrowY, "N/f_{sc}", FontSize=fsize, ...
-    HorizontalAlignment="center", VerticalAlignment="bottom")
+text(tOFDM/2, arrowY+0.1, "$\frac{N}{f_{PHY}}$", FontSize=fsize, ...
+    HorizontalAlignment="center", VerticalAlignment="bottom", Interpreter='latex')
+text(tOFDM*3/2, arrowY+0.1, "$\frac{N}{f_{PHY}}$", FontSize=fsize, ...
+    HorizontalAlignment="center", VerticalAlignment="bottom", Interpreter='latex')
 
 if(printPDF)
     pause(1)
@@ -84,12 +84,12 @@ f11 = sin(2*pi*fc2*tFirstSymbolDelayed) + 1.5;
 f12 = -sin(2*pi*fc2*tSecondSymbolDelayed) + 1.5;
 
 h1 = plot(tDelayInitial, f10, Color="black", LineWidth=2); hold on;
-h2 = plot(tFirstSymbolDelayed, f11, Color="blue", LineWidth=4, DisplayName="1^{er} OFDM"); hold on;
-h3 = plot(tSecondSymbolDelayed, f12, Color="red", LineWidth=4, DisplayName="2^{do} OFDM"); hold on;
+h2 = plot(tFirstSymbolDelayed, f11, Color="blue", LineWidth=4, DisplayName="$1^{er} OFDM$"); hold on;
+h3 = plot(tSecondSymbolDelayed, f12, Color="red", LineWidth=4, DisplayName="$2^{do} OFDM$"); hold on;
 h4 = plot(tDelayFinal, f20, Color="black", LineWidth=4); hold on;
 h5 = plot(tFirstSymbol, f21, Color="blue", LineWidth=4); hold on;
 h6 = plot(tSecondSymbol, f22, Color="red", LineWidth=4); hold on;
-lgd = legend([h2, h3], AutoUpdate="off", FontSize=fsize);
+lgd = legend([h2, h3], AutoUpdate="off", FontSize=fsize, Interpreter='latex');
 lgd.Location = "southwest";
 
 xlim([min(t), max(t)])
@@ -104,15 +104,15 @@ xline(2*tOFDM, LineWidth=4, LineStyle="-.");
 plotArrow(ax, [0, tOFDM], [arrowY, arrowY]);
 plotArrow(ax, [tOFDM, 2*tOFDM], [arrowY, arrowY]);
 
-text(tOFDM/2, arrowY, "N/f_{sc}", FontSize=fsize, ...
-    HorizontalAlignment="center", VerticalAlignment="bottom")
-text(tOFDM*3/2, arrowY, "N/f_{sc}", FontSize=fsize, ...
-    HorizontalAlignment="center", VerticalAlignment="bottom")
+text(tOFDM/2, arrowY+0.1, "$\frac{N}{f_{PHY}}$", FontSize=fsize, ...
+    HorizontalAlignment="center", VerticalAlignment="bottom", Interpreter='latex')
+text(tOFDM*3/2, arrowY+0.1, "$\frac{N}{f_{PHY}}$", FontSize=fsize, ...
+    HorizontalAlignment="center", VerticalAlignment="bottom", Interpreter='latex')
 
 plotArrow(ax, [tOFDM, tOFDM+ td], [1.5, 1.5]);
 
-text(tOFDM + 3*td/4, 1.5, "t_D", FontSize=fsize, ...
-    HorizontalAlignment="center", VerticalAlignment="bottom")
+text(tOFDM + 3*td/4, 1.5, "$\tau$", FontSize=fsize, ...
+    HorizontalAlignment="center", VerticalAlignment="bottom", Interpreter='latex')
 
 if(printPDF)
     exportgraphics(gcf, 'cp/cp_delay.pdf', ContentType='vector')
