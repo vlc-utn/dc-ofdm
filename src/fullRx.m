@@ -3,13 +3,15 @@ function [pBitsRx, err, delay, frequencyOffset, channelEst, ...
     fecRateRx, repetitionNumberRx, fecConcatenationFactorRx, ...
     scramblerInitializationRx, batIdRx, cyclicPrefixIdRx, ...
     explicitMimoPilotSymbolCombSpacingRx, ...
-    explicitMimoPilotSymbolNumberRx] = fullRx(CONST, OFDMSignal, carrierFrequencyOffset)
+    explicitMimoPilotSymbolNumberRx, ...
+    hRxLLR, pRxLLR] = fullRx(CONST, OFDMSignal, carrierFrequencyOffset, errorQtty)
 %FULLRX Full Rx implementation. Returns the payload bits, and the header
 % parameters. If "err == 1", then the header was read with some errors.
 arguments(Input)
     CONST
     OFDMSignal (:, 1) double
     carrierFrequencyOffset double = 0
+    errorQtty double = 0
 end
 arguments(Output)
     pBitsRx (:, 1) logical
@@ -28,6 +30,8 @@ arguments(Output)
     cyclicPrefixIdRx (3, 1) logical
     explicitMimoPilotSymbolCombSpacingRx (3, 1) logical
     explicitMimoPilotSymbolNumberRx (3, 1) logical
+    hRxLLR (:,:) double
+    pRxLLR (:,:) double
 end
     %% Prepare OFDM samples to be demodulated
     OFDMRxRaw = downshifter(CONST, OFDMSignal, carrierFrequencyOffset);
@@ -68,6 +72,9 @@ end
 
     if (err == true)
         warning("Header was not read correctly");
+        pBitsRx = [];
+        pRxLLR = [];
+        return
     end
     
     %% Process payload
@@ -78,6 +85,7 @@ end
 
     if (isempty(payloadRx))
         pBitsRx = [];
+        pRxLLR = [];
         return
     end
 
@@ -93,6 +101,10 @@ end
     
     pBitsRx = false(CONST.payloadBitsPerBlock0, payloadLenInFecBlocks);
     for i=1:1:payloadLenInFecBlocks
+        if (errorQtty ~= 0)
+            % Inject errors before LDPC decoder
+            pRxLLR(1:errorQtty+1, i) = 0;
+        end
         pScrambledRx = LDPCDecoder(CONST, pRxLLR(:,i), binl2dec(fecRateRx), binl2dec(blockSizeRx), false);
         pBitsRx(:,i) = payloadScrambler(CONST, scramblerInitializationRx, pScrambledRx);
     end

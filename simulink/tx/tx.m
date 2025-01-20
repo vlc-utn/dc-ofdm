@@ -7,13 +7,12 @@ constants;
 
 %% Input
 simulinkFile = "HDLTxSeparated";
-createVivadoFile = true;
+createVivadoFile = false;
 paramFile = "sampleParametersFile";
-msgIn{1} = ['This is an example message used to test the transmitter. ' ...
-   'It is made large on purpose to test for a large message being ' ...
-   'transmitted'];
-msgIn{2} = 'This is a second message';
-msgIn{3} = 'This is a third message';
+% msgIn{1} = ['This is an example message used to test the transmitter. ' ...
+%    'It is made large on purpose to test for a large message being ' ...
+%    'transmitted'];
+msgIn{1} = randomStr(4000);
 %msgIn{1} = randomStr(4096);
 
 if (createVivadoFile)
@@ -47,6 +46,8 @@ for i=1:1:length(msgIn)
     [expectedOut{i}, ~, payloadOFDMSymbols{i}] = fullTx(CONST, paramFile, binl2tx(pBitsRaw{i}), 0, false);
     payloadOFDMSymbols{i} = payloadOFDMSymbols{i}(:);
 end
+
+validReg = true(length(msgIn), 1);
 
 %% Simulation Time
 latency = 1000000/CONST.fDAC;             % Algorithm latency. Delay between input and output

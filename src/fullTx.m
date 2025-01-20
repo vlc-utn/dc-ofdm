@@ -1,4 +1,4 @@
-function [OFDMSignal, payloadExtraWords, payloadOFDMSymbols] = ...
+function [OFDMSignal, payloadExtraWords, payloadOFDMSymbols, hLDPC, pLDPC] = ...
     fullTx(CONST, paramFile, pBits, carrierFrequencyOffset, addTimeWindow)
 %FULLTX Run a full transmitter.
 arguments(Input)
@@ -12,6 +12,8 @@ arguments(Output)
     OFDMSignal (:,1) double
     payloadExtraWords double
     payloadOFDMSymbols (:,:) logical
+    hLDPC (:,:) logical
+    pLDPC (:,:) logical
 end
     run(paramFile);
     

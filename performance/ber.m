@@ -1,62 +1,108 @@
 %% Test transmission and reception of text
+% For this test, we will be add noise to the transmitted signal and will
+% check for bits wrongly received (before the LDPC decoder, using the LLR value).
 clc; clear; close all;
 addpath("../src");
 addpath("../inc");
 addpath("../src/rx");
-addpath("../../digital_signals");
 constants;
 
 %% Parameters
+plotCSV = false; % Read previous values, dont overwrite
 parametersFile = "sampleParametersFile.m";
-delayIn = 200;
-%msg = 'From the VLC UTN project we wish you, the reader, a good day.';
-msg = randomStr(1024);
-frequencyOffsetIn = 0;
+printPDF = true; % If "true", scv values will be read. If "false", new values will be generated
+fsize = 32;
 
+%msg = randomStr(2048);
+%retries = 200; % These amount of messages will be sent for each SNR value
+%SNR = (0:2:20)';
+%PlosPnlos = [3, 5, 10, 20];
 
-EbNo = 0:2:40;
-ser = zeros(length(EbNo), 1);
+msg = randomStr(2048);
+retries = 5; % These amount of messages will be sent for each SNR value
+SNR = (0:2:20)';
+PlosPnlos = 20;
+
+BER = zeros(length(SNR), 1);
+M = 4; % 4-QAM
+
+delayIn = randi([40, 80], length(SNR), retries);
 
 %% Message transmission
 pBits = str2binl(msg);
-OFDMSignal = fullTx(CONST, parametersFile, pBits);
+[OFDMSignal, ~, ~, hLDPCTx, pLDPCTx] = fullTx(CONST, parametersFile, pBits);
 
-for i=1:1:length(EbNo)
-    OFDMRx = [zeros(delayIn, 1); OFDMSignal];
-    OFDMRx = Channel.add_awgn_noise(OFDMRx, EbNo(i));
-    [pBitsRx, err, delayOut, frequencyOffsetOut] = fullRx(CONST, OFDMRx, frequencyOffsetIn);
+SNRTimes = 10.^(SNR/10);
+berTheory = 2/log2(M)*(1-1/sqrt(M))*erfc(sqrt(3/2*SNRTimes/(M-1)));
 
-    ser(i) = sum(pBits~=pBitsRx)/length(pBits);
+markers = {"square", "diamond", "o", "^"};
+legendString = cell(length(PlosPnlos)+1, 1);
+figure(WindowState="maximized");
+semilogy(SNR, berTheory, LineStyle="--", LineWidth=2); hold on;
+legendString{1} = "Teórico AWGN";
 
 
+for k=1:1:length(PlosPnlos)
+    if (plotCSV == false)
+        for i=1:1:length(SNR)
+            for j=1:1:retries
+                OFDMRx = channelSimulation(OFDMSignal, delayIn(i,j)*2, SNR(i), PlosPnlos(k));
+                [pBitsRx, err, delayOut, frequencyOffsetOut, ...
+                    ~,~,~,~,~,~,~,~,~,~,~,~, ...
+                    hLDPCRx, pLDPCRx] = fullRx(CONST, OFDMRx);
+        
+                fprintf("%d / %d\n\n", (k-1)*length(SNR) + (i-1)*retries + j, ...
+                    length(SNR)*retries*length(PlosPnlos));
+        
+                if (err)
+                    % Not synchronized, output is garbage
+                    BER(i, j) = 1;
+                    continue;
+                end
+            
+                % Convert LLR to hard decision bits
+                pLDPCRx = pLDPCRx(:);
+                pLDPCRx(pLDPCRx < 0) = -1;
+                pLDPCRx(pLDPCRx > 0) = 0;
+                pLDPCRx = pLDPCRx*-1;
+                pLDPCRx = logical(pLDPCRx);
+            
+                hLDPCRx = hLDPCRx(:);
+                hLDPCRx(hLDPCRx < 0) = -1;
+                hLDPCRx(hLDPCRx > 0) = 0;
+                hLDPCRx = hLDPCRx*-1;
+                hLDPCRx = logical(hLDPCRx);
+        
+                txBits = [hLDPCTx; pLDPCTx];
+                rxBits = [hLDPCRx; pLDPCRx];
+            
+                BER(i,j) = sum(txBits~=rxBits)/length(txBits);      
+            end
+        end
+    else
+        BER = readmatrix(sprintf("ber_values_paper/k%d.csv", PlosPnlos(k)));
+    end
+    %% Plotting
+    semilogy(SNR, mean(BER, 2), ...
+        LineWidth=2, Marker=markers{k}); hold on;
+    
+    xlabel("SNR [dB]", FontSize=fsize, Interpreter="latex")
+    ylabel("BER", FontSize=fsize, Interpreter="latex")
+    grid on;
+    legendString{k+1} = sprintf("$K_r=%d dB$", PlosPnlos(k));
+    
+    fontsize(gca, fsize, "points");
+    set(gca,'TickLabelInterpreter','latex');
+
+    writematrix(BER, sprintf("ber_values_current/k%d.csv", PlosPnlos(k)));
+    
 end
+lgd = legend(legendString);
+lgd.Location = "southwest";
+lgd.Interpreter="latex";
 
-%% Plotting
-
-ser_theory = Theory.ser_AWGN("QAM", 4, EbNo);
-
-semilogy(EbNo, ser, LineStyle="-"); hold on;
-semilogy(EbNo, ser_theory, LineStyle="--"); hold on;
-
-legendString{1} = strcat(num2str(4), "-", "QAM", " Simulated");
-legendString{2}   = strcat(num2str(4), "-", "QAM", " Theoretical");
-
-grid on;
-legend(legendString);
-xlabel("Es/N0 [dB]");
-ylabel("SER");
-title("Symbol Error Rate");
-ylim([1e-6, 1]);
-
-
-%% Tests
-
-
-
-% assert(err==0, "The header should have been received without errors");
-% assert(isequal(msg, msgRx), "Message should be equal");
-% assert(iskindaequal(delayOut, delayIn/CONST.rxM, 1), "Delays should match");
-% assert(iskindaequal(frequencyOffsetIn, -frequencyOffsetOut, 50), ...
-%     "Frequency offset should be less than 50Hz");
+if (printPDF)
+    exportgraphics(gcf, 'graphs/ber.pdf', ContentType='vector')
+end
 
 disp("Test Successfull!");
