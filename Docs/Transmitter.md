@@ -2,9 +2,9 @@
 
 Documento que indica todo lo necesario para usar el transmisor, compuesto por tres Ip Cores distintos:
 
-* **tx_decoder_ip v1.1**:
-* **tx_demod v1.1**:
-* **tx_rf v1.1**:
+* **tx_coder_ip v2.0**:
+* **tx_mod v2.0**:
+* **tx_rf v2.0**:
 
 El IP Core se encuentra en esta carpeta: [IP Core Tx](https://github.com/vlc-utn/dc-ofdm/tree/main/Docs/ip_cores).
 
@@ -170,6 +170,12 @@ Warnings: 4. Una dice que n se uso el ZYNQ. Y 3 hacen referencia a DSPs inferido
 ![Tx routing](images/tx_route.png)
 
 ## Historial de versiones
+
+### v8.0
+
+* Actualizar LDPC a 2 iteraciones.
+* Agregar buffer para registros en el codificador.
+* Multiplicación "por 2" opcional en el tx_rf.
 
 ### v7.1
 

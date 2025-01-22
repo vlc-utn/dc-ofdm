@@ -9,10 +9,13 @@ constants;
 simulinkFile = "HDLTxSeparated";
 createVivadoFile = false;
 paramFile = "sampleParametersFile";
-% msgIn{1} = ['This is an example message used to test the transmitter. ' ...
+%msgIn{1} = ['This is an example message used to test the transmitter. ' ...
 %    'It is made large on purpose to test for a large message being ' ...
 %    'transmitted'];
-msgIn{1} = randomStr(4000);
+msgIn{1} = randomStr(100);
+msgIn{2} = randomStr(100);
+%msgIn{2} = randomStr(4000);
+%msgIn{3} = randomStr(4000);
 %msgIn{1} = randomStr(4096);
 
 if (createVivadoFile)
@@ -31,27 +34,29 @@ for i=1:1:length(msgIn)
     validIn = [validIn; true(len, 1);];
 end
 
-newFrame = true;
+newFrame = [false(100, 1); true; false(1000, 1); true; true; false];
 
 %% Expected Output
 expectedOut = cell(length(msgIn), 1);
 payloadOFDMSymbols = cell(length(msgIn), 1);
-reg0 = zeros(length(msgIn), 1);
-reg1 = zeros(length(msgIn), 1);
-reg2 = zeros(length(msgIn), 1);
-reg3 = zeros(length(msgIn), 1);
+reg0 = zeros(length(msgIn)+1, 1);
+reg1 = zeros(length(msgIn)+1, 1);
+reg2 = zeros(length(msgIn)+1, 1);
+reg3 = zeros(length(msgIn)+1, 1);
 
 for i=1:1:length(msgIn)
-    [reg0(i,1), reg1(i,1), reg2(i,1), reg3(i,1)] = param2regs(CONST, paramFile, pBitsRaw{i});
+    [reg0(i+1,1), reg1(i+1,1), reg2(i+1,1), reg3(i+1,1)] = param2regs(CONST, paramFile, pBitsRaw{i});
     [expectedOut{i}, ~, payloadOFDMSymbols{i}] = fullTx(CONST, paramFile, binl2tx(pBitsRaw{i}), 0, false);
     payloadOFDMSymbols{i} = payloadOFDMSymbols{i}(:);
 end
 
-validReg = true(length(msgIn), 1);
+validReg = false(length(msgIn)+1, 1);
+for i=1:2:length(msgIn)
+    validReg(i+1) = true;
+end
 
 %% Simulation Time
-latency = 1000000/CONST.fDAC;             % Algorithm latency. Delay between input and output
-stopTime = (length(validIn)-1)/CONST.fDAC + latency;
+stopTime = 20e-3;
 
 %% Run the simulation
 load_system(simulinkFile);
