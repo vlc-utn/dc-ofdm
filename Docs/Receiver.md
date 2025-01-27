@@ -2,9 +2,9 @@
 
 Documento que indica todo lo necesario para usar el receptor, compuesto de tres Ip Cores distintos:
 
-* **rx_rf_ip (v3.0)**: Encargado de comunicarse con el ADC y decimar las muestras.
-* **rx_demod_ip (v3.0)**: Encargado de realizar la demodulación OFDM y QAM.
-* **rx_decoder (v3.0)**: Encargado de realizar la decodificación LDPC y lógicas digitales.
+* **rx_rf_ip (v4.0)**: Encargado de comunicarse con el ADC y decimar las muestras.
+* **rx_demod_ip (v4.0)**: Encargado de realizar la demodulación OFDM y QAM.
+* **rx_decoder (v4.1)**: Encargado de realizar la decodificación LDPC y lógicas digitales.
 
 Los IP Cores se encuentran en esta carpeta: [IP Core Rx](https://github.com/vlc-utn/dc-ofdm/tree/main/Docs/ip_cores).
 

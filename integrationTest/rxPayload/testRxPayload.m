@@ -24,6 +24,12 @@ msgIn{2} = 'Next message';
 msgIn{3} = 'Third is a charm!';
 msgQtty = length(msgIn);
 
+dataSizes = zeros(msgQtty, 1);
+for i=1:1:msgQtty
+    dataSizes(i) = length(msgIn{i});
+end
+dataSizes = sum(dataSizes);
+
 % Preallocation
 scramblerInitLSB = false(4,1,msgQtty+1);
 fecRateLSB = false(3,1,msgQtty+1);
@@ -89,16 +95,16 @@ assert(~isempty(startIdx), ...
     "StartIdx shouldn't be empty");
 assert(isequal(length(startIdx), length(endIdx)), ...
     "Start and end should be of the same size");
-assert(isequal(length(startIdx), msgQtty), ...
-    "Amount of received fec blocks should be the same as sent");
 
+msg = "";
 for i=1:1:msgQtty
-    out = dataOut(startIdx(i):endIdx(i));
-    valid = validOut(startIdx(i):endIdx(i));
-    out = out(valid == 1);
-    msgOut = char(out)';
-    assert(isequal(msgOut, msgIn{i}), "Sent and received message should be the same!");
+    msg = append(msg, msgIn{i});
 end
+out = dataOut(startIdx:endIdx);
+valid = validOut(startIdx:endIdx);
+out = out(valid == 1);
+msgOut = char(out)';
+assert(isequal(msgOut, msg), "Sent and received message should be the same!");
 
 disp("Test successfull!");
 

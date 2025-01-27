@@ -198,6 +198,7 @@ CONST.FIFOOFDMSize = 4096;   % Maximum value = 1091
 CONST.FIFORxPayloadSize = 65536;
 CONST.FIFOTxPayloadSize = 65536;
 CONST.FIFOTxRegSize = 32;
+CONST.FIFORxRegSize = 32;
 
 % Amount of cycles to wait before starting to read the FIFO (this is made
 % so that there are enough values for the LDPC decoder in one go.

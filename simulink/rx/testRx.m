@@ -13,10 +13,10 @@ parametersFile = "sampleParametersFile";
 delayIn = 100;
 SNR = 60;
 %msgIn{1} = randomStr(4096);
-msgIn{1} = 'This is a test of the RX for the UTN VLC Project! Some extra text need to be added for it to work well';
+%msgIn{1} = 'This is a test of the RX for the UTN VLC Project! Some extra text need to be added for it to work well';
 %msgIn{2} = 'Second message. Remember that messages should be large enough, or the block will break.';
 %msgIn{3} = 'Third message. Remeber to brush your teeth and be nice! By the way, is that the red mist????';
-%msgIn{1} = randomStr(4000);
+msgIn{1} = randomStr(6000);
 
 if (createVivadoFile)
     % Only one message
@@ -59,16 +59,13 @@ startOut = get(simOut, "startOut");
 endOut = get(simOut, "endOut");
 validOut = get(simOut, "validOut");
 
-headerEndOut = get(simOut, "headerEndOut");
-headerErrOut = get(simOut, "headerErrOut"); % Not used
-
 reg0Out = get(simOut, "reg0Out");
 reg1Out = get(simOut, "reg1Out");
 reg2Out = get(simOut, "reg2Out");
 reg3Out = get(simOut, "reg3Out");
 
 %% Compare header
-headerEndOutIdx = find(headerEndOut == true);
+headerEndOutIdx = find(startOut == true);
 
 assert(~isempty(headerEndOutIdx), ...
     "headerEndOutIdx shouldn't be empty");
