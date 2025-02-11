@@ -55,10 +55,10 @@ for i=1:1:length(db_points)
     CCDF_notScrambled(i) = sum(PAPRNotScrambled > db_points(i))/length(PAPRNotScrambled);
 end
 fsize = 32;
-figure(WindowState="maximized");
-semilogy(db_points, CCDF_scrambled, LineWidth=2, Marker="square"); hold on;
-semilogy(db_points, CCDF_notScrambled, LineWidth=2, Marker="o");
-legend("Codificada", "Sin codificar")
+fig = figure(WindowState="maximized");
+semilogy(db_points, CCDF_scrambled, LineWidth=2, Marker="square", MarkerSize=12); hold on;
+semilogy(db_points, CCDF_notScrambled, LineWidth=2, Marker="o", MarkerSize=12);
+legend("Codificada con scrambler", "Sin codificar", Interpreter="latex")
 ylabel("Probabilidad$\{PAPR > PAPR_0 \}$", FontSize=fsize, Interpreter="latex")
 xlabel("PAPR [dB]", FontSize=fsize, Interpreter="latex")
 grid on;
@@ -67,7 +67,7 @@ set(gca,'TickLabelInterpreter','latex');
 
 if (printPDF)
     pause(1);
-    exportgraphics(gcf, 'graphs/papr.pdf', ContentType='vector')
+    exportgraphics(fig, 'graphs/papr.pdf', ContentType='vector')
 end
 
 

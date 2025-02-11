@@ -6,7 +6,7 @@ clc; clear; close all;
 %% Parametros
 
 fsize = 48;
-fsizeLabel = 36;
+fsizeLabel = 48;
 
 % LUT | FF | BRAM | DSP
 fpga = [17600, 35200, 60, 80];
@@ -27,15 +27,15 @@ payload3 = [11199, 7031, 42, 0] ./ fpga * 100;
 header3 = [2179, 1728, 7, 0] ./ fpga * 100;
 
 %%% Valores finales Rx
-demod4 = [10178 + 1741, 14622 + 3171, 22.5, 38+41] ./ fpga * 100;
-decoder = [2554, 2334, 17, 0] ./ fpga * 100;
+demod4 = [11308 + 1741, 14862 + 3171, 19, 38+41] ./ fpga * 100;
+decoder = [2785, 2553, 33, 0] ./ fpga * 100;
 
-total_rx = [15059, 21233, 54.5, 79] ./ fpga * 100;
+total_rx = [16126, 21175, 59, 79] ./ fpga * 100;
 
 %%% Valores finales Tx
-mod = [5103 + 3388, 7638 + 6026, 21, 13 + 44] ./ fpga * 100;
-coder = [1554, 1992, 2, 2] ./ fpga * 100;
-total_tx = [10653, 16383, 47, 59] ./ fpga * 100;
+mod = [5478+3456, 7830 + 6063, 18, 13 + 44] ./ fpga * 100;
+coder = [1699, 207, 18, 2] ./ fpga * 100;
+total_tx = [11204, 16717, 60, 59] ./ fpga * 100;
 
 %% Plots
 bar_values{1} = [demod; payload; header]';
@@ -69,13 +69,13 @@ for i=1:1:length(bar_values)
     ytips = b(end).YEndPoints;
     labels = string(round(b(1).YData + b(2).YData + b(3).YData));
     for j=1:1:length(labels)
-        labels(j) = sprintf("%s%%", labels(j));
+        labels(j) = sprintf("%s\\%%", labels(j));
     end
     text(xtips,ytips,labels,'HorizontalAlignment','center',...
-    'VerticalAlignment','bottom');
+    'VerticalAlignment','bottom',Interpreter='latex');
 
     % Parametros globales de todos los plots
-    ylabel("% de utilización", FontSize=fsize, Interpreter='latex')
+    ylabel("\% de utilizaci\'on", FontSize=fsize, Interpreter='latex')
     xlabel("Recursos", FontSize=fsize, Interpreter='latex');
     grid on;
     set(gca,'box','off')

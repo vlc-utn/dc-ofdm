@@ -8,7 +8,7 @@ addpath("../src/rx");
 constants;
 
 %% Parameters
-plotCSV = false; % Read previous values, dont overwrite
+plotCSV = true; % Read previous values, dont overwrite
 parametersFile = "sampleParametersFile.m";
 printPDF = true; % If "true", scv values will be read. If "false", new values will be generated
 fsize = 32;
@@ -21,7 +21,7 @@ fsize = 32;
 msg = randomStr(2048);
 retries = 5; % These amount of messages will be sent for each SNR value
 SNR = (0:2:20)';
-PlosPnlos = 20;
+PlosPnlos = [3 5 10 20];
 
 BER = zeros(length(SNR), 1);
 M = 4; % 4-QAM
@@ -39,7 +39,7 @@ markers = {"square", "diamond", "o", "^"};
 legendString = cell(length(PlosPnlos)+1, 1);
 figure(WindowState="maximized");
 semilogy(SNR, berTheory, LineStyle="--", LineWidth=2); hold on;
-legendString{1} = "Teórico AWGN";
+legendString{1} = "Te\'orico AWGN";
 
 
 for k=1:1:length(PlosPnlos)

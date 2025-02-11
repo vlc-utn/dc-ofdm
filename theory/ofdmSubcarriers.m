@@ -83,7 +83,7 @@ ylabel('PSD $[\frac{dB}{Hz}]$', FontSize=fsize, Interpreter="latex");
 xlim([min(f), max(f)]);
 grid on;
 ylim([-60, 0]);
-legend("QAM", "OFDM")
+legend("QAM", "OFDM", Interpreter="latex")
 
 fontsize(gca, fsize, "points");
 set(gca,'TickLabelInterpreter','latex');

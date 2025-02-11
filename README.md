@@ -2,29 +2,7 @@
 
 DC-OFDM implementation on Matlab/Simulink, for HDL Coder generation.
 
-## Pasos a seguir
-
-![Alt text](images/image.png)
-
-![Alt text](images/image-1.png)
-
-![Alt text](images/image-2.png)
-
-## Cosas incompletas del transmisor
-
-* En "payload full", el subsistema "fec_rate_to_number", devuelve un "2" constante.
-
-* LDPC encoder solamente soporta code rate "1/2".
-
-* Repetition para el payload no está soportado.
-
-* Puncturing para el payload no está soportado.
-
-## Cambios respecto de la IEEE
-
-En esta sección voy a comentar todos las modificaciones que fueron necesarias hacer respecto del estándar IEEE 802.15.13.
-
-### Cambio de las matrices LDPC
+## Cambio respecto del estándar IEEE 802.15.13
 
 El bloque de Matlab [LDPC Encoder](https://la.mathworks.com/help/wireless-hdl/ref/ldpcencoder.html) solamente recibe matrices "dual diagonal". Las matrices del estándar fueron modificadas para que sean reconocidas por este bloque de la siguiente forma:
 
@@ -34,17 +12,12 @@ El bloque de Matlab [LDPC Encoder](https://la.mathworks.com/help/wireless-hdl/re
 
 ![Double diagonal matrix](images/double_diagonal.png)
 
-### Cyclic prefix del preamble
+Ademas:
 
-Según estándar, los prefijos cíclicos para los distintos elementos del PSDU son:
+* En "payload full", el subsistema "fec_rate_to_number", devuelve un "2" constante.
 
-* Preamble = 0;
-* Channel Estimation = N/4;
-* Header = N/4;
-* Payload = Arbitrary;
+* LDPC encoder solamente soporta code rate "1/2".
 
-Hay un bug con el bloque de Simulink de OFDM Modulator, al poner el prefijo cíclico en "0".
+* Repetition para el payload no está soportado.
 
-Si el bloque tiene un valor de $CPLen = 0$, y luego intenta tomar cualquier otro valor, se rompe. Si el bloque tiene un valor de $CPLen != 0$, entonces puede cambiar libremente entre cualquier valor, mientras ese valor no sea cero.
-
-Conclusión: actualmente el valor del prefijo cíclico para el preamble está en "2" en vez de "0".
+* Puncturing para el payload no está soportado.
