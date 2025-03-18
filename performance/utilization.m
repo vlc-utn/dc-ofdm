@@ -5,8 +5,8 @@ clc; clear; close all;
 
 %% Parametros
 
-fsize = 48;
-fsizeLabel = 48;
+fsize = 60;
+fsizeLabel = 60;
 
 % LUT | FF | BRAM | DSP
 fpga = [17600, 35200, 60, 80];
@@ -42,6 +42,9 @@ bar_values{1} = [demod; payload; header]';
 bar_values{2} = [demod2; payload2; header2]';
 bar_values{3} = [demod3; payload3; header3]';
 
+%bar_values{4} = [demod4; decoder; total_rx - demod4 - decoder];
+%bar_values{5} = [mod; coder; total_tx - mod - coder];
+
 bar_values{4} = [demod4; decoder; total_rx - demod4 - decoder];
 bar_values{5} = [mod; coder; total_tx - mod - coder];
 
@@ -58,10 +61,12 @@ for i=1:1:length(bar_values)
         lgd = legend("Demodulador", "Decodificador", "Interfaz", FontSize=fsizeLabel, Interpreter='latex');
         lgd.Location = 'southwest';
         ylim([0, 100]);
+        xlabel("Recursos Rx (ZYNQ-7010)", FontSize=fsize, Interpreter='latex');
     elseif (i == 5)
         lgd = legend("Modulador", "Codificador", "Interfaz", FontSize=fsizeLabel, Interpreter='latex');
         lgd.Location = 'southwest';
         ylim([0, 100]);
+        xlabel("Recursos Tx (ZYNQ-7010)", FontSize=fsize, Interpreter='latex');
     end
 
     % Agregar numero de porcentaje arriba de la barra
@@ -76,7 +81,7 @@ for i=1:1:length(bar_values)
 
     % Parametros globales de todos los plots
     ylabel("\% de utilizaci\'on", FontSize=fsize, Interpreter='latex')
-    xlabel("Recursos", FontSize=fsize, Interpreter='latex');
+    
     grid on;
     set(gca,'box','off')
     

@@ -15,8 +15,9 @@ else
     window = "normal";
 end
 
+lwidth = 5;
 fs = fsc*N*1.5;                     % Edge frequency of the graph  
-fsize = 32;
+fsize = 48;
 f = linspace(-fs/2, fs/2, 10000);   % Frequency vector
 xLabels = {"$-6 f_{sc}$", "$-5 f_{sc}$", "$-4 f_{sc}$", "$-3 f_{sc}$", "$-2 f_{sc}$", ...
     "$-1 f_{sc}$", "0", "$1 f_{sc}$", "$2 f_{sc}$", ...
@@ -30,7 +31,7 @@ ofdm = 0;
 legendString = cell(N, 1);
 for i=-N/2:1:N/2-1
     signal = abs(sinc((f-i*fsc)/fsc)).^2;
-    plot(f, signal, LineWidth=2);
+    plot(f, signal, LineWidth=lwidth);
     hold on;
     ofdm = ofdm + signal;
     legendString{i+N/2+1} = sprintf("k=%d,f_k = %d", i, i*fsc);
@@ -74,9 +75,9 @@ for i=-N/2:1:N/2-1
     ofdm = ofdm + signal;
 end
 
-plot(f, 10*log((sinc(f/(fsc*N))).^2), LineWidth=2);
+plot(f, 10*log((sinc(f/(fsc*N))).^2), LineWidth=lwidth);
 hold on;
-plot(f, 10*log(ofdm), LineWidth=2);
+plot(f, 10*log(ofdm), LineWidth=lwidth);
 
 xlabel('Frecuencia [Hz]', FontSize=fsize ,Interpreter="latex");
 ylabel('PSD $[\frac{dB}{Hz}]$', FontSize=fsize, Interpreter="latex");

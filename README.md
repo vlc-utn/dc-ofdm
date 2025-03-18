@@ -2,6 +2,10 @@
 
 DC-OFDM implementation on Matlab/Simulink, for HDL Coder generation.
 
+Matlab R2024a
+
+Vivado 2024.1
+
 ## Cambio respecto del estándar IEEE 802.15.13
 
 El bloque de Matlab [LDPC Encoder](https://la.mathworks.com/help/wireless-hdl/ref/ldpcencoder.html) solamente recibe matrices "dual diagonal". Las matrices del estándar fueron modificadas para que sean reconocidas por este bloque de la siguiente forma:
