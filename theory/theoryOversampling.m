@@ -35,7 +35,7 @@ figure(WindowState=window);
 
 stem(tSymbol, x, LineWidth=2, Marker="o", MarkerFaceColor="auto");
 
-xlabel('Tiempo $[\mu s]$', FontSize=fsize ,Interpreter="latex");
+xlabel('Time $[\mu s]$', FontSize=fsize ,Interpreter="latex");
 ylabel('$x[n] = \textrm{sinc}[n]$', FontSize=fsize, Interpreter="latex");
 %title("Se\~{n}al de entrada", Interpreter="latex");
 
@@ -53,6 +53,7 @@ xline(-1/f_sinc, LineWidth=4, LineStyle="-.", Label='$-\frac{1}{f_{sig}}$', ...
 grid on;
 
 if (printPDF)
+    pause(1)
     exportgraphics(gcf, 'upsampler/upsampler_a.pdf', ContentType='vector')
 end
 
@@ -61,7 +62,7 @@ figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
 
-xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
+xlabel('Frequency $[MHz]$', FontSize=fsize, Interpreter="latex");
 ylabel("PSD\{$x[n]$\} $[\frac{dB}{Hz}]$", FontSize=fsize, Interpreter="latex");
 %title("PSD de la se\~{n}al de entrada", Interpreter="latex");
 
@@ -88,6 +89,7 @@ xlim([-max(f), max(f)]);
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'upsampler/upsampler_b.pdf', ContentType='vector')
 end
 
@@ -104,7 +106,7 @@ xUp = upsample(x, L);
 figure(WindowState=window);
 
 stem(ts, xUp, LineWidth=2, Marker="o", MarkerFaceColor="auto");
-xlabel("Tiempo $[\mu s]$", FontSize=fsize, Interpreter="latex");
+xlabel("Time $[\mu s]$", FontSize=fsize, Interpreter="latex");
 ylabel('$x[n/L_{up}]$', FontSize=fsize, Interpreter="latex");
 %title('Se\~{n}al sobremuestreada con $L = 4$', Interpreter="latex");
 
@@ -122,6 +124,7 @@ xline(-1/f_sinc, LineWidth=4, LineStyle="-.", Label='$-\frac{1}{f_{sig}}$', ...
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'upsampler/upsampler_c.pdf', ContentType='vector');
 end
 
@@ -129,7 +132,7 @@ end
 figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
-xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
+xlabel('Frequency $[MHz]$', FontSize=fsize, Interpreter="latex");
 ylabel('PSD\{$x[n/L_{up}]$\}  $[\frac{dB}{Hz}]$', FontSize=fsize, Interpreter="latex");
 %title("PSD de la se\~{n}al sobremuestreada", Interpreter="latex");
 
@@ -165,6 +168,7 @@ xlim([-max(f), max(f)])
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'upsampler/upsampler_d.pdf', ContentType='vector')
 end
 
@@ -176,7 +180,7 @@ xIn = resample(x, L, 1);
 %%%%%%%%%%%%%%%%%%%%%%%%
 figure(WindowState=window);
 stem(ts, xIn, LineWidth=2, Marker="o", MarkerFaceColor="auto");
-xlabel('Tiempo $[\mu s]$', FontSize=fsize, Interpreter="latex");
+xlabel('Time $[\mu s]$', FontSize=fsize, Interpreter="latex");
 ylabel("$y[n] = LPF\{x[n/L_{up}]\}$", FontSize=fsize, Interpreter="latex");
 %title("Se\~{n}al interpolada", Interpreter="latex");
 
@@ -194,6 +198,7 @@ xline(-1/f_sinc, LineWidth=4, LineStyle="-.", Label='$-\frac{1}{f_{sig}}$', ...
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'upsampler/upsampler_e.pdf', ContentType='vector')
 end
 
@@ -201,7 +206,7 @@ end
 figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
-xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
+xlabel('Frequency $[MHz]$', FontSize=fsize, Interpreter="latex");
 ylabel('PSD\{$y[n]$\}  $[\frac{dB}{Hz}]$', FontSize=fsize, Interpreter="latex");
 %title("PSD de la se\~{n}al interpolada", Interpreter="latex");
 
@@ -236,5 +241,6 @@ xlim([-max(f), max(f)])
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'upsampler/upsampler_f.pdf', ContentType='vector')
 end

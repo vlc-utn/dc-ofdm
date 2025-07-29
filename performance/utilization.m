@@ -52,14 +52,14 @@ for i=1:1:length(bar_values)
     
     % Legenda y limites
     if (i <= 3)
-        lgd = legend("Demodulador", "Payload", "Header", FontSize=fsizeLabel, Interpreter='latex');
+        lgd = legend("Demodulator", "Payload", "Header", FontSize=fsizeLabel, Interpreter='latex');
         lgd.Location = 'southwest';
     elseif (i == 4)
-        lgd = legend("Demodulador", "Decodificador", "Interfaz", FontSize=fsizeLabel, Interpreter='latex');
+        lgd = legend("Demodulator", "Decoder", "Interface", FontSize=fsizeLabel, Interpreter='latex');
         lgd.Location = 'southwest';
         ylim([0, 100]);
     elseif (i == 5)
-        lgd = legend("Modulador", "Codificador", "Interfaz", FontSize=fsizeLabel, Interpreter='latex');
+        lgd = legend("Modulator", "Coder", "Interface", FontSize=fsizeLabel, Interpreter='latex');
         lgd.Location = 'southwest';
         ylim([0, 100]);
     end
@@ -75,8 +75,8 @@ for i=1:1:length(bar_values)
     'VerticalAlignment','bottom',Interpreter='latex');
 
     % Parametros globales de todos los plots
-    ylabel("\% de utilizaci\'on", FontSize=fsize, Interpreter='latex')
-    xlabel("Recursos", FontSize=fsize, Interpreter='latex');
+    ylabel("Utilization \%", FontSize=fsize, Interpreter='latex')
+    xlabel("Resources", FontSize=fsize, Interpreter='latex');
     grid on;
     set(gca,'box','off')
     

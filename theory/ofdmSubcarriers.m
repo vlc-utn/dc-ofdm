@@ -36,7 +36,7 @@ for i=-N/2:1:N/2-1
     legendString{i+N/2+1} = sprintf("k=%d,f_k = %d", i, i*fsc);
 end
 
-xlabel('Frecuencia [Hz]', FontSize=fsize ,Interpreter="latex");
+xlabel('Frequency [Hz]', FontSize=fsize ,Interpreter="latex");
 ylabel('PSD $[\frac{1}{Hz}]$', FontSize=fsize, Interpreter="latex");
 %title("Se\~{n}al OFDM, con coeficientes -N/2", Interpreter="latex");
 grid on;
@@ -78,7 +78,7 @@ plot(f, 10*log((sinc(f/(fsc*N))).^2), LineWidth=2);
 hold on;
 plot(f, 10*log(ofdm), LineWidth=2);
 
-xlabel('Frecuencia [Hz]', FontSize=fsize ,Interpreter="latex");
+xlabel('Frequency [Hz]', FontSize=fsize ,Interpreter="latex");
 ylabel('PSD $[\frac{dB}{Hz}]$', FontSize=fsize, Interpreter="latex");
 xlim([min(f), max(f)]);
 grid on;

@@ -46,8 +46,8 @@ f22 = -sin(2*pi*fc1*tSecondSymbol) - 1.5;
 figure(WindowState=window);
 ax = axes();
 h1=plot(tDelayFinal, f10, Color="black", LineWidth=4); hold on;
-h2=plot(tFirstSymbol, f11, Color="blue", LineWidth=4, DisplayName="$1^{er} OFDM$"); hold on;
-h3=plot(tSecondSymbol, f12, Color="red", LineWidth=4, DisplayName="$2^{do} OFDM$"); hold on;
+h2=plot(tFirstSymbol, f11, Color="blue", LineWidth=4, DisplayName="$1^{st} OFDM$"); hold on;
+h3=plot(tSecondSymbol, f12, Color="red", LineWidth=4, DisplayName="$2^{nd} OFDM$"); hold on;
 h4=plot(tDelayFinal, f20, Color="black", LineWidth=4); hold on;
 h5=plot(tFirstSymbol, f21, Color="blue", LineWidth=4); hold on;
 h6=plot(tSecondSymbol, f22, Color="red", LineWidth=4); hold on;
@@ -84,8 +84,8 @@ f11 = sin(2*pi*fc2*tFirstSymbolDelayed) + 1.5;
 f12 = -sin(2*pi*fc2*tSecondSymbolDelayed) + 1.5;
 
 h1 = plot(tDelayInitial, f10, Color="black", LineWidth=2); hold on;
-h2 = plot(tFirstSymbolDelayed, f11, Color="blue", LineWidth=4, DisplayName="$1^{er} OFDM$"); hold on;
-h3 = plot(tSecondSymbolDelayed, f12, Color="red", LineWidth=4, DisplayName="$2^{do} OFDM$"); hold on;
+h2 = plot(tFirstSymbolDelayed, f11, Color="blue", LineWidth=4, DisplayName="$1^{st} OFDM$"); hold on;
+h3 = plot(tSecondSymbolDelayed, f12, Color="red", LineWidth=4, DisplayName="$2^{nd} OFDM$"); hold on;
 h4 = plot(tDelayFinal, f20, Color="black", LineWidth=4); hold on;
 h5 = plot(tFirstSymbol, f21, Color="blue", LineWidth=4); hold on;
 h6 = plot(tSecondSymbol, f22, Color="red", LineWidth=4); hold on;
@@ -115,5 +115,6 @@ text(tOFDM + 3*td/4, 1.5, "$\tau$", FontSize=fsize, ...
     HorizontalAlignment="center", VerticalAlignment="bottom", Interpreter='latex')
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'cp/cp_delay.pdf', ContentType='vector')
 end

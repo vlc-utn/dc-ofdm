@@ -39,7 +39,7 @@ markers = {"square", "diamond", "o", "^"};
 legendString = cell(length(PlosPnlos)+1, 1);
 figure(WindowState="maximized");
 semilogy(SNR, berTheory, LineStyle="--", LineWidth=2); hold on;
-legendString{1} = "Te\'orico AWGN";
+legendString{1} = "Theoretical AWGN";
 
 
 for k=1:1:length(PlosPnlos)

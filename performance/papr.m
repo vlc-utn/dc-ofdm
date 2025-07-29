@@ -58,8 +58,8 @@ fsize = 32;
 fig = figure(WindowState="maximized");
 semilogy(db_points, CCDF_scrambled, LineWidth=2, Marker="square", MarkerSize=12); hold on;
 semilogy(db_points, CCDF_notScrambled, LineWidth=2, Marker="o", MarkerSize=12);
-legend("Codificada con scrambler", "Sin codificar", Interpreter="latex")
-ylabel("Probabilidad$\{PAPR > PAPR_0 \}$", FontSize=fsize, Interpreter="latex")
+legend("Scrambled", "Not scrambled", Interpreter="latex")
+ylabel("Probability$\{PAPR > PAPR_0 \}$", FontSize=fsize, Interpreter="latex")
 xlabel("PAPR [dB]", FontSize=fsize, Interpreter="latex")
 grid on;
 fontsize(gca, fsize, "points");

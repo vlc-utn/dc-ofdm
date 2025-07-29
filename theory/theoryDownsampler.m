@@ -36,7 +36,7 @@ figure(WindowState=window);
 
 stem(ts, x, LineWidth=2, Marker="o", MarkerFaceColor="auto");
 
-xlabel('Tiempo $[\mu s]$', FontSize=fsize ,Interpreter="latex");
+xlabel('Time $[\mu s]$', FontSize=fsize ,Interpreter="latex");
 ylabel('$x[n] = \textrm{sinc}[n] + z[n]$', FontSize=fsize, Interpreter="latex");
 %title("Se\~{n}al de entrada", Interpreter="latex");
 
@@ -54,6 +54,7 @@ xline(-1/f_sinc, LineWidth=4, LineStyle="-.", Label='$-\frac{1}{f_{sig}}$', ...
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'downsampler/downsampler_a.pdf', ContentType='vector')
 end
 
@@ -62,7 +63,7 @@ figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
 
-xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
+xlabel('Frequency $[MHz]$', FontSize=fsize, Interpreter="latex");
 ylabel("PSD\{$x[n]$\} $[\frac{dB}{Hz}]$", FontSize=fsize, Interpreter="latex");
 %title("PSD de la se\~{n}al de entrada", Interpreter="latex");
 
@@ -100,6 +101,7 @@ xlim([-max(f), max(f)]);
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'downsampler/downsampler_b.pdf', ContentType='vector')
 end
 
@@ -116,7 +118,7 @@ xDown = downsample(x, M);
 figure(WindowState=window);
 
 stem(tSymbol, xDown, LineWidth=2, Marker="o", MarkerFaceColor="auto");
-xlabel("Tiempo $[\mu s]$", FontSize=fsize, Interpreter="latex");
+xlabel("Time $[\mu s]$", FontSize=fsize, Interpreter="latex");
 ylabel('$x[n \cdot M_{down}]$', FontSize=fsize, Interpreter="latex");
 %title('Se\~{n}al submuestreada con $M = 4$', Interpreter="latex");
 
@@ -134,6 +136,7 @@ xline(-1/f_sinc, LineWidth=4, LineStyle="-.", Label='$-\frac{1}{f_{sig}}$', ...
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'downsampler/downsampler_c.pdf', ContentType='vector');
 end
 
@@ -141,7 +144,7 @@ end
 figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
-xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
+xlabel('Frequency $[MHz]$', FontSize=fsize, Interpreter="latex");
 ylabel('PSD\{$x[n \cdot M_{down}]$\}  $[\frac{dB}{Hz}]$', FontSize=fsize, Interpreter="latex");
 %title("PSD de la se\~{n}al submuestreada", Interpreter="latex");
 
@@ -169,6 +172,7 @@ xlim([-max(f), max(f)])
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'downsampler/downsampler_d.pdf', ContentType='vector')
 end
 
@@ -180,7 +184,7 @@ xDecimated = resample(x, 1, M);
 %%%%%%%%%%%%%%%%%%%%%%%%
 figure(WindowState=window);
 stem(tSymbol, xDecimated, LineWidth=2, Marker="o", MarkerFaceColor="auto");
-xlabel('Tiempo $[\mu s]$', FontSize=fsize, Interpreter="latex");
+xlabel('Time $[\mu s]$', FontSize=fsize, Interpreter="latex");
 ylabel("y[n] = LPF $\{x[n]\} [n \cdot M_{down}]$", FontSize=fsize, Interpreter="latex");
 %title("Se\~{n}al decimada", Interpreter="latex");
 
@@ -198,6 +202,7 @@ xline(-1/f_sinc, LineWidth=4, LineStyle="-.", Label='$-\frac{1}{f_{sig}}$', ...
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'downsampler/downsampler_e.pdf', ContentType='vector')
 end
 
@@ -205,7 +210,7 @@ end
 figure(WindowState=window);
 
 plot(f, 10*log10(psd), LineWidth=2);
-xlabel('Frecuencia $[MHz]$', FontSize=fsize, Interpreter="latex");
+xlabel('Frequency $[MHz]$', FontSize=fsize, Interpreter="latex");
 ylabel('PSD $\{y[n]\}$  $[\frac{dB}{Hz}]$', FontSize=fsize, Interpreter="latex");
 %title("PSD de la se\~{n}al decimada", Interpreter="latex");
 
@@ -232,5 +237,6 @@ xlim([-max(f), max(f)])
 grid on;
 
 if(printPDF)
+    pause(1)
     exportgraphics(gcf, 'downsampler/downsampler_f.pdf', ContentType='vector')
 end
